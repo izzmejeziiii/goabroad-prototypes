@@ -1,6 +1,55 @@
 @import "tailwindcss";
 
-:root {
+/* Tailwind v4 uses @theme in CSS; tailwind.config.ts is not loaded unless you add @config "./tailwind.config.ts" */
+@theme {
+  /* cobalt */
+  --color-cobalt-50: #2da5d2;
+  --color-cobalt-100: #14a3c3;
+  --color-cobalt-200: #0f83b9;
+  --color-cobalt-300: #0875a7;
+  --color-cobalt-500: #0a5e85;
+  --color-cobalt-600: #084b6a;
+  --color-cobalt-700: #023d58;
+  /* primary */
+  --color-primary-50: #e9f7fb;
+  --color-primary-100: #bae7f2;
+  --color-primary-200: #98dceb;
+  --color-primary-300: #69cce2;
+  --color-primary-400: #4cc2dd;
+  --color-primary-500: #1fb3d4;
+  --color-primary-600: #1ca3c1;
+  --color-primary-700: #167f97;
+  --color-primary-800: #116275;
+  --color-primary-900: #0d4b59;
+  /* pacific */
+  --color-pacific-200: #98dceb;
+  --color-pacific-300: #69cce2;
+  --color-pacific-500: #1fb3d4;
+  --color-pacific-600: #1ca3c1;
+  --color-pacific-700: #167f97;
+  /* roman */
+  --color-roman-200: #efb7b3;
+  --color-roman-300: #e89690;
+  --color-roman-500: #dc625a;
+  --color-roman-600: #c85952;
+  --color-roman-700: #9c4640;
+  /* sun */
+  --color-sun-200: #fdd79d;
+  --color-sun-300: #fcc570;
+  --color-sun-500: #faa929;
+  --color-sun-600: #e49a25;
+  --color-sun-700: #b2781d;
+  /* fern */
+  --color-fern-200: #b9dabf;
+  --color-fern-300: #9ac9a2;
+  --color-fern-500: #68af74;
+  --color-fern-600: #5f9f6a;
+  --color-fern-700: #4a7c52;
+  /* error */
+  --color-error-500: #bd002a;
+}
+
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -17,10 +66,10 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    /* background: var(--background);
+  color: var(--foreground); */
+    font-family: Arial, Helvetica, sans-serif;
 }
