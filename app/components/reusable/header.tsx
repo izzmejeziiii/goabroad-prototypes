@@ -6,8 +6,9 @@ export default function Header() {
         <nav className="h-21 w-full flex px-4 lg:px-0 items-center justify-center bg-white shadow-lg z-10">
             <div className="w-full max-w-7xl flex items-center justify-between">
                 <Link href="/">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                        className="w-[60px] object-cover"
+                        className="w-15 object-cover"
                         src="https://res.cloudinary.com/gacom/image/upload/v1701404178/images2/goabroad-logo.webp"
                         alt=""
                     />
