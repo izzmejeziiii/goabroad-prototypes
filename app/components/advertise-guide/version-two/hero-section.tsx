@@ -5,7 +5,11 @@ import Breadcrumbs from "../../reusable/breadcrumbs";
 export default function HeroSection() {
     return (
         <section className="w-full h-screen lg:h-[70vh] bg-linear-to-b from-primary-50 to-white flex flex-col items-center relative justify-center">
-            <Breadcrumbs isVersionOne />
+            <Breadcrumbs
+                isAbsolute
+                link="advertise-guide"
+                page="Advertise Guide"
+            />
             <div className="flex flex-col items-center justify-center absolute inset-0 w-full h-full px-4">
                 <div className="text-slate-800 max-w-4xl text-center flex flex-col gap-12 items-center justify-center">
                     <div className="space-y-6">

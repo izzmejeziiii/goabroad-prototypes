@@ -16,7 +16,12 @@ export default function HeroSection() {
             <div className="absolute inset-0 bg-slate-900/80 w-full h-full"></div>
             <div className="absolute inset-0 w-full h-full flex flex-col justify-center items-center">
                 <div className="w-full max-w-7xl h-full lg:p-8 xl:p-0 md:p-6 p-4 relative flex flex-col justify-center">
-                    <Breadcrumbs isVersionOne />
+                    <Breadcrumbs
+                        isAbsolute
+                        link="advertise"
+                        page="Advertise"
+                        isDarkBg
+                    />
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center w-full h-fit">
                         <div className="flex flex-col">
                             <h1 className="text-4xl font-bold text-white">
