@@ -13,7 +13,11 @@ export default function HeroSection() {
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover opacity-[0.05]"
             />
-            <Breadcrumbs isVersionOne />
+            <Breadcrumbs
+                isAbsolute
+                link="advertise-guide"
+                page="Advertise Guide"
+            />
             <div className="flex flex-col items-center justify-center absolute inset-0 w-full h-full px-4">
                 <div className="text-slate-800 max-w-4xl text-center flex flex-col gap-12 items-center justify-center">
                     <div className="space-y-6">
