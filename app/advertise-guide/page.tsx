@@ -3,6 +3,7 @@
 import { useState } from "react";
 import VersionOne from "../components/advertise-guide/version-one/version-one";
 import VersionTwo from "../components/advertise-guide/version-two/version-two";
+import VersionThree from "../components/advertise-guide/version-three/version-three";
 
 export default function AdvertiseGuide() {
     const [activeVersion, setActiveVersion] = useState("version-one");
@@ -13,6 +14,8 @@ export default function AdvertiseGuide() {
                 return <VersionOne />;
             case "version-two":
                 return <VersionTwo />;
+            case "version-three":
+                return <VersionThree />;
             default:
                 return <VersionOne />;
         }
@@ -46,6 +49,16 @@ export default function AdvertiseGuide() {
                         onClick={() => setActiveVersion("version-two")}
                     >
                         Version 2
+                    </button>
+                    <button
+                        className={`px-3 py-2 text-xs font-bold rounded-md transition-colors ${
+                            activeVersion === "version-three"
+                                ? "bg-blue-100 text-slate-900"
+                                : "bg-gray-100 hover:bg-gray-200"
+                        }`}
+                        onClick={() => setActiveVersion("version-three")}
+                    >
+                        Version 3
                     </button>
                 </div>
             </div>
