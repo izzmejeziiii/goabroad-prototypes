@@ -26,7 +26,7 @@ export default function PlatformPreview({
 }: PlatformPreviewProps) {
     return (
         <div className="flex flex-col gap-4 w-full">
-            <h3 className="text-slate-400 text-xs font-semibold uppercase tracking-wider">
+            <h3 className="text-cobalt-500 text-xs font-bold uppercase tracking-wider">
                 Platform Preview
             </h3>
 
