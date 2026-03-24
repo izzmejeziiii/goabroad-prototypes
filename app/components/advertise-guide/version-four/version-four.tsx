@@ -1,14 +1,15 @@
 "use client";
+
 import Testimonial from "../../reusable/testimonials/testimonials";
+import FeaturedPartners from "../version-three/featured-partners";
+import GoabroadPartner from "../version-three/goabroad-partner";
+import GoabroadVisibility from "../version-three/goabroad-visibility";
+import VisibilityStrategy from "../version-three/visibility-strategy";
 import GoabroadAdvertising from "../version-two/goabroad-advertising";
 import AdvertisingSolution from "./advertising-solutions";
-import FeaturedPartners from "./featured-partners";
-import GoabroadPartner from "./goabroad-partner";
-import GoabroadVisibility from "./goabroad-visibility";
 import HeroSection from "./hero-section";
-import VisibilityStrategy from "./visibility-strategy";
 
-export default function VersionThree() {
+export default function VersionFour() {
     return (
         <main className="w-full h-full flex flex-col items-center justify-center">
             <HeroSection />
