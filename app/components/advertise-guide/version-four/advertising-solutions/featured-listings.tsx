@@ -16,7 +16,7 @@ const APPEARANCE_ITEMS: {
 }[] = [
     {
         id: "1",
-        title: "Search Result Pages",
+        title: "Results Feature",
         subtitle:
             "(i.e. filtered program results by country, program type, etc.)",
         imageSrc:
