@@ -5,6 +5,7 @@ import VersionOne from "../components/advertise-guide/version-one/version-one";
 import VersionTwo from "../components/advertise-guide/version-two/version-two";
 import VersionThree from "../components/advertise-guide/version-three/version-three";
 import VersionFour from "../components/advertise-guide/version-four/version-four";
+import VersionFive from "../components/advertise-guide/version-five/version-five";
 
 export default function AdvertiseGuide() {
     const [activeVersion, setActiveVersion] = useState("version-one");
@@ -19,6 +20,8 @@ export default function AdvertiseGuide() {
                 return <VersionThree />;
             case "version-four":
                 return <VersionFour />;
+            case "version-five":
+                return <VersionFive />;
             default:
                 return <VersionOne />;
         }
@@ -72,6 +75,16 @@ export default function AdvertiseGuide() {
                         onClick={() => setActiveVersion("version-four")}
                     >
                         Version 4
+                    </button>
+                    <button
+                        className={`px-3 py-2 text-xs font-bold rounded-md transition-colors ${
+                            activeVersion === "version-five"
+                                ? "bg-blue-100 text-slate-900"
+                                : "bg-gray-100 hover:bg-gray-200"
+                        }`}
+                        onClick={() => setActiveVersion("version-five")}
+                    >
+                        Version 5
                     </button>
                 </div>
             </div>
