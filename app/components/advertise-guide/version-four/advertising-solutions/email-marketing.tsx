@@ -16,7 +16,7 @@ const APPEARANCE_ITEMS: {
 }[] = [
     {
         id: "1",
-        title: "Dedicated Partner Email Features",
+        title: "Customized Newsletter",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",

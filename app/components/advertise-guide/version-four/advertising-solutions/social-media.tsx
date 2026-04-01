@@ -16,7 +16,7 @@ const APPEARANCE_ITEMS: {
 }[] = [
     {
         id: "1",
-        title: "Sponsored posts",
+        title: "Social Media Video Series",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
@@ -24,7 +24,7 @@ const APPEARANCE_ITEMS: {
     },
     {
         id: "2",
-        title: "Reel collaborations",
+        title: "Social Media Advertising Package",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
@@ -32,7 +32,7 @@ const APPEARANCE_ITEMS: {
     },
     {
         id: "3",
-        title: "Seasonal spotlight campaigns",
+        title: "Sponsored Instagram Takeover",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
@@ -40,7 +40,7 @@ const APPEARANCE_ITEMS: {
     },
     {
         id: "4",
-        title: "Alumni and program highlights",
+        title: "Instagram Takeover Add On",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",

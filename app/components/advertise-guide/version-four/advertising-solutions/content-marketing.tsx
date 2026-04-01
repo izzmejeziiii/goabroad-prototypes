@@ -16,7 +16,7 @@ const APPEARANCE_ITEMS: {
 }[] = [
     {
         id: "1",
-        title: "Featured Partner Articles",
+        title: "Sponsored Article Feature",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
@@ -24,7 +24,15 @@ const APPEARANCE_ITEMS: {
     },
     {
         id: "2",
-        title: "Sponsored Campaigns across GoAbroad’s Newsletters and Social Channels",
+        title: "Sponsored Article Feature Bundle",
+        subtitle: "",
+        imageSrc:
+            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+        imageAlt: "Program directory listing view",
+    },
+    {
+        id: "3",
+        title: "Quarterly Promotion Add On",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",

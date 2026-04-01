@@ -16,7 +16,7 @@ const APPEARANCE_ITEMS: {
 }[] = [
     {
         id: "1",
-        title: "Travel Resource Pages",
+        title: "Travel Resource Homepage Headline Photo",
         subtitle: "(i.e. accommodations, flights)",
         imageSrc:
             "https://res.cloudinary.com/gacom/image/upload/v1773283932/images2/advertisePage/travel-resources.png",
@@ -24,7 +24,55 @@ const APPEARANCE_ITEMS: {
     },
     {
         id: "2",
-        title: "Article mentions on relevant travel articles and search pages",
+        title: "Travel Resources Headline Photo",
+        subtitle: "",
+        imageSrc:
+            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+        imageAlt: "Program directory listing view",
+    },
+    {
+        id: "3",
+        title: "Travel Resource Feature",
+        subtitle: "",
+        imageSrc:
+            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+        imageAlt: "Program directory listing view",
+    },
+    {
+        id: "4",
+        title: "Travel Resource Listing",
+        subtitle: "",
+        imageSrc:
+            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+        imageAlt: "Program directory listing view",
+    },
+    {
+        id: "5",
+        title: "Travel Insurance Headline Photo",
+        subtitle: "",
+        imageSrc:
+            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+        imageAlt: "Program directory listing view",
+    },
+    {
+        id: "6",
+        title: "Travel Insurance Listing Feature",
+        subtitle: "",
+        imageSrc:
+            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+        imageAlt: "Program directory listing view",
+    },
+    {
+        id: "7",
+        title: "Scholarship Headline Photo",
+        subtitle: "",
+        imageSrc:
+            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+        imageAlt: "Program directory listing view",
+    },
+    {
+        id: "7",
+        title: "Embassy Directory Feature",
         subtitle: "",
         imageSrc:
             "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
