@@ -71,7 +71,7 @@ const APPEARANCE_ITEMS: {
         imageAlt: "Program directory listing view",
     },
     {
-        id: "7",
+        id: "8",
         title: "Embassy Directory Feature",
         subtitle: "",
         imageSrc:
