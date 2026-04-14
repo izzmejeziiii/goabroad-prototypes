@@ -19,7 +19,7 @@ const APPEARANCE_ITEMS: {
         title: "Travel Resource Homepage Headline Photo",
         subtitle: "(i.e. accommodations, flights)",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773283932/images2/advertisePage/travel-resources.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791424/images2/advertisePage/travel-homepage-headline_uit5nd.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -27,7 +27,7 @@ const APPEARANCE_ITEMS: {
         title: "Travel Resources Headline Photo",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791426/images2/advertisePage/travel-headline_l8btyz.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -35,7 +35,7 @@ const APPEARANCE_ITEMS: {
         title: "Travel Resource Feature",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775792787/images2/advertisePage/travel-feature_d4fqul.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -43,7 +43,7 @@ const APPEARANCE_ITEMS: {
         title: "Travel Resource Listing",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775792786/images2/advertisePage/travel-listing_raydcc.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -51,7 +51,7 @@ const APPEARANCE_ITEMS: {
         title: "Travel Insurance Headline Photo",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791426/images2/advertisePage/insurance-headline_i6nnk9.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -59,7 +59,7 @@ const APPEARANCE_ITEMS: {
         title: "Travel Insurance Listing Feature",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791427/images2/advertisePage/insurance-listing_unswqt.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -67,7 +67,7 @@ const APPEARANCE_ITEMS: {
         title: "Scholarship Headline Photo",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791424/images2/advertisePage/scholarship-headline_bzkwov.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -75,7 +75,7 @@ const APPEARANCE_ITEMS: {
         title: "Embassy Directory Feature",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791425/images2/advertisePage/embassy-feature_sjikgf.png",
         imageAlt: "Program directory listing view",
     },
 ];

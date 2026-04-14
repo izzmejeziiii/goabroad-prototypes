@@ -17,49 +17,49 @@ const APPEARANCE_ITEMS: {
         id: "1",
         title: "Homepage Premier",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773281605/images2/advertisePage/homepage-premier-feature1.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791430/images2/advertisePage/homepage-premier_za587r.png",
         imageAlt: "Homepage Premier view",
     },
     {
         id: "2",
         title: "Homepage Organizational Feature",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773281604/images2/advertisePage/homepage-organizational-feature1.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791427/images2/advertisePage/homepage-org-feature_nnmfzv.png",
         imageAlt: "Homepage Organizational Feature view",
     },
     {
         id: "3",
         title: "Homepage Featured Program",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773278789/images2/advertisePage/homepage-featured-program.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791431/images2/advertisePage/homepage-feature_z8lhvk.png",
         imageAlt: "Homepage Featured Program view",
     },
     {
         id: "4",
         title: "Directory Premier",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773281423/images2/advertisePage/directory-premier-feature.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791433/images2/advertisePage/directory-premier_rdop6p.png",
         imageAlt: "Directory Premier view",
     },
     {
         id: "5",
         title: "Directory Organizational Feature",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773281422/images2/advertisePage/directory-organizational-feature.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791430/images2/advertisePage/directory-org-feature_woamhy.png",
         imageAlt: "Directory Organizational Feature view",
     },
     {
         id: "6",
         title: "Directory Headline Photo",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773281422/images2/advertisePage/directory-headline-photo.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791426/images2/advertisePage/directory-headline_cel7lh.png",
         imageAlt: "Directory Headline Photo view",
     },
     {
         id: "7",
         title: "Directory Feature",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773281422/images2/advertisePage/directory-featured-program.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791430/images2/advertisePage/directory-feature_lxm8ps.png",
         imageAlt: "Directory Feature view",
     },
 ];

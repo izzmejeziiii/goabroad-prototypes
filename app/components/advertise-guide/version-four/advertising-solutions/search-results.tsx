@@ -17,21 +17,21 @@ const APPEARANCE_ITEMS: {
         id: "1",
         title: "Listing Photo & Logo",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773282666/images2/advertisePage/listing-logo-photo.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791433/images2/advertisePage/listing-photo-logo_lb6drv.png",
         imageAlt: "Listing photo and logo view",
     },
     {
         id: "2",
         title: "Results Flyer & Premier Sponsorship",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773282664/images2/advertisePage/results-flyer.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791423/images2/advertisePage/sponsorship_jcvftk.png",
         imageAlt: "Results flyer & premier sponsorship view",
     },
     {
         id: "3",
-        title: "Headline Photos",
+        title: "Results Headline Photos",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773282666/images2/advertisePage/results-headline-photo.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775791432/images2/advertisePage/results-headline_ykqiaj.png",
         imageAlt: "Headline photos view",
     },
 ];

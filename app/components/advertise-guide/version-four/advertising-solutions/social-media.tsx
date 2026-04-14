@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { HiLightBulb } from "react-icons/hi";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import PlatformPreview, {
-    type HighlightedBlock,
-} from "../../version-two/advertising-solutions/platform-preview";
+import { type HighlightedBlock } from "../../version-two/advertising-solutions/platform-preview";
+import SocialMediaPlatformPreview from "../../version-five/social-media-platform-preview";
 
 const APPEARANCE_ITEMS: {
     id: HighlightedBlock;
@@ -13,13 +12,14 @@ const APPEARANCE_ITEMS: {
     subtitle: string;
     imageSrc: string;
     imageAlt: string;
+    accountName?: string;
 }[] = [
     {
         id: "1",
         title: "Social Media Video Series",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775798025/images2/advertisePage/socmed-video-series.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -27,23 +27,16 @@ const APPEARANCE_ITEMS: {
         title: "Social Media Advertising Package",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://images.goabroad.com/image/upload/images2/advertisePage/socmed-ad-package.jpg",
         imageAlt: "Program directory listing view",
+        accountName: "goabroadcom and theinterngroup",
     },
     {
         id: "3",
         title: "Sponsored Instagram Takeover",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
-        imageAlt: "Program directory listing view",
-    },
-    {
-        id: "4",
-        title: "Instagram Takeover Add On",
-        subtitle: "",
-        imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://images.goabroad.com/image/upload/images2/advertisePage/instagram-takeover.png",
         imageAlt: "Program directory listing view",
     },
 ];
@@ -142,10 +135,11 @@ export default function SocialMedia() {
                             ))}
                         </div>
                     </div>
-                    <PlatformPreview
+                    <SocialMediaPlatformPreview
                         imageSrc={previewItem.imageSrc}
                         imageAlt={previewItem.imageAlt}
                         label={previewItem.title}
+                        accountName={previewItem.accountName}
                     />
                 </div>
             </div>

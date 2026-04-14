@@ -10,39 +10,41 @@ import PlatformPreview, {
 const APPEARANCE_ITEMS: {
     id: HighlightedBlock;
     title: string;
-    subtitle: string;
     description: string;
     imageSrc: string;
     imageAlt: string;
 }[] = [
     {
         id: "1",
-        title: "Program Directory Listing",
-        subtitle:
-            "Program Directories (Study Abroad, Internships, Volunteer, TEFL, Gap Year)",
+        title: "Premium Listings",
         description:
             "Your program appears within the relevant category directory, visible to users browsing by program type.",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773221544/images2/advertisePage/directory-listing.png",
+            "https://images.goabroad.com/image/upload/images2/advertisePage/premium-listings.png",
         imageAlt: "Program directory listing view",
     },
     {
         id: "2",
         title: "Results Feature",
-        subtitle:
-            "Relevant Search Results Pages (e.g. Internships in Spain, Study Abroad in Japan)",
         description: "",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773221545/images2/advertisePage/sr-listing.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775781330/images2/advertisePage/results-feature_jsppez.png",
         imageAlt: "Search results page view",
     },
     {
         id: "3",
         title: "Provider Profile Page",
-        subtitle: "Provider Profile Pages with Detailed Program Listings",
         description: "",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773221544/images2/advertisePage/provider-listing.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775781329/images2/advertisePage/provider-profile_hqx0uz.png",
+        imageAlt: "Provider profile page view",
+    },
+    {
+        id: "4",
+        title: "Listing Cover Photo",
+        description: "",
+        imageSrc:
+            "https://res.cloudinary.com/gacom/image/upload/v1775781329/images2/advertisePage/listing-cover_rdh229.png",
         imageAlt: "Provider profile page view",
     },
 ];

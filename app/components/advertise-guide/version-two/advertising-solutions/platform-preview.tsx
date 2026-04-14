@@ -53,8 +53,7 @@ export default function PlatformPreview({
                         src={imageSrc}
                         alt={imageAlt}
                         fill
-                        className="object-contain object-top"
-                        sizes="(max-width: 1024px) 100vw, 380px"
+                        className="object-cover object-top"
                     />
                 </div>
             </div>

@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { HiLightBulb } from "react-icons/hi";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import PlatformPreview, {
-    type HighlightedBlock,
-} from "../../version-two/advertising-solutions/platform-preview";
+import { type HighlightedBlock } from "../../version-two/advertising-solutions/platform-preview";
+import EmailPlatformPreview from "../../version-five/email-platform-preview";
 
 const APPEARANCE_ITEMS: {
     id: HighlightedBlock;
@@ -13,46 +12,52 @@ const APPEARANCE_ITEMS: {
     subtitle: string;
     imageSrc: string;
     imageAlt: string;
+    emailHeader?: string;
 }[] = [
     {
         id: "1",
         title: "Customized Newsletter",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775795609/images2/advertisePage/customized-newsletter_wxs0ro.png",
         imageAlt: "Program directory listing view",
+        emailHeader: "This only happens in summer",
     },
     {
         id: "2",
         title: "Headline Newsletter",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775795609/images2/advertisePage/headline-newsletter_k6kbof.png",
         imageAlt: "Program directory listing view",
+        emailHeader: "The early-bird discount ends soon, Traveler",
     },
     {
         id: "3",
         title: "Premier Newsletter",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775795609/images2/advertisePage/premier-newsletter_ftwgos.png",
         imageAlt: "Program directory listing view",
+        emailHeader: "The early-bird discount ends soon, Traveler",
     },
     {
         id: "4",
         title: "GoAbroad Newsletter",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775795610/images2/advertisePage/goabroad-newsletter_j61es0.png",
         imageAlt: "Program directory listing view",
+        emailHeader: "The early-bird discount ends soon, Traveler",
     },
     {
         id: "5",
         title: "Testimonial Newsletter",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775795609/images2/advertisePage/testimonial-newsletter_sjogbo.png",
         imageAlt: "Program directory listing view",
+        emailHeader: "Summer Abroad Starts Here",
     },
 ];
 
@@ -148,10 +153,11 @@ export default function EmailMarketing() {
                             ))}
                         </div>
                     </div>
-                    <PlatformPreview
+                    <EmailPlatformPreview
                         imageSrc={previewItem.imageSrc}
                         imageAlt={previewItem.imageAlt}
                         label={previewItem.title}
+                        emailHeader={previewItem.emailHeader}
                     />
                 </div>
             </div>

@@ -19,7 +19,7 @@ const APPEARANCE_ITEMS: {
         title: "Sponsored Article Feature",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://images.goabroad.com/image/upload/images2/advertisePage/article-feature.png",
         imageAlt: "Program directory listing view",
     },
     {
@@ -27,15 +27,7 @@ const APPEARANCE_ITEMS: {
         title: "Sponsored Article Feature Bundle",
         subtitle: "",
         imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
-        imageAlt: "Program directory listing view",
-    },
-    {
-        id: "3",
-        title: "Quarterly Promotion Add On",
-        subtitle: "",
-        imageSrc:
-            "https://images.goabroad.com/image/upload/v1771824162/images2/advertisePage/homepage.png",
+            "https://images.goabroad.com/image/upload/images2/advertisePage/article-feature-bundle.png",
         imageAlt: "Program directory listing view",
     },
 ];

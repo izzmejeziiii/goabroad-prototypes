@@ -20,7 +20,7 @@ const APPEARANCE_ITEMS: {
         subtitle:
             "(i.e. filtered program results by country, program type, etc.)",
         imageSrc:
-            "https://res.cloudinary.com/gacom/image/upload/v1773221545/images2/advertisePage/sr-listing.png",
+            "https://res.cloudinary.com/gacom/image/upload/v1775781330/images2/advertisePage/results-feature_jsppez.png",
         imageAlt: "Program directory listing view",
     },
 ];

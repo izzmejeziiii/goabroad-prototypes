@@ -54,12 +54,12 @@ export default function AdvertisingSolution() {
                 </h2>
                 <TabGroup className="flex flex-col items-start w-full border border-slate-200 rounded-2xl">
                     <div className="bg-linear-to-r from-cobalt-700 to-cobalt-300 w-full pt-8 rounded-t-2xl">
-                        <TabList className="flex justify-around w-full px-8">
+                        <TabList className="flex justify-around w-full px-8 overflow-x-auto no-scrollbar">
                             {SOLUTIONS.map(({ title }) => (
                                 <Tab
                                     key={title}
                                     className={({ selected }) =>
-                                        ` min-w-0 rounded-t-xl px-3 py-3 text-sm text-center font-bold transition-all duration-200 outline-none flex flex-col cursor-pointer ${
+                                        `w-fit rounded-t-xl px-3 py-3 text-sm text-center font-bold transition-all duration-200 outline-none flex flex-col cursor-pointer ${
                                             selected
                                                 ? "bg-cobalt-200/40 border-cobalt-50 border border-b-0 text-white"
                                                 : "text-white/55 hover:bg-white/5 hover:text-white/70 border border-transparent"
