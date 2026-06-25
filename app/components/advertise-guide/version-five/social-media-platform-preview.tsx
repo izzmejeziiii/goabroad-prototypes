@@ -1,18 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { BsBatteryFull } from "react-icons/bs";
+import { FiPlusSquare, FiSearch } from "react-icons/fi";
+import { GoHomeFill, GoPlus } from "react-icons/go";
+import { LiaSignalSolid } from "react-icons/lia";
 import {
-    LuHeart,
     LuMessageCircle,
     LuSend,
     LuBookmark,
-    LuSearch,
-    LuUser,
-    LuHouse,
     LuEllipsis,
-    LuCamera,
+    LuUserRound,
 } from "react-icons/lu";
-import { PiSealCheckFill } from "react-icons/pi";
+import { MdOutlineWifi } from "react-icons/md";
+import { PiHeart, PiSealCheckFill } from "react-icons/pi";
 
 type SocialMediaPlatformPreviewProps = {
     imageSrc: string;
@@ -42,104 +43,23 @@ export default function SocialMediaPlatformPreview({
                                 <span className="text-[#0A0A0A] text-[11px] font-semibold z-10">
                                     9:41
                                 </span>
-                                {/* Dynamic Island */}
                                 <div className="absolute left-1/2 -translate-x-1/2 top-2 bg-[#0A0A0A] w-[80px] h-[20px] rounded-full" />
                                 <div className="flex items-center gap-[3px] z-10">
-                                    {/* Signal bars */}
-                                    <svg
-                                        width="13"
-                                        height="10"
-                                        viewBox="0 0 16 12"
-                                        fill="#0A0A0A"
-                                    >
-                                        <rect
-                                            x="0"
-                                            y="9"
-                                            width="3"
-                                            height="3"
-                                            rx="0.5"
-                                        />
-                                        <rect
-                                            x="4.5"
-                                            y="6"
-                                            width="3"
-                                            height="6"
-                                            rx="0.5"
-                                        />
-                                        <rect
-                                            x="9"
-                                            y="3"
-                                            width="3"
-                                            height="9"
-                                            rx="0.5"
-                                        />
-                                        <rect
-                                            x="13.5"
-                                            y="0"
-                                            width="3"
-                                            height="12"
-                                            rx="0.5"
-                                        />
-                                    </svg>
-                                    {/* WiFi */}
-                                    <svg
-                                        width="13"
-                                        height="10"
-                                        viewBox="0 0 16 12"
-                                        fill="#0A0A0A"
-                                    >
-                                        <path d="M8 10.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM3.46 7.46a6.5 6.5 0 019.08 0l-1.06 1.06a5 5 0 00-6.96 0L3.46 7.46zM.93 4.93a10 10 0 0114.14 0L14 6a8.5 8.5 0 00-12 0L.93 4.93z" />
-                                    </svg>
-                                    {/* Battery */}
-                                    <svg
-                                        width="20"
-                                        height="10"
-                                        viewBox="0 0 25 12"
-                                        fill="#0A0A0A"
-                                    >
-                                        <rect
-                                            x="0"
-                                            y="0"
-                                            width="22"
-                                            height="11"
-                                            rx="2"
-                                            stroke="#0A0A0A"
-                                            strokeWidth="1"
-                                            fill="none"
-                                        />
-                                        <rect
-                                            x="1.5"
-                                            y="1.5"
-                                            width="19"
-                                            height="8"
-                                            rx="1"
-                                            fill="#0A0A0A"
-                                        />
-                                        <rect
-                                            x="23"
-                                            y="3.5"
-                                            width="2"
-                                            height="4"
-                                            rx="0.5"
-                                            fill="#0A0A0A"
-                                        />
-                                    </svg>
+                                    <LiaSignalSolid />
+                                    <MdOutlineWifi />
+                                    <BsBatteryFull />
                                 </div>
                             </div>
 
                             {/* Instagram Header */}
-                            <div className="flex items-center justify-between bg-[#FAFAFA] px-3 py-[6px] border-b border-[#DBDBDB]/50">
-                                <LuCamera
-                                    size={16}
-                                    className="text-[#262626]"
-                                />
+                            <div className="flex items-center justify-between bg-[#FAFAFA] px-2 py-[6px] border-b border-[#DBDBDB]/50">
+                                <GoPlus size={20} className="text-[#262626]" />
                                 <span className="text-[#262626] text-sm font-semibold italic">
                                     Instagram
                                 </span>
-                                <LuSend size={16} className="text-[#262626]" />
+                                <PiHeart size={20} className="text-[#262626]" />
                             </div>
 
-                            {/* Post Header */}
                             <div className="flex items-center gap-2 px-3 py-2">
                                 <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -182,7 +102,7 @@ export default function SocialMediaPlatformPreview({
                             {/* Engagement Row */}
                             <div className="flex items-center justify-between px-3 py-[6px]">
                                 <div className="flex items-center gap-3">
-                                    <LuHeart
+                                    <PiHeart
                                         size={16}
                                         className="text-[#262626]"
                                     />
@@ -227,33 +147,23 @@ export default function SocialMediaPlatformPreview({
 
                             {/* Bottom Navigation */}
                             <div className="flex items-center justify-between bg-[#FAFAFA] border-t border-[#DBDBDB]/50 px-5 py-[6px]">
-                                <LuHouse size={16} className="text-[#262626]" />
-                                <LuSearch
-                                    size={16}
+                                <GoHomeFill
+                                    size={20}
                                     className="text-[#262626]"
                                 />
-                                <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="#262626"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <rect
-                                        x="3"
-                                        y="3"
-                                        width="18"
-                                        height="18"
-                                        rx="2"
-                                    />
-                                    <line x1="12" y1="8" x2="12" y2="16" />
-                                    <line x1="8" y1="12" x2="16" y2="12" />
-                                </svg>
-                                <LuHeart size={16} className="text-[#262626]" />
-                                <LuUser size={16} className="text-[#262626]" />
+                                <FiPlusSquare
+                                    size={20}
+                                    className="text-[#262626]"
+                                />
+                                <LuSend size={20} className="text-[#262626]" />
+                                <FiSearch
+                                    size={20}
+                                    className="text-[#262626]"
+                                />
+                                <LuUserRound
+                                    size={20}
+                                    className="text-[#262626]"
+                                />
                             </div>
 
                             {/* Home Indicator */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
     FaInstagram,
@@ -238,6 +239,7 @@ const footerLinks: FooterLinkGroupProp[] = [
 ];
 
 const Footer: React.FC = () => {
+    const pathname = usePathname();
     const [email, setEmail] = useState("");
 
     const handleSubmit = (e: React.SyntheticEvent) => {
@@ -245,6 +247,9 @@ const Footer: React.FC = () => {
         localStorage.setItem("newsletter_email", email);
         window.location.href = `/newsletter`;
     };
+
+    if (pathname?.startsWith("/program-listing")) return null;
+
     return (
         <footer className="border-t border-gray-200 bg-neutral-50 md:border-t-2">
             <div className="py-8 mx-auto max-w-7xl space-y-8 px-4 lg:space-y-12 xl:px-4 2xl:px-0">

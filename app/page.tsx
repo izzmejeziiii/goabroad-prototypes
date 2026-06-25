@@ -17,6 +17,14 @@ const cards = [
         badge: "2 versions",
         accent: "primary",
     },
+    {
+        href: "/program-listing",
+        title: "Program Listing",
+        description:
+            "Edit-mode mockup of a provider's program listing page — hero, highlights, quick details, reviews, FAQ, and related programs.",
+        badge: "3 version",
+        accent: "primary",
+    },
 ];
 
 export default function Home() {
