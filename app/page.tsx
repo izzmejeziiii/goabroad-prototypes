@@ -12,6 +12,14 @@ type PrototypeCard = {
 
 const cards: PrototypeCard[] = [
     {
+        href: "/admin",
+        title: "Admin Dashboard",
+        description:
+            "Full click-through prototype of the redesigned provider portal (access level 1) — login, dashboard, programs, invoices, checkout, reviews, verification, and more. Static flow, GoAbroad brand.",
+        badge: "Level 1 · Full flow",
+        accent: "primary",
+    },
+    {
         href: "/advertise",
         title: "Advertise",
         description:
