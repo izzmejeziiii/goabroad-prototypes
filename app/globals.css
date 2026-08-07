@@ -1,7 +1,14 @@
 @import "tailwindcss";
+/* `prose` classes on the /ayu-giving campaign body — matches the source app. */
+@plugin "@tailwindcss/typography";
 
 /* Tailwind v4 uses @theme in CSS; tailwind.config.ts is not loaded unless you add @config "./tailwind.config.ts" */
 @theme {
+    /* Upward-casting shadow for the bottom-pinned donate bar on /ayu-giving.
+       The default shadows all cast downward, which reads as nothing above a bar
+       pinned to the bottom of a panel. */
+    --shadow-bar: 0 -6px 16px -8px rgba(26, 31, 28, 0.14);
+
     /* cobalt */
     --color-cobalt-50: #2da5d2;
     --color-cobalt-100: #14a3c3;
@@ -10,6 +17,17 @@
     --color-cobalt-500: #0a5e85;
     --color-cobalt-600: #084b6a;
     --color-cobalt-700: #023d58;
+    /* brand — official GoAbroad blue (#295d82) */
+    --color-brand-50: #eef4f8;
+    --color-brand-100: #d3e0e9;
+    --color-brand-200: #a8c2d3;
+    --color-brand-300: #7ba0ba;
+    --color-brand-400: #4a7a9b;
+    --color-brand-500: #295d82;
+    --color-brand-600: #234f6e;
+    --color-brand-700: #1d4460;
+    --color-brand-800: #163449;
+    --color-brand-900: #0f2433;
     /* primary */
     --color-primary-50: #e9f7fb;
     --color-primary-100: #bae7f2;
@@ -65,6 +83,35 @@
 
 body {
     font-family: "Inter", sans-serif;
+}
+
+/* ── /ayu-giving — the AYU Giving type stack, scoped to that route ────────── */
+.ayu-root {
+    font-family: var(--font-nunito), sans-serif;
+}
+
+.ayu-root h1,
+.ayu-root h2,
+.ayu-root h3,
+.ayu-root h4,
+.ayu-root h5,
+.ayu-root h6 {
+    font-family: var(--font-nunito-sans), sans-serif;
+}
+
+/* Tailwind v4 ships buttons with `cursor: default`; the source app restores the
+   pointer so every CTA reads as clickable. */
+.ayu-root button:not(:disabled),
+.ayu-root [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+}
+
+.ayu-root button:disabled {
+    cursor: not-allowed;
+}
+
+.ayu-root [aria-busy="true"] {
+    cursor: wait;
 }
 
 /* Advertise Page navigation */

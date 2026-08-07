@@ -248,7 +248,12 @@ const Footer: React.FC = () => {
         window.location.href = `/newsletter`;
     };
 
-    if (pathname?.startsWith("/program-listing")) return null;
+    if (
+        pathname?.startsWith("/program-listing") ||
+        pathname?.startsWith("/admin") ||
+        pathname?.startsWith("/ayu-giving")
+    )
+        return null;
 
     return (
         <footer className="border-t border-gray-200 bg-neutral-50 md:border-t-2">

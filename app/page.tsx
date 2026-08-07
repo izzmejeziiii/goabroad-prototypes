@@ -1,6 +1,16 @@
 import Link from "next/link";
 
-const cards = [
+type PrototypeCard = {
+    href: string;
+    title: string;
+    description: string;
+    badge: string;
+    accent: string;
+    /** Rendered next to the badge when the path is worth calling out. */
+    url?: string;
+};
+
+const cards: PrototypeCard[] = [
     {
         href: "/advertise",
         title: "Advertise",
@@ -23,6 +33,15 @@ const cards = [
         description:
             "Edit-mode mockup of a provider's program listing page — hero, highlights, quick details, reviews, FAQ, and related programs.",
         badge: "3 version",
+        accent: "primary",
+    },
+    {
+        href: "/ayu-giving",
+        url: "/ayu-giving",
+        title: "AYU Giving — Campaign Detail",
+        description:
+            "The AYU Giving campaign detail page rebuilt as a static prototype — hero, story, updates, organizer card, related campaigns, and the full donate sidebar. Dummy content, AYU brand.",
+        badge: "Campaign page",
         accent: "primary",
     },
 ];
@@ -57,8 +76,13 @@ export default function Home() {
                             <span
                                 className={`absolute top-0 right-0 h-24 w-24 -translate-y-8 translate-x-8 rounded-full opacity-10 transition-opacity group-hover:opacity-40 bg-primary-400`}
                             />
-                            <span className="mb-3 inline-flex w-fit rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                            <span className="mb-3 inline-flex w-fit items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
                                 {card.badge}
+                                {card.url && (
+                                    <span className="font-mono text-cobalt-600">
+                                        {card.url}
+                                    </span>
+                                )}
                             </span>
                             <h2 className="text-xl font-semibold text-slate-900 group-hover:text-cobalt-700 transition-colors">
                                 {card.title}

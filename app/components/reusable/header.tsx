@@ -6,7 +6,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Header() {
     const pathname = usePathname();
-    if (pathname?.startsWith("/program-listing")) return null;
+    if (
+        pathname?.startsWith("/program-listing") ||
+        pathname?.startsWith("/admin") ||
+        pathname?.startsWith("/ayu-giving")
+    )
+        return null;
     return (
         <nav className="h-21 w-full flex px-4 lg:px-0 items-center justify-center bg-white shadow-lg z-10">
             <div className="w-full max-w-7xl flex items-center justify-between">
