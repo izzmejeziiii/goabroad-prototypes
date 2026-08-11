@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+<g id="background-complete"><ellipse cx="98" cy="92" rx="34" ry="10" style="fill:#f0f0f0"/><ellipse cx="120" cy="84" rx="22" ry="8" style="fill:#f0f0f0"/><ellipse cx="408" cy="120" rx="26" ry="8" style="fill:#f0f0f0"/></g>
+<g id="background-simple"><path d="M107.22,155c-79.07,56-4.84,184.29,86.3,167.16,28.34-5.32,38.43-39,70.47-42.84,32.68-3.94,67.76,21.76,101.28,20.27,78.13-3.47,88.6-99.05,30.23-158.71C330,73.88,163.85,114.87,107.22,155Z" style="fill:#0A5E85"></path><path d="M107.22,155c-79.07,56-4.84,184.29,86.3,167.16,28.34-5.32,38.43-39,70.47-42.84,32.68-3.94,67.76,21.76,101.28,20.27,78.13-3.47,88.6-99.05,30.23-158.71C330,73.88,163.85,114.87,107.22,155Z" style="fill:#fff;opacity:0.9"></path></g>
+<g id="Shadow"><ellipse cx="250" cy="365" rx="165" ry="12" style="fill:#f0f0f0"/></g>
+<g id="Devices">
+<rect x="105" y="235" width="58" height="110" rx="10" style="fill:#0A5E85"/>
+<rect x="110" y="243" width="48" height="86" rx="4" style="fill:#fff;opacity:0.82"/>
+<circle cx="134" cy="275" r="11" style="fill:#0A5E85"/>
+<rect x="118" y="298" width="32" height="6" rx="3" style="fill:#0A5E85;opacity:0.35"/>
+<rect x="126" y="334" width="16" height="4" rx="2" style="fill:#fff;opacity:0.6"/>
+<rect x="185" y="205" width="130" height="100" rx="8" style="fill:#0A5E85"/>
+<rect x="193" y="213" width="114" height="84" rx="4" style="fill:#fff;opacity:0.82"/>
+<circle cx="250" cy="245" r="16" style="fill:#0A5E85"/>
+<rect x="226" y="272" width="48" height="7" rx="3.5" style="fill:#0A5E85;opacity:0.35"/>
+<path d="M165,305 L335,305 L345,320 L155,320 Z" style="fill:#0A5E85"/>
+<path d="M165,305 L335,305 L345,320 L155,320 Z" style="fill:#fff;opacity:0.35"/>
+<rect x="345" y="240" width="72" height="96" rx="8" style="fill:#0A5E85"/>
+<rect x="351" y="246" width="60" height="76" rx="4" style="fill:#fff;opacity:0.82"/>
+<circle cx="381" cy="273" r="12" style="fill:#0A5E85"/>
+<rect x="363" y="298" width="36" height="6" rx="3" style="fill:#0A5E85;opacity:0.35"/>
+<path d="M262,205 L282,205 L232,305 L212,305 Z" style="fill:#fff;opacity:0.3"/>
+</g>
+<g id="Badge">
+<circle cx="322" cy="196" r="17" style="fill:#DC625A"/>
+<path d="M313,196 l6,6 l12,-12" style="fill:none;stroke:#fff;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round"/>
+</g>
+</svg>

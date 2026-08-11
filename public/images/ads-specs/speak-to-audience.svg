@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+<g id="background-complete"><ellipse cx="98" cy="92" rx="34" ry="10" style="fill:#f0f0f0"/><ellipse cx="120" cy="84" rx="22" ry="8" style="fill:#f0f0f0"/><ellipse cx="408" cy="120" rx="26" ry="8" style="fill:#f0f0f0"/></g>
+<g id="background-simple"><path d="M107.22,155c-79.07,56-4.84,184.29,86.3,167.16,28.34-5.32,38.43-39,70.47-42.84,32.68-3.94,67.76,21.76,101.28,20.27,78.13-3.47,88.6-99.05,30.23-158.71C330,73.88,163.85,114.87,107.22,155Z" style="fill:#0A5E85"></path><path d="M107.22,155c-79.07,56-4.84,184.29,86.3,167.16,28.34-5.32,38.43-39,70.47-42.84,32.68-3.94,67.76,21.76,101.28,20.27,78.13-3.47,88.6-99.05,30.23-158.71C330,73.88,163.85,114.87,107.22,155Z" style="fill:#fff;opacity:0.9"></path></g>
+<g id="Shadow"><ellipse cx="280" cy="365" rx="150" ry="12" style="fill:#f0f0f0"/></g>
+<g id="Megaphone">
+<path d="M150,258 L240,226 L240,318 L150,290 Z" style="fill:#0A5E85"/>
+<path d="M150,258 L240,226 L240,272 L150,274 Z" style="fill:#fff;opacity:0.25"/>
+<ellipse cx="240" cy="272" rx="11" ry="46" style="fill:#084b6a"/>
+<ellipse cx="150" cy="274" rx="7" ry="17" style="fill:#0A5E85"/>
+<rect x="168" y="292" width="26" height="42" rx="8" transform="rotate(12 181 313)" style="fill:#084b6a"/>
+<path d="M264,240 q14,32 0,64" style="fill:none;stroke:#0A5E85;stroke-width:5;stroke-linecap:round;opacity:0.45"/>
+<path d="M284,228 q22,44 0,88" style="fill:none;stroke:#0A5E85;stroke-width:5;stroke-linecap:round;opacity:0.3"/>
+</g>
+<g id="Bubbles">
+<rect x="300" y="180" width="120" height="70" rx="14" style="fill:#0A5E85"/>
+<path d="M320,248 l6,17 l13,-15 Z" style="fill:#0A5E85"/>
+<rect x="314" y="200" width="72" height="8" rx="4" style="fill:#fff;opacity:0.9"/>
+<rect x="314" y="216" width="52" height="8" rx="4" style="fill:#fff;opacity:0.6"/>
+<path d="M382,180 L396,180 L362,250 L348,250 Z" style="fill:#fff;opacity:0.3"/>
+<rect x="330" y="272" width="96" height="58" rx="12" style="fill:#fff"/>
+<path d="M410,328 l-4,14 l-12,-13 Z" style="fill:#fff"/>
+<path d="M378,292 c-4.5,-8 -16,-6 -16,3 c0,7 9.5,12 16,17 c6.5,-5 16,-10 16,-17 c0,-9 -11.5,-11 -16,-3 Z" style="fill:#DC625A"/>
+</g>
+</svg>
