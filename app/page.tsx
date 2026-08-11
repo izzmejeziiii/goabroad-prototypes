@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { totalAdCount } from "./components/ads-specs/data";
 
 type PrototypeCard = {
     href: string;
@@ -41,6 +42,14 @@ const cards: PrototypeCard[] = [
         description:
             "Edit-mode mockup of a provider's program listing page — hero, highlights, quick details, reviews, FAQ, and related programs.",
         badge: "3 version",
+        accent: "primary",
+    },
+    {
+        href: "/ads-specs",
+        url: "/ads-specs",
+        title: "Advertising Specs 2025",
+        description: `One-page reference for every GoAbroad ad placement — image sizes, character limits, auto-pulled components, and tips for all ${totalAdCount} ad types, with quick links to jump to each one.`,
+        badge: "Specs reference",
         accent: "primary",
     },
     {
