@@ -31,7 +31,9 @@ function loadManifest() {
     return manifestPromise;
 }
 
-const VIEWPORTS = ["desktop", "mobile"] as const;
+/* The specs page shows the desktop capture only — mobile snapshots stay
+   available on Cloudinary/the tool but aren't displayed here. */
+const VIEWPORTS = ["desktop"] as const;
 
 type Shot = {
     key: string;
