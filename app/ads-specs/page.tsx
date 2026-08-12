@@ -36,19 +36,17 @@ const stopStylesCard = [
   "border-2 border-cobalt-500 bg-white text-cobalt-500",
 ];
 
-const navSections: NavSection[] = [
-  { id: "page-types", label: "GoAbroad Page Types", ads: [] },
-  { id: "best-practices", label: "Advertising Best Practices", ads: [] },
-  ...adSections.map((section) => ({
-    id: section.id,
-    label: section.navLabel,
-    ads: section.ads.map((ad) => ({
-      id: ad.id,
-      code: ad.code,
-      name: ad.name,
-    })),
+/* Quick links cover only the ad sections — the page-type and
+   best-practice overviews live above the two-column area. */
+const navSections: NavSection[] = adSections.map((section) => ({
+  id: section.id,
+  label: section.navLabel,
+  ads: section.ads.map((ad) => ({
+    id: ad.id,
+    code: ad.code,
+    name: ad.name,
   })),
-];
+}));
 
 export default function AdsSpecsPage() {
   return (
@@ -105,10 +103,11 @@ export default function AdsSpecsPage() {
 
       <MobileJumpNav sections={navSections} />
 
-      <div className="mx-auto max-w-7xl px-4 xl:px-0 py-16 md:py-24 lg:grid lg:grid-cols-[1fr_18rem] lg:gap-12">
-        <main className="min-w-0 space-y-20 md:space-y-24">
-          {/* Page types overview */}
-          <section id="page-types" className="scroll-mt-28">
+      {/* Full-width overview sections — the quick-links sidebar only
+          accompanies the ad specs below. */}
+      <div className="mx-auto max-w-7xl space-y-20 px-4 pt-16 md:space-y-24 md:pt-24 xl:px-0">
+        {/* Page types overview */}
+        <section id="page-types" className="scroll-mt-28">
             <p className="text-sm font-semibold uppercase tracking-widest text-cobalt-500">
               Start here
             </p>
@@ -244,7 +243,12 @@ export default function AdsSpecsPage() {
             </div>
           </section>
 
-          {/* Ad spec sections */}
+      </div>
+
+      {/* Ad specs — the quick-links sidebar sits side by side with these
+          sections only. */}
+      <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 xl:px-0 lg:grid lg:grid-cols-[1fr_18rem] lg:gap-12">
+        <main className="min-w-0 space-y-20 md:space-y-24">
           {adSections.map((section) => (
             <section key={section.id} id={section.id} className="scroll-mt-28">
               <p className="text-sm font-semibold uppercase tracking-widest text-cobalt-500">
