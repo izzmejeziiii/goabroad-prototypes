@@ -1,4 +1,5 @@
 import type { AdSpec, ImageSize } from "./data";
+import AdSnapshot from "./ad-snapshot";
 
 /* Icon per spec-field type, matched loosely on the field label so variants
    like "Buttons", "Button (desktop only)", or "Thumbnail Image" still map. */
@@ -172,6 +173,10 @@ export default function AdSpecCard({ ad }: { ad: AdSpec }) {
                         </div>
                     </div>
                 )}
+
+                {/* Live example captures from the ad snapshot tool — only
+                    renders once a snapshot has been published for this ad. */}
+                <AdSnapshot ids={ad.snapshotIds ?? [ad.id]} />
 
                 {/* Spec fields */}
                 <dl className="grid gap-5 sm:grid-cols-2">

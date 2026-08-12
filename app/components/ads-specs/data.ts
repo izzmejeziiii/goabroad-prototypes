@@ -20,6 +20,9 @@ export type AdSpec = {
     fields: SpecField[];
     autoPulled?: string[];
     tips: string[];
+    /** Snapshot-tool ad ids whose live captures this card shows. Defaults
+        to [id]; set explicitly when one card covers several placements. */
+    snapshotIds?: string[];
 };
 
 export type AdSection = {
@@ -1083,6 +1086,7 @@ export const adSections: AdSection[] = [
                 id: "ad-jj-ll",
                 code: "JJ / LL",
                 name: "Travel Resource Listing / Travel Insurance Listing Feature",
+                snapshotIds: ["ad-jj", "ad-ll"],
                 imageSizes: [
                     { w: 275, h: 270, label: "Desktop" },
                     { w: 380, h: 180, label: "Mobile" },
