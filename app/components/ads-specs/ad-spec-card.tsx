@@ -1,4 +1,4 @@
-import type { AdSpec, ImageSize } from "./data";
+import type { AdSpec } from "./data";
 import AdSnapshot from "./ad-snapshot";
 
 /* Icon per spec-field type, matched loosely on the field label so variants
@@ -84,35 +84,6 @@ function factIconKey(fact: string) {
     return "spark";
 }
 
-/* Scale each image size into a thumbnail box so advertisers can see the
-   shape at a glance. Very wide banners flatten to a thin strip, which is
-   the point. */
-function SizePreview({ size }: { size: ImageSize }) {
-    const scale = Math.min(150 / size.w, 84 / size.h);
-    const width = Math.max(Math.round(size.w * scale), 40);
-    const height = Math.max(Math.round(size.h * scale), 18);
-
-    return (
-        <div className="flex flex-col items-start gap-1.5">
-            <div
-                style={{ width, height }}
-                className="flex items-center justify-center rounded-md border-2 border-dashed border-brand-300 bg-brand-50"
-            >
-                <span className="px-1 text-[10px] font-semibold leading-tight text-brand-500 whitespace-nowrap">
-                    {size.w} × {size.h}
-                </span>
-            </div>
-            {(size.label || size.note) && (
-                <span className="text-[11px] font-medium text-slate-500">
-                    {size.label}
-                    {size.label && size.note ? " · " : ""}
-                    {size.note}
-                </span>
-            )}
-        </div>
-    );
-}
-
 export default function AdSpecCard({ ad }: { ad: AdSpec }) {
     return (
         <article
@@ -160,20 +131,6 @@ export default function AdSpecCard({ ad }: { ad: AdSpec }) {
             </div>
 
             <div className="px-6 py-6 sm:px-8">
-                {/* Image size previews */}
-                {ad.imageSizes.length > 0 && (
-                    <div className="mb-6 rounded-xl bg-slate-50 px-5 py-4">
-                        <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                            Image size{ad.imageSizes.length > 1 ? "s" : ""} (px)
-                        </p>
-                        <div className="flex flex-wrap items-end gap-6">
-                            {ad.imageSizes.map((size, i) => (
-                                <SizePreview key={i} size={size} />
-                            ))}
-                        </div>
-                    </div>
-                )}
-
                 {/* Live example captures from the ad snapshot tool — only
                     renders once a snapshot has been published for this ad. */}
                 <AdSnapshot ids={ad.snapshotIds ?? [ad.id]} />
