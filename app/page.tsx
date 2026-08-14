@@ -53,6 +53,15 @@ const cards: PrototypeCard[] = [
         accent: "primary",
     },
     {
+        href: "/program-comparison/directory",
+        url: "/program-comparison/directory",
+        title: "Program Comparison",
+        description:
+            "The live study abroad directory rebuilt as a prototype — hero search, provider carousels, featured programs, guide, FAQs, reviews, and interviews. The hero's search button leads to the search results page. Base for the program comparison work.",
+        badge: "Directory + search results",
+        accent: "primary",
+    },
+    {
         href: "/ayu-giving",
         url: "/ayu-giving",
         title: "AYU Giving — Campaign Detail",

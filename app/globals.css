@@ -63,8 +63,23 @@
     --color-fern-500: #68af74;
     --color-fern-600: #5f9f6a;
     --color-fern-700: #4a7c52;
+    /* secondary — used by the directory guide tabs on /program-comparison */
+    --color-secondary-50: #fcefef;
+    --color-secondary-100: #f4cecc;
+    --color-secondary-200: #efb7b3;
+    --color-secondary-300: #e89690;
+    --color-secondary-400: #e3817b;
+    --color-secondary-500: #dc625a;
+    --color-secondary-600: #c85952;
+    --color-secondary-700: #9c4640;
+    --color-secondary-800: #793632;
+    --color-secondary-900: #5c2926;
     /* error */
     --color-error-500: #bd002a;
+
+    /* Breakpoints the directory's travel-tools grid relies on */
+    --breakpoint-xxs: 360px;
+    --breakpoint-xs: 430px;
 
     --animate-pulsate: pulsate 1s ease-out infinite;
 
@@ -83,6 +98,160 @@
 
 body {
     font-family: "Inter", sans-serif;
+}
+
+/* ── /program-comparison — the directory's z-index scale and CMS content
+   styling, carried over from gacom-next so the page renders identically ──── */
+
+/* Tailwind v4 changed the default border color to `currentcolor`, which turns
+   every bare `border` on the directory into a near-black line. gacom-next keeps
+   the v3 gray; scoped here so other prototypes keep their own borders. */
+.directory-root *,
+.directory-root *::before,
+.directory-root *::after {
+    border-color: var(--color-gray-200, currentcolor);
+}
+@utility z-underground {
+    z-index: -1;
+}
+@utility z-ground {
+    z-index: 1;
+}
+@utility z-sky {
+    z-index: 2;
+}
+@utility z-outerspace {
+    z-index: 3;
+}
+@utility z-outerverse {
+    z-index: 4;
+}
+@utility z-ultraverse {
+    z-index: 5;
+}
+@utility z-ultraverse-2 {
+    z-index: 10;
+}
+@utility z-ultraverse-3 {
+    z-index: 20;
+}
+@utility z-ultraverse-4 {
+    z-index: 30;
+}
+@utility z-ultraverse-5 {
+    z-index: 40;
+}
+@utility z-ultraverse-6 {
+    z-index: 50;
+}
+
+@utility scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* V2's compare tray pins to the bottom of the viewport — give the page room
+   and lift the other bottom-anchored controls above it. */
+body.compare-tray-open {
+    padding-bottom: calc(var(--compare-tray-height, 140px) + 16px);
+}
+
+body.compare-tray-open .compare-shift {
+    bottom: calc(var(--compare-tray-height, 140px) + 16px);
+}
+
+/* Ride along with the tray as it expands and collapses */
+.compare-shift {
+    transition: bottom 300ms ease-in-out;
+}
+
+/* Dual-handle rating slider on the search results filter rail */
+.rating-range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background-color: #faa929;
+    border: 2px solid white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    pointer-events: all;
+    position: relative;
+    top: 0;
+}
+
+.rating-range input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background-color: #faa929;
+    border: 2px solid white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    pointer-events: all;
+}
+
+/* Guide and FAQ content styling (CMS HTML output) */
+.faq-answer p,
+.guide-content p {
+    color: #444;
+    font-size: 1em;
+    line-height: 1.5em;
+    margin-bottom: 1.5rem;
+}
+.faq-answer li,
+.guide-content li {
+    list-style-type: square;
+    margin-left: 24px;
+    margin-bottom: 0.5rem;
+}
+
+.faq-answer a,
+.guide-content a {
+    color: var(--color-cobalt-500);
+    text-decoration: underline;
+}
+
+.guide-content h3 {
+    font-size: 1.3em;
+    margin-bottom: 1em;
+}
+
+.guide-content h4 {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    line-height: 1;
+    margin-bottom: 1em;
+}
+
+.guide-content h5 {
+    font-size: 1.125em;
+    line-height: 1;
+    margin-bottom: 1em;
+}
+
+.guide-content h6 {
+    font-size: 1em;
+    line-height: 1;
+    margin-bottom: 1em;
+}
+
+.guide-content ol {
+    padding-left: 0.5rem;
+}
+
+.guide-content ol > li {
+    list-style-type: decimal !important;
+    margin-left: 16px !important;
+}
+
+.guide-content ul > li {
+    list-style-type: disc !important;
 }
 
 /* ── /ayu-giving — the AYU Giving type stack, scoped to that route ────────── */
