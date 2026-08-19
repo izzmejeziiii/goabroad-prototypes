@@ -101,9 +101,6 @@ export default function AdSnapshot({ ids }: { ids: string[] }) {
 
     return (
         <div className="mb-6 rounded-xl bg-slate-50 px-5 py-4">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Preview
-            </p>
             <div className="flex flex-wrap items-start justify-center gap-6">
                 {shots.map((shot) => (
                     <a
