@@ -157,7 +157,26 @@ function smoothScrollTo(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
     history.pushState(null, "", `#${id}`);
 }
 
-/* Desktop sidebar with scrollspy highlighting. */
+function Chevron({ open, active }: { open: boolean; active: boolean }) {
+    return (
+        <svg
+            aria-hidden
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.5}
+            className={`h-3.5 w-3.5 shrink-0 transition-transform ${
+                open ? "rotate-90" : ""
+            } ${active ? "text-white" : "text-slate-400"}`}
+        >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+    );
+}
+
+/* Desktop sidebar — styled like goabroad.com's article Table of Contents:
+   one accordion row per ad section, the in-view section filled cobalt, and
+   the section's ad links revealed inside the open row. */
 export default function SpecsSidebar({ sections }: { sections: NavSection[] }) {
     const allIds = sections.flatMap((section) => [
         section.id,
@@ -166,20 +185,40 @@ export default function SpecsSidebar({ sections }: { sections: NavSection[] }) {
     const active = useActiveAnchor(allIds);
     const navRef = useRef<HTMLElement>(null);
 
-    // Keep the highlighted link vertically centered in the sidebar's own
+    // The section the reader is currently in (ads map to their section).
+    const activeSection =
+        sections.find(
+            (s) => s.id === active || s.ads.some((ad) => ad.id === active),
+        )?.id ?? null;
+
+    // The open accordion follows the scrollspy, but a manual toggle wins
+    // until the reader scrolls into a different section.
+    const [manual, setManual] = useState<{ id: string | null } | null>(null);
+    const prevSection = useRef(activeSection);
+    useEffect(() => {
+        if (prevSection.current !== activeSection) {
+            prevSection.current = activeSection;
+            setManual(null);
+        }
+    }, [activeSection]);
+    const open = manual ? manual.id : activeSection;
+
+    // Keep the highlighted row vertically centered in the sidebar's own
     // scroll box (clamped at the ends of the list). Scrolling the nav
     // directly — rather than scrollIntoView({block:"center"}) — avoids
-    // also re-centering the link in the window and hijacking page scroll.
+    // also re-centering the row in the window and hijacking page scroll.
     useEffect(() => {
         if (!active) return;
         const nav = navRef.current;
-        const link = nav?.querySelector<HTMLElement>(`a[href="#${active}"]`);
-        if (!nav || !link) return;
+        const row = nav?.querySelector<HTMLElement>(
+            `[data-anchor="${active}"]`,
+        );
+        if (!nav || !row) return;
         const reduceMotion = window.matchMedia(
             "(prefers-reduced-motion: reduce)",
         ).matches;
         nav.scrollTo({
-            top: link.offsetTop + link.offsetHeight / 2 - nav.clientHeight / 2,
+            top: row.offsetTop + row.offsetHeight / 2 - nav.clientHeight / 2,
             behavior: reduceMotion ? "auto" : "smooth",
         });
     }, [active]);
@@ -188,55 +227,67 @@ export default function SpecsSidebar({ sections }: { sections: NavSection[] }) {
         <nav
             ref={navRef}
             aria-label="Ad specs sections"
-            className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+            className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm"
         >
-            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-500">
-                Quick links
+            <p className="mb-3 px-2 pt-1 text-sm font-extrabold uppercase tracking-wide text-neutral-900">
+                Table of Contents
             </p>
-            <ul className="space-y-4">
-                {sections.map((section) => (
-                    <li key={section.id}>
-                        <a
-                            href={`#${section.id}`}
-                            onClick={(e) => smoothScrollTo(e, section.id)}
-                            className={`-ml-4 block border-l-4 pl-3 text-sm font-bold transition-colors ${
-                                active === section.id
-                                    ? "border-sun-500 text-cobalt-600"
-                                    : section.ads.some(
-                                            (ad) => ad.id === active,
-                                        )
-                                      ? "border-transparent text-cobalt-600"
-                                      : "border-transparent text-slate-800 hover:text-brand-500"
-                            }`}
-                        >
-                            {section.label}
-                        </a>
-                        {section.ads.length > 0 && (
-                            <ul className="mt-1.5 space-y-0.5 border-l border-slate-200">
-                                {section.ads.map((ad) => (
-                                    <li key={ad.id}>
-                                        <a
-                                            href={`#${ad.id}`}
-                                            onClick={(e) =>
-                                                smoothScrollTo(e, ad.id)
-                                            }
-                                            className={`-ml-px block border-l-4 py-1 pl-3 text-[13px] leading-snug transition-colors ${
-                                                active === ad.id
-                                                    ? "border-sun-500 font-bold text-cobalt-600"
-                                                    : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-800"
-                                            }`}
-                                        >
-                                            <span className="font-semibold">
-                                                {ad.code}
-                                            </span>{" "}
-                                            · {ad.name}
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </li>
-                ))}
+            <ul className="space-y-1">
+                {sections.map((section) => {
+                    const isOpen = open === section.id;
+                    const isActive = activeSection === section.id;
+                    return (
+                        <li key={section.id}>
+                            <button
+                                type="button"
+                                aria-expanded={isOpen}
+                                data-anchor={section.id}
+                                onClick={() =>
+                                    setManual({
+                                        id: isOpen ? null : section.id,
+                                    })
+                                }
+                                className={`flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                                    isActive
+                                        ? "bg-cobalt-500 font-bold text-white"
+                                        : "font-semibold text-slate-700 hover:bg-slate-200"
+                                }`}
+                            >
+                                <Chevron open={isOpen} active={isActive} />
+                                <span className="truncate">
+                                    {section.label}
+                                </span>
+                            </button>
+                            {isOpen && section.ads.length > 0 && (
+                                <ul className="mt-1 mb-2 space-y-0.5 pl-4">
+                                    {section.ads.map((ad) => (
+                                        <li key={ad.id}>
+                                            <a
+                                                href={`#${ad.id}`}
+                                                data-anchor={ad.id}
+                                                onClick={(e) =>
+                                                    smoothScrollTo(e, ad.id)
+                                                }
+                                                className={`block min-w-0 rounded-lg px-3 py-1.5 text-[13px] leading-snug transition-colors ${
+                                                    active === ad.id
+                                                        ? "bg-slate-200 font-semibold text-cobalt-700"
+                                                        : "text-slate-500 hover:bg-slate-200 hover:text-slate-800"
+                                                }`}
+                                            >
+                                                <span className="block truncate">
+                                                    <span className="font-semibold">
+                                                        {ad.code}
+                                                    </span>{" "}
+                                                    · {ad.name}
+                                                </span>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
         </nav>
     );
