@@ -34,16 +34,20 @@ function Card({
     program,
     isPrio = false,
     isLastIndex,
+    isSr = false,
 }: {
     program: Ad;
     isPrio?: boolean;
     isLastIndex?: boolean;
+    isSr?: boolean;
 }) {
     return (
         <div
-            className={`relative flex min-w-[300px] max-w-[300px] shrink-0 flex-col items-start justify-start overflow-hidden rounded-md border border-slate-200 lg:max-w-[404.22px] ${
-                isLastIndex ? "mr-4" : ""
-            }`}
+            className={`relative flex min-w-[300px] max-w-[300px] shrink-0 flex-col items-start justify-start overflow-hidden rounded-md border border-slate-200 ${
+                // Search results give the filter rail its column, so the cards
+                // are narrower there than on the full-width directory.
+                isSr ? "lg:max-w-[322.66px]" : "lg:max-w-[404.22px]"
+            } ${isLastIndex ? "mr-4" : ""}`}
         >
             <Image
                 priority={isPrio}
@@ -95,10 +99,17 @@ interface CarouselBoxProps {
     h2: string;
     ads: Ad[];
     isPrio?: boolean;
+    /** Search results run the carousel inside the results column, not the page. */
+    isSr?: boolean;
 }
 
 /** Headline-photo and premier-feature carousels — three cards per view. */
-export default function CarouselBox({ h2, ads, isPrio = false }: CarouselBoxProps) {
+export default function CarouselBox({
+    h2,
+    ads,
+    isPrio = false,
+    isSr = false,
+}: CarouselBoxProps) {
     const itemsView = 3;
     const sliderRef = useRef<Slider>(null);
     const sliderSettings = {
@@ -136,18 +147,32 @@ export default function CarouselBox({ h2, ads, isPrio = false }: CarouselBoxProp
                     ))}
                 </div>
             </div>
-            <div className="hidden w-[1314px] flex-col lg:flex">
+            <div
+                className={`hidden flex-col lg:flex ${
+                    // The directory gets the fixed page-wide track; on search
+                    // results it has to fit the column beside the filters.
+                    isSr ? "w-full" : "w-[1314px]"
+                }`}
+            >
                 <div className="flex w-full gap-4">
                     {ads.length > 3 && (
                         <Slider ref={sliderRef} {...sliderSettings} className="w-full">
                             {ads.map((program) => (
-                                <Card key={`headline-${program.id}`} program={program} />
+                                <Card
+                                    key={`headline-${program.id}`}
+                                    program={program}
+                                    isSr={isSr}
+                                />
                             ))}
                         </Slider>
                     )}
                     {ads.length <= 3 &&
                         ads.map((program) => (
-                            <Card key={`headline-${program.id}`} program={program} />
+                            <Card
+                                key={`headline-${program.id}`}
+                                program={program}
+                                isSr={isSr}
+                            />
                         ))}
                 </div>
             </div>
