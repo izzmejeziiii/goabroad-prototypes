@@ -77,7 +77,13 @@ function useShots(ids: string[]) {
 
 /* "Last updated <date>" for the card header — renders nothing until a
    snapshot exists for the ad. */
-export function AdLastUpdated({ ids }: { ids: string[] }) {
+export function AdLastUpdated({
+    ids,
+    className = "",
+}: {
+    ids: string[];
+    className?: string;
+}) {
     const shots = useShots(ids);
     if (shots.length === 0) return null;
     const lastUpdated = new Date(
@@ -88,7 +94,7 @@ export function AdLastUpdated({ ids }: { ids: string[] }) {
         year: "numeric",
     });
     return (
-        <span className="ml-auto text-xs font-medium text-slate-400">
+        <span className={`text-xs font-medium text-slate-400 ${className}`}>
             Last updated {lastUpdated}
         </span>
     );

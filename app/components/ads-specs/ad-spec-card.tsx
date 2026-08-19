@@ -92,21 +92,26 @@ export default function AdSpecCard({ ad }: { ad: AdSpec }) {
         >
             {/* Card header — tinted band. */}
             <div className="border-b border-slate-100 bg-slate-50/80 px-6 py-5 sm:px-8">
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-3">
                     {/* Luggage-tag badge: clipped nose on the left with a
                         punched hole, like a baggage tag. */}
-                    <span className="relative inline-flex items-center rounded-md bg-cobalt-500 py-1.5 pr-3 pl-5 text-sm font-semibold text-white [clip-path:polygon(0_50%,12px_0,100%_0,100%_100%,12px_100%)]">
+                    <span className="relative inline-flex shrink-0 items-center rounded-md bg-cobalt-500 py-1.5 pr-3 pl-5 text-sm font-semibold text-white [clip-path:polygon(0_50%,12px_0,100%_0,100%_100%,12px_100%)]">
                         <span
                             aria-hidden
                             className="absolute top-1/2 left-[9px] h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
                         />
                         {ad.code}
                     </span>
-                    <h3 className="text-lg font-bold tracking-tight text-neutral-800 sm:text-xl">
+                    <h3 className="min-w-0 flex-1 text-lg font-bold tracking-tight text-neutral-800 sm:text-xl">
                         {ad.name}
                     </h3>
-                    <AdLastUpdated ids={ad.snapshotIds ?? [ad.id]} />
+                    <AdLastUpdated
+                        ids={ad.snapshotIds ?? [ad.id]}
+                        className="ml-auto hidden shrink-0 whitespace-nowrap sm:inline"
+                    />
                 </div>
+                {/* On mobile the date drops below the chips, left-aligned;
+                    on sm+ it lives beside the title instead. */}
                 {ad.quickFacts.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
                         {ad.quickFacts.map((fact) => (
@@ -129,6 +134,10 @@ export default function AdSpecCard({ ad }: { ad: AdSpec }) {
                         ))}
                     </div>
                 )}
+                <AdLastUpdated
+                    ids={ad.snapshotIds ?? [ad.id]}
+                    className="mt-3 block text-left sm:hidden"
+                />
             </div>
 
             <div className="px-6 py-6 sm:px-8">
