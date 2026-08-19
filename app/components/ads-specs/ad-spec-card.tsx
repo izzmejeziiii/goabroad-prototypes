@@ -1,5 +1,5 @@
 import type { AdSpec } from "./data";
-import AdSnapshot from "./ad-snapshot";
+import AdSnapshot, { AdLastUpdated } from "./ad-snapshot";
 
 /* Icon per spec-field type, matched loosely on the field label so variants
    like "Buttons", "Button (desktop only)", or "Thumbnail Image" still map. */
@@ -105,6 +105,7 @@ export default function AdSpecCard({ ad }: { ad: AdSpec }) {
                     <h3 className="text-lg font-bold tracking-tight text-neutral-800 sm:text-xl">
                         {ad.name}
                     </h3>
+                    <AdLastUpdated ids={ad.snapshotIds ?? [ad.id]} />
                 </div>
                 {ad.quickFacts.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">

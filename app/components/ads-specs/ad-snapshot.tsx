@@ -42,7 +42,8 @@ type Shot = {
     updatedAt: string;
 };
 
-export default function AdSnapshot({ ids }: { ids: string[] }) {
+/* Both components below share this hook (and the single manifest fetch). */
+function useShots(ids: string[]) {
     const [shots, setShots] = useState<Shot[]>([]);
 
     useEffect(() => {
@@ -71,8 +72,14 @@ export default function AdSnapshot({ ids }: { ids: string[] }) {
         };
     }, [ids]);
 
-    if (shots.length === 0) return null;
+    return shots;
+}
 
+/* "Last updated <date>" for the card header — renders nothing until a
+   snapshot exists for the ad. */
+export function AdLastUpdated({ ids }: { ids: string[] }) {
+    const shots = useShots(ids);
+    if (shots.length === 0) return null;
     const lastUpdated = new Date(
         Math.max(...shots.map((s) => Date.parse(s.updatedAt))),
     ).toLocaleDateString("en-US", {
@@ -80,17 +87,23 @@ export default function AdSnapshot({ ids }: { ids: string[] }) {
         day: "numeric",
         year: "numeric",
     });
+    return (
+        <span className="ml-auto text-xs font-medium text-slate-400">
+            Last updated {lastUpdated}
+        </span>
+    );
+}
+
+export default function AdSnapshot({ ids }: { ids: string[] }) {
+    const shots = useShots(ids);
+
+    if (shots.length === 0) return null;
 
     return (
         <div className="mb-6 rounded-xl bg-slate-50 px-5 py-4">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    Preview
-                </p>
-                <p className="text-xs text-slate-400">
-                    Last updated {lastUpdated}
-                </p>
-            </div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                Preview
+            </p>
             <div className="flex flex-wrap items-start justify-center gap-6">
                 {shots.map((shot) => (
                     <a
