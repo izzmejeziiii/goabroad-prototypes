@@ -17,7 +17,7 @@ import PageTypeIllustration from "../components/ads-specs/page-type-illustration
 import BestPracticeIllustration from "../components/ads-specs/best-practice-illustrations";
 
 export const metadata: Metadata = {
-  title: "Advertising Specs | GoAbroad Prototypes",
+  title: "Specifications | GoAbroad Prototypes",
   description:
     "Every GoAbroad ad placement in one place — image sizes, character limits, and tips for each ad type.",
 };
@@ -57,7 +57,7 @@ export default function AdsSpecsPage() {
                 bg-slate-100 section, cobalt kicker, dark headline,
                 photo column on the right (md:w-[45%], rounded-lg). */}
       <header className="w-full overflow-hidden bg-slate-100">
-        <Breadcrumbs link="ads-specs" page="Advertising Specs" />
+        <Breadcrumbs link="ads-specs" page="Specifications" />
         <div className="mx-auto max-w-7xl px-4 xl:px-0">
           <div className="flex flex-col-reverse md:flex-row md:items-stretch">
             <div className="flex flex-1 flex-col items-start pt-6 pb-10 text-left md:py-12 md:pr-12">
