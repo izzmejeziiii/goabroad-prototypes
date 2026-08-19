@@ -105,7 +105,12 @@ export default function ProgramComparisonSearchResultsPage() {
                         />
                         <div className="max-w-250 flex min-w-0 flex-1 flex-col gap-20">
                             <div className="flex flex-col gap-6 lg:gap-12">
-                                <CarouselBox h2={pageMeta.h2} ads={headlineAds} isPrio />
+                                <CarouselBox
+                                    h2={pageMeta.h2}
+                                    ads={headlineAds}
+                                    isPrio
+                                    isSr
+                                />
                                 <FeaturedOrg
                                     featuredOrganization={featuredOrganization}
                                 />

@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import clsx from "clsx";
-import Image from "next/image";
 import { FaCheckCircle } from "react-icons/fa";
-import { HiChevronDown } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { MdCompareArrows } from "react-icons/md";
 import {
@@ -38,13 +36,13 @@ export default function CompareSectionBar({
         clear,
     } = useCompare();
 
-    if (version === "v2") {
+    if (version === "v2" || version === "v3") {
         return (
             <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
                 <MdCompareArrows className="text-cobalt-500 h-5 w-5 shrink-0" />
                 <span>
-                    Tap the compare icon on up to {MAX_COMPARE} programs to see them
-                    side by side.
+                    Tick the compare {version === "v3" ? "checkbox" : "icon"} on up
+                    to {MAX_COMPARE} programs to see them side by side.
                 </span>
                 {!!selected.length && (
                     <button
@@ -119,7 +117,7 @@ export default function CompareSectionBar({
             <div className="flex shrink-0 items-center gap-3">
                 <button
                     onClick={cancelCompareMode}
-                    className="text-sm font-bold text-neutral-700 underline"
+                    className="h-10 min-w-[88px] shrink-0 px-3 text-sm font-bold text-neutral-700 underline md:h-auto md:min-w-0 md:px-0"
                 >
                     Cancel
                 </button>
@@ -140,13 +138,13 @@ export default function CompareSectionBar({
     );
 }
 
-/** V2's bottom tray: the selected programs, with the Compare call to action. */
+/** V2 and V3's bottom tray: the picked programs, with the Compare CTA. */
 export function CompareTray() {
     const { version, selected, remove, clear, canCompare, openCompare, isOpen } =
         useCompare();
     const trayRef = useRef<HTMLDivElement>(null);
-    const [collapsed, setCollapsed] = useState(false);
-    const showTray = version === "v2" && !!selected.length && !isOpen;
+    const showTray =
+        (version === "v2" || version === "v3") && !!selected.length && !isOpen;
 
     // The mobile filter pill, the Online Advisor bubble and the version toggle
     // all live at the bottom of the viewport — lift them above the tray, by
@@ -176,7 +174,7 @@ export function CompareTray() {
             document.body.classList.remove("compare-tray-open");
             document.body.style.removeProperty("--compare-tray-height");
         };
-    }, [showTray, collapsed]);
+    }, [showTray]);
 
     if (!showTray) return null;
 
@@ -185,96 +183,36 @@ export function CompareTray() {
             ref={trayRef}
             className="z-ultraverse-5 fixed bottom-0 left-0 right-0 border-t border-slate-200 bg-white shadow-[0_-6px_16px_-8px_rgba(15,23,42,0.25)]"
         >
-            <div
-                className={clsx(
-                    "mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 transition-all duration-300 ease-in-out md:flex-row md:items-center md:justify-center md:gap-6 xl:px-0",
-                    collapsed ? "py-3" : "py-3 md:py-6",
-                    "relative",
-                )}
-            >
-                <button
-                    onClick={() => setCollapsed((prev) => !prev)}
-                    aria-label={
-                        collapsed ? "Expand selection" : "Collapse selection"
-                    }
-                    aria-expanded={!collapsed}
-                    className="absolute -top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow transition-colors hover:bg-slate-100 hover:text-slate-900 xl:right-0"
-                >
-                    <HiChevronDown
-                        className={clsx(
-                            "h-5 w-5 transition-transform",
-                            collapsed && "rotate-180",
-                        )}
-                    />
-                </button>
+            {/* pt-3 + the row's own pt-3 clears the remove buttons hanging off
+                the cards, and pb-6 keeps the space below them even. */}
+            <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 pb-6 pt-3 md:flex-row md:items-center md:justify-center md:gap-6 xl:px-0">
                 {/* Cards keep their own width and sit together — the group is
                     centred rather than stretched across the page. */}
-                <div
-                    className={clsx(
-                        "flex w-full min-w-0 items-stretch gap-3 overflow-x-auto transition-all duration-300 md:w-auto md:flex-initial md:gap-6",
-                        // Room for the remove buttons hanging off the corners.
-                        collapsed && "pr-3 pt-3",
-                    )}
-                >
+                <div className="flex w-full min-w-0 items-stretch gap-3 overflow-x-auto pr-3 pt-3 md:w-auto md:flex-initial md:gap-6">
                     {selected.map((program) => (
                         <div
                             key={program.id}
-                            className={clsx(
-                                // The wrapper doesn't clip, so the shrunk card's
-                                // remove button can hang off the corner.
-                                "relative w-[220px] shrink-0 transition-all duration-300 ease-in-out md:w-[285px]",
-                                collapsed
-                                    ? "h-[72px] md:h-[80px]"
-                                    : "h-[130px] md:h-[150px]",
-                            )}
+                            // The wrapper doesn't clip, so the remove button can
+                            // hang off the card's corner.
+                            className="relative h-[72px] w-[220px] shrink-0 md:h-[80px] md:w-[285px]"
                         >
-                            <div className="absolute inset-0 overflow-hidden rounded-lg bg-slate-700">
-                                {!!program.image && (
-                                    <Image
-                                        src={program.image}
-                                        alt={program.imageAlt}
-                                        fill
-                                        sizes="(max-width: 768px) 220px, 285px"
-                                        className="object-cover"
-                                    />
-                                )}
-                                {/* Keeps the title legible over any photo */}
-                                <div className="absolute inset-0 bg-linear-to-t from-slate-900/95 via-slate-900/45 to-slate-900/10" />
-                                <div
-                                    className={clsx(
-                                        "absolute inset-x-0 bottom-0 flex flex-col gap-1 transition-all duration-300",
-                                        collapsed ? "p-2" : "p-3",
+                            <div className="flex h-full flex-col justify-center gap-1 overflow-hidden rounded-lg border border-slate-200 bg-white px-3">
+                                <p className="line-clamp-1 text-sm font-bold leading-tight text-slate-700">
+                                    {program.title}
+                                </p>
+                                <p className="flex items-center gap-1.5 text-xs text-slate-500">
+                                    <span className="truncate">
+                                        {program.providerName}
+                                    </span>
+                                    {program.isVerified && (
+                                        <FaCheckCircle className="text-fern-500 h-3.5 w-3.5 shrink-0" />
                                     )}
-                                >
-                                    <p
-                                        className={clsx(
-                                            "text-sm font-bold leading-tight text-white",
-                                            collapsed
-                                                ? "line-clamp-1"
-                                                : "line-clamp-2",
-                                        )}
-                                    >
-                                        {program.title}
-                                    </p>
-                                    <p className="flex items-center gap-1.5 text-xs text-white/90">
-                                        <span className="truncate">
-                                            {program.providerName}
-                                        </span>
-                                        {program.isVerified && (
-                                            <FaCheckCircle className="text-fern-500 h-3.5 w-3.5 shrink-0" />
-                                        )}
-                                    </p>
-                                </div>
+                                </p>
                             </div>
                             <button
                                 aria-label={`Remove ${program.title}`}
                                 onClick={() => remove(program.id)}
-                                className={clsx(
-                                    // Sits on the card while expanded, hangs off
-                                    // the corner once the tray is shrunk.
-                                    "absolute flex h-6 w-6 items-center justify-center rounded-full bg-white text-slate-600 shadow transition-all duration-300 hover:text-slate-900",
-                                    collapsed ? "-right-2 -top-2" : "right-2 top-2",
-                                )}
+                                className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-white text-slate-600 shadow transition-colors hover:text-slate-900"
                             >
                                 <IoClose className="h-4 w-4" />
                             </button>
@@ -285,10 +223,8 @@ export function CompareTray() {
                         (_, index) => (
                             <div
                                 key={`empty-${index}`}
-                                className={clsx(
-                                    "hidden w-[285px] shrink-0 rounded-lg border-2 border-dashed border-slate-300 transition-all duration-300 ease-in-out md:block",
-                                    collapsed ? "h-[80px]" : "h-[150px]",
-                                )}
+                                // Same footprint as a filled card, at both sizes.
+                                className="h-[72px] w-[220px] shrink-0 rounded-lg border-2 border-dashed border-slate-300 md:h-[80px] md:w-[285px]"
                             />
                         ),
                     )}
@@ -296,7 +232,9 @@ export function CompareTray() {
                 <div className="flex shrink-0 items-center gap-3">
                     <button
                         onClick={clear}
-                        className="text-sm font-bold text-neutral-700 underline"
+                        // Wide enough to tap on mobile; on desktop it stays the
+                        // plain text link beside the Compare button.
+                        className="h-10 min-w-[88px] shrink-0 px-3 text-sm font-bold text-neutral-700 underline md:h-auto md:min-w-0 md:px-0"
                     >
                         Clear
                     </button>

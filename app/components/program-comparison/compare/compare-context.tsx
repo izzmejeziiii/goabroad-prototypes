@@ -9,7 +9,7 @@ import {
     useSyncExternalStore,
 } from "react";
 
-export type CompareVersion = "v1" | "v2";
+export type CompareVersion = "v1" | "v2" | "v3";
 
 /** A program card flattened into the fields the comparison table shows. */
 export interface ComparableProgram {
@@ -37,6 +37,7 @@ interface CompareState {
     version: CompareVersion;
     /** V1 only: the explicit mode that reveals a checkbox on every card. */
     compareMode: boolean;
+    // V2 and V3 select straight from the cards, no mode to enter.
     selected: ComparableProgram[];
 }
 
@@ -91,7 +92,10 @@ if (typeof window !== "undefined") {
         if (stored) {
             const parsed = JSON.parse(stored);
             state = {
-                version: parsed.version === "v2" ? "v2" : "v1",
+                version:
+                    parsed.version === "v2" || parsed.version === "v3"
+                        ? parsed.version
+                        : "v1",
                 compareMode: !!parsed.compareMode,
                 selected: Array.isArray(parsed.selected)
                     ? parsed.selected.slice(0, MAX_COMPARE)

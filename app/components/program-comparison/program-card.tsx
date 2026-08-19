@@ -121,7 +121,7 @@ export default function ProgramCard({
             )}
             onClick={selectable ? () => toggle(program) : undefined}
         >
-            <CompareControl program={program} />
+            <CompareControl program={program} chipPosition="right-10 top-1" />
             {/* Save button — hidden while the compare checkbox owns this corner */}
             <div
                 className={clsx(
