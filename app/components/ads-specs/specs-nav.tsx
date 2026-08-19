@@ -227,10 +227,10 @@ export default function SpecsSidebar({ sections }: { sections: NavSection[] }) {
         <nav
             ref={navRef}
             aria-label="Ad specs sections"
-            className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm"
+            className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-md border border-slate-200 bg-slate-50 p-4 shadow-sm"
         >
             <p className="mb-3 px-2 pt-1 text-sm font-extrabold uppercase tracking-wide text-neutral-900">
-                Table of Contents
+                Quick Links
             </p>
             <ul className="space-y-1">
                 {sections.map((section) => {
