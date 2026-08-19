@@ -28,7 +28,9 @@ export const metadata: Metadata = {
 const stopStylesRoute = [
   "bg-white text-cobalt-700",
   "bg-sun-500 text-cobalt-700",
-  "border-2 border-white text-white",
+  // Solid cobalt fill so the dashed route leg can't show through the
+  // outlined destination stop.
+  "border-2 border-white bg-cobalt-600 text-white",
 ];
 const stopStylesCard = [
   "bg-cobalt-500 text-white",
