@@ -122,10 +122,10 @@ export const bestPractices: BestPractice[] = [
 export const adSections: AdSection[] = [
     {
         id: "homepage",
-        title: "Homepage Advertising Specs",
+        title: "Homepage",
         navLabel: "Homepage",
         description:
-            "The busiest page on GoAbroad. Homepage traffic hasn't picked a directory yet, so these placements reach users who may not have considered your type of program.",
+            "High-traffic display placements front and center on GoAbroad's most-visited page — capturing attention at the point of entry, before users have picked a directory.",
         ads: [
             {
                 id: "ad-a",
@@ -289,10 +289,10 @@ export const adSections: AdSection[] = [
     },
     {
         id: "directory",
-        title: "Directory Landing Page Advertising Specs",
-        navLabel: "Directory Landing Page",
+        title: "Directory Homepage",
+        navLabel: "Directory Homepage",
         description:
-            "Users here have already picked a type of experience — study, intern, volunteer, teach, and more. Tie your content to the directory they're browsing.",
+            "Maximum exposure within a directory homepage — study, intern, volunteer, teach, and more. Users here have picked a type of experience, so tie your content to the directory they're browsing.",
         ads: [
             {
                 id: "ad-f",
@@ -532,47 +532,11 @@ export const adSections: AdSection[] = [
     },
     {
         id: "search-results",
-        title: "Search Results Page Advertising Specs",
-        navLabel: "Search Results Page",
+        title: "Search Results",
+        navLabel: "Search Results",
         description:
-            "Users are actively comparing programs here. Tie your ad to the specific results page — mention the type of opportunity, destination, or subject area.",
+            "Enhanced visibility within a defined niche program search. Users are actively comparing programs here — logos and photos make yours stand out and drive higher click-through.",
         ads: [
-            {
-                id: "ad-m",
-                code: "Ad M",
-                name: "Results Headline Photo",
-                imageSizes: [{ w: 240, h: 240 }],
-                quickFacts: ["70-char title", "240 × 240 px image"],
-                fields: [
-                    {
-                        label: "Title",
-                        headline: "70 characters max",
-                        notes: [
-                            "Should start with an action word to evoke action!",
-                            "Use “&” instead of “and” and limit use of punctuation",
-                        ],
-                    },
-                    {
-                        label: "Image",
-                        headline: "240 × 240 px",
-                        notes: [
-                            "Keep in mind that logo, title, and button will be overlaid on the image",
-                            "Image cannot have any text, graphics, or logo overlay",
-                            "Logo will automatically pull from your account",
-                        ],
-                    },
-                    {
-                        label: "Link",
-                        notes: [
-                            "Let us know which page on your website the title should link to",
-                        ],
-                    },
-                ],
-                tips: [
-                    "Rather than just mentioning your brand, tie it back to the specific results page you're on (mention the type of opportunity, destination, subject area, etc.).",
-                    "If you offer something unique or niche, now's the time to mention it! Users click through these carousel images proactively and skim the text.",
-                ],
-            },
             {
                 id: "ad-n",
                 code: "Ad N",
@@ -617,6 +581,42 @@ export const adSections: AdSection[] = [
                     "Rather than just mentioning your brand, tie it back to the specific results page you're on (mention the type of opportunity, destination, subject area, etc.).",
                     "Users are skimming these listings so be as clear as possible about what you offer. You have an advantage by being in the #1 results listing spot on the page.",
                     "Choose an image that looks good as a smaller square as well as a rectangle with the title overlaid — consider higher contrast and one to two subjects.",
+                ],
+            },
+            {
+                id: "ad-m",
+                code: "Ad M",
+                name: "Results Headline Photo",
+                imageSizes: [{ w: 240, h: 240 }],
+                quickFacts: ["70-char title", "240 × 240 px image"],
+                fields: [
+                    {
+                        label: "Title",
+                        headline: "70 characters max",
+                        notes: [
+                            "Should start with an action word to evoke action!",
+                            "Use “&” instead of “and” and limit use of punctuation",
+                        ],
+                    },
+                    {
+                        label: "Image",
+                        headline: "240 × 240 px",
+                        notes: [
+                            "Keep in mind that logo, title, and button will be overlaid on the image",
+                            "Image cannot have any text, graphics, or logo overlay",
+                            "Logo will automatically pull from your account",
+                        ],
+                    },
+                    {
+                        label: "Link",
+                        notes: [
+                            "Let us know which page on your website the title should link to",
+                        ],
+                    },
+                ],
+                tips: [
+                    "Rather than just mentioning your brand, tie it back to the specific results page you're on (mention the type of opportunity, destination, subject area, etc.).",
+                    "If you offer something unique or niche, now's the time to mention it! Users click through these carousel images proactively and skim the text.",
                 ],
             },
             {
@@ -775,10 +775,10 @@ export const adSections: AdSection[] = [
     },
     {
         id: "premium-listing",
-        title: "Premium Listing Features",
-        navLabel: "Premium Listing Features",
+        title: "Profile & Program Listings",
+        navLabel: "Profile & Program Listings",
         description:
-            "Cover photos that give your listings and provider page a customized, branded look across desktop and mobile.",
+            "Foundational placements across your provider profile and program listings — customized cover photos that differentiate your brand from basic listings.",
         ads: [
             {
                 id: "ad-t-d",
@@ -842,60 +842,11 @@ export const adSections: AdSection[] = [
     },
     {
         id: "travel-resource",
-        title: "Travel Resource Advertising",
-        navLabel: "Travel Resources",
+        title: "Brand Promotions",
+        navLabel: "Brand Promotions",
         description:
-            "Placements across GoAbroad's travel resources — insurance, scholarships, embassies, and more. Great for products and services travelers need alongside their program.",
+            "Cross-promotion to travel-oriented audiences across GoAbroad's travel resource pages — accommodations, insurance, scholarships, embassies, and more.",
         ads: [
-            {
-                id: "ad-gg",
-                code: "GG",
-                name: "Travel Resource Homepage Headline Photo",
-                imageSizes: [
-                    { w: 365, h: 350, label: "Desktop" },
-                    { w: 335, h: 430, label: "Mobile" },
-                ],
-                quickFacts: ["70-char title", "140-char description"],
-                fields: [
-                    {
-                        label: "Title",
-                        headline: "70 characters max",
-                        notes: [
-                            "Can mention company name and/or describe your product",
-                            "Use “&” instead of “and”",
-                            "Avoid using all caps",
-                        ],
-                    },
-                    {
-                        label: "Description",
-                        headline: "140 characters max",
-                        notes: [
-                            "Content should be in one single paragraph",
-                            "Include who your product is geared towards and basic information about what it includes",
-                        ],
-                    },
-                    {
-                        label: "Image",
-                        headline: "365 × 350 px (desktop) · 335 × 430 px (mobile)",
-                        notes: [
-                            "Image cannot have any text, graphics, or logo overlay",
-                            "Choose a high quality image that displays your product if possible",
-                        ],
-                    },
-                    {
-                        label: "Button",
-                        notes: [
-                            "Static part of the ad — text and color cannot be changed",
-                            "Let us know which page on your website this should link to",
-                        ],
-                    },
-                ],
-                tips: [
-                    "Mention why your product is important — some users may not realize they need additional insurance, support, or resources outside of their program.",
-                    "Choose an image that will look enticing on both desktop and mobile, considering the overlay of title, logo, description, and button for mobile users.",
-                    "Make the text simple and easy to understand so users aren't overwhelmed.",
-                ],
-            },
             {
                 id: "ad-hh",
                 code: "HH",
@@ -943,6 +894,55 @@ export const adSections: AdSection[] = [
                     "Mention why your product is important — some users may not realize they need additional insurance, support, or resources outside of their program.",
                     "Choose an image that will look enticing on both desktop and mobile, considering the overlay of title, logo, description, and button for mobile users.",
                     "Make the text simple and easy to understand.",
+                ],
+            },
+            {
+                id: "ad-gg",
+                code: "GG",
+                name: "Travel Resource Homepage Headline Photo",
+                imageSizes: [
+                    { w: 365, h: 350, label: "Desktop" },
+                    { w: 335, h: 430, label: "Mobile" },
+                ],
+                quickFacts: ["70-char title", "140-char description"],
+                fields: [
+                    {
+                        label: "Title",
+                        headline: "70 characters max",
+                        notes: [
+                            "Can mention company name and/or describe your product",
+                            "Use “&” instead of “and”",
+                            "Avoid using all caps",
+                        ],
+                    },
+                    {
+                        label: "Description",
+                        headline: "140 characters max",
+                        notes: [
+                            "Content should be in one single paragraph",
+                            "Include who your product is geared towards and basic information about what it includes",
+                        ],
+                    },
+                    {
+                        label: "Image",
+                        headline: "365 × 350 px (desktop) · 335 × 430 px (mobile)",
+                        notes: [
+                            "Image cannot have any text, graphics, or logo overlay",
+                            "Choose a high quality image that displays your product if possible",
+                        ],
+                    },
+                    {
+                        label: "Button",
+                        notes: [
+                            "Static part of the ad — text and color cannot be changed",
+                            "Let us know which page on your website this should link to",
+                        ],
+                    },
+                ],
+                tips: [
+                    "Mention why your product is important — some users may not realize they need additional insurance, support, or resources outside of their program.",
+                    "Choose an image that will look enticing on both desktop and mobile, considering the overlay of title, logo, description, and button for mobile users.",
+                    "Make the text simple and easy to understand so users aren't overwhelmed.",
                 ],
             },
             {
