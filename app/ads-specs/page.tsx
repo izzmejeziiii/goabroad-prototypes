@@ -65,7 +65,7 @@ export default function AdsSpecsPage() {
                 Partner Resources
               </p>
               <h1 className="text-4xl font-bold leading-tight text-neutral-900 lg:text-5xl">
-                GoAbroad.com Advertising Specs
+                GoAbroad.com Advertising Specifications
               </h1>
               <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">
                 Everything you need to build great-looking ads on GoAbroad —
