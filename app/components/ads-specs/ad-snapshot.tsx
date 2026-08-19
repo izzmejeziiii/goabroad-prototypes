@@ -102,6 +102,22 @@ export function AdLastUpdated({
 
 export default function AdSnapshot({ ids }: { ids: string[] }) {
     const shots = useShots(ids);
+    const [lightbox, setLightbox] = useState<Shot | null>(null);
+
+    // Escape closes; the page behind stays put while the overlay is open.
+    useEffect(() => {
+        if (!lightbox) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setLightbox(null);
+        };
+        window.addEventListener("keydown", onKey);
+        const prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            window.removeEventListener("keydown", onKey);
+            document.body.style.overflow = prevOverflow;
+        };
+    }, [lightbox]);
 
     if (shots.length === 0) return null;
 
@@ -109,13 +125,12 @@ export default function AdSnapshot({ ids }: { ids: string[] }) {
         <div className="mb-6 rounded-xl bg-slate-50 px-5 py-4">
             <div className="flex flex-wrap items-start justify-center gap-6">
                 {shots.map((shot) => (
-                    <a
+                    <button
                         key={shot.key}
-                        href={shot.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        title="Open full size"
-                        className="block min-w-0"
+                        type="button"
+                        title="View full size"
+                        onClick={() => setLightbox(shot)}
+                        className="block min-w-0 cursor-zoom-in"
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
@@ -124,9 +139,38 @@ export default function AdSnapshot({ ids }: { ids: string[] }) {
                             loading="lazy"
                             className="max-h-72 max-w-full rounded-lg border border-slate-200 bg-white"
                         />
-                    </a>
+                    </button>
                 ))}
             </div>
+
+            {lightbox && (
+                <div
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Full-size ad example"
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-6"
+                    onClick={() => setLightbox(null)}
+                >
+                    <div
+                        className="flex max-h-full max-w-[92vw] flex-col items-center"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={lightbox.url}
+                            alt="Full-size ad example"
+                            className="max-h-[85vh] max-w-full rounded-lg object-contain shadow-2xl"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setLightbox(null)}
+                            className="mt-4 rounded-lg bg-white/15 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-white/25"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
