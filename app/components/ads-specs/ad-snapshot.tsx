@@ -73,41 +73,42 @@ export default function AdSnapshot({ ids }: { ids: string[] }) {
 
     if (shots.length === 0) return null;
 
+    const lastUpdated = new Date(
+        Math.max(...shots.map((s) => Date.parse(s.updatedAt))),
+    ).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+    });
+
     return (
         <div className="mb-6 rounded-xl bg-slate-50 px-5 py-4">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Live example{shots.length > 1 ? "s" : ""}
-            </p>
-            <div className="flex flex-wrap items-start gap-6">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Preview
+                </p>
+                <p className="text-xs text-slate-400">
+                    Last updated {lastUpdated}
+                </p>
+            </div>
+            <div className="flex flex-wrap items-start justify-center gap-6">
                 {shots.map((shot) => (
-                    <figure key={shot.key} className="min-w-0">
-                        <a
-                            href={shot.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            title="Open full size"
-                            className="block"
-                        >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                                src={shot.url}
-                                alt={`Current ${shot.viewport} example of this placement`}
-                                loading="lazy"
-                                className="max-h-72 max-w-full rounded-lg border border-slate-200 bg-white"
-                            />
-                        </a>
-                        <figcaption className="mt-1.5 text-[11px] font-medium text-slate-500">
-                            {shot.viewport} · captured{" "}
-                            {new Date(shot.updatedAt).toLocaleDateString(
-                                "en-US",
-                                {
-                                    month: "short",
-                                    day: "numeric",
-                                    year: "numeric",
-                                },
-                            )}
-                        </figcaption>
-                    </figure>
+                    <a
+                        key={shot.key}
+                        href={shot.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Open full size"
+                        className="block min-w-0"
+                    >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={shot.url}
+                            alt={`Current ${shot.viewport} example of this placement`}
+                            loading="lazy"
+                            className="max-h-72 max-w-full rounded-lg border border-slate-200 bg-white"
+                        />
+                    </a>
                 ))}
             </div>
         </div>
