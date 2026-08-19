@@ -9,22 +9,32 @@ import { useCompare, type ComparableProgram } from "./compare-context";
  * The per-card selector.
  *
  * V1 puts a checkbox where the save heart normally sits, but only once the
- * visitor has pressed "Compare Programs". V2 keeps a compare chip beside the
- * heart at all times, so a program can be added without entering a mode first.
+ * visitor has pressed "Compare Programs". V2 keeps a compare icon beside the
+ * heart at all times. V3 combines the two: V1's checkbox, always on, sitting
+ * beside the heart rather than replacing it.
  */
-export default function CompareControl({ program }: { program: ComparableProgram }) {
+export default function CompareControl({
+    program,
+    /** V3 sits next to the heart, whose offset differs per card. */
+    chipPosition = "right-11 top-2",
+}: {
+    program: ComparableProgram;
+    chipPosition?: string;
+}) {
     const { version, compareMode, isSelected, isFull, toggle } = useCompare();
     const selected = isSelected(program.id);
     const disabled = !selected && isFull;
 
-    if (version === "v1") {
-        if (!compareMode) return null;
+    if (version === "v1" || version === "v3") {
+        // V1 reveals the checkbox only in compare mode; V3 always shows it.
+        if (version === "v1" && !compareMode) return null;
         return (
             <label
                 className={clsx(
-                    // Takes the save button's corner — the heart steps aside
-                    // while compare mode is on.
-                    "z-sky absolute right-2 top-2 flex items-center gap-2 rounded-md bg-white/95 px-2 py-1.5 shadow-md",
+                    "z-sky absolute flex items-center gap-2 rounded-md bg-white/95 px-2 py-1.5 shadow-md",
+                    // V1 takes the save button's corner (the heart steps
+                    // aside); V3 sits next to the heart, which stays put.
+                    version === "v3" ? chipPosition : "right-2 top-2",
                     disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer",
                 )}
                 onClick={(e) => e.stopPropagation()}

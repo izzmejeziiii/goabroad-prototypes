@@ -8,11 +8,12 @@ export const COMPARE_TOGGLE_HEIGHT = 44;
 const options = [
     { id: "v1", short: "V1", label: "V1 · Compare mode" },
     { id: "v2", short: "V2", label: "V2 · Quick add" },
+    { id: "v3", short: "V3", label: "V3 · Checkbox add" },
 ] as const;
 
 /**
- * Prototype-only control for flipping between the two comparison flows —
- * the same banner /program-listing uses for its design versions.
+ * Prototype-only control for flipping between the comparison flows — the same
+ * banner /program-listing uses for its design versions.
  */
 export default function CompareVersionToggle() {
     const { version, setVersion, isOpen } = useCompare();
@@ -33,7 +34,7 @@ export default function CompareVersionToggle() {
                         Prototype
                     </span>
                     <span className="hidden truncate font-medium text-white/80 sm:inline">
-                        This page has two program comparison flows — toggle to
+                        This page has three program comparison flows — toggle to
                         compare.
                     </span>
                 </div>
