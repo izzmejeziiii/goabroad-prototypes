@@ -69,9 +69,7 @@ export default function AdsSpecsPage() {
               </h1>
               <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">
                 Everything you need to build great-looking ads on GoAbroad —
-                image sizes, character limits, and tips for every placement. Use
-                the quick links to jump straight to the ad type you&apos;re
-                working on.
+                image sizes, character limits, and tips for every placement.
               </p>
               <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
                 <div>
@@ -271,16 +269,60 @@ export default function AdsSpecsPage() {
             </section>
           ))}
 
-          <p className="border-t border-slate-200 pt-6 text-center text-sm text-slate-500">
-            Questions about a placement? Your GoAbroad account manager is happy
-            to help you get your ads looking their best.
-          </p>
         </main>
 
         <aside className="hidden lg:block">
           <SpecsSidebar sections={navSections} />
         </aside>
       </div>
+
+      {/* Closing CTA — the /mygoabroad section language, tuned to this
+          page: a light full-width band bookending the hero, text and cobalt
+          button on the left, a design-system spot illustration on the
+          right. */}
+      <section className="w-full bg-slate-100">
+        <div className="mx-auto max-w-7xl px-4 py-16 md:py-20 xl:px-0">
+          <div className="flex flex-col-reverse gap-10 md:flex-row md:items-center">
+            <div className="flex-1">
+              <p className="text-sm font-semibold uppercase tracking-widest text-cobalt-500">
+                Partner with GoAbroad
+              </p>
+              <h2 className="mt-4 text-2xl font-bold tracking-tight text-neutral-800 sm:text-3xl">
+                Show up when travelers are already searching
+              </h2>
+              <p className="mt-4 max-w-2xl leading-relaxed text-slate-600">
+                Advertising on GoAbroad isn&apos;t just about impressions.
+                It&apos;s about showing up when someone&apos;s already
+                searching for what you offer. Whether you&apos;re driving
+                applications, owning a destination, or building name
+                recognition, our placements put you in front of travelers
+                inside a platform they already trust.
+              </p>
+              <p className="mt-3 max-w-2xl leading-relaxed text-slate-600">
+                When you work with us, you&apos;re never figuring it out
+                alone. If you have questions about your placements, your
+                dedicated account manager is one message away, or you can
+                contact us anytime.
+              </p>
+              <a
+                href="mailto:advertise@goabroad.com"
+                className="mt-8 inline-flex items-center justify-center rounded-lg bg-cobalt-500 px-7 py-3 font-semibold text-white transition-colors hover:bg-cobalt-600"
+              >
+                Contact Us
+              </a>
+            </div>
+            <div className="mx-auto w-full max-w-xs shrink-0 md:mx-0 md:w-[34%] md:max-w-sm">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/ads-specs/speak-to-audience.svg"
+                alt=""
+                aria-hidden
+                className="h-auto w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

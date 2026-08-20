@@ -74,6 +74,20 @@ const fieldIcons: Record<string, React.ReactElement> = {
     ),
 };
 
+/* Canonical spec-field order for every card: Title and Description on the
+   first row, Link/Button and Image on the second; anything else (Placement,
+   etc.) follows in its original order. Cards without a given field simply
+   don't show it. */
+function fieldRank(label: string) {
+    const l = label.toLowerCase();
+    if (l.includes("title")) return 1;
+    if (l.includes("description")) return 2;
+    if (l.includes("link") || l.includes("button")) return 3;
+    if (l.includes("image") || l.includes("thumbnail") || l.includes("photo"))
+        return 4;
+    return 5;
+}
+
 /* Icon for a quick-fact chip, matched on the fact text. */
 function factIconKey(fact: string) {
     const f = fact.toLowerCase();
@@ -147,7 +161,11 @@ export default function AdSpecCard({ ad }: { ad: AdSpec }) {
 
                 {/* Spec fields */}
                 <dl className="grid gap-5 sm:grid-cols-2">
-                    {ad.fields.map((field) => (
+                    {[...ad.fields]
+                        .sort(
+                            (a, b) => fieldRank(a.label) - fieldRank(b.label),
+                        )
+                        .map((field) => (
                         <div
                             key={field.label}
                             className="rounded-xl bg-slate-50 p-4"

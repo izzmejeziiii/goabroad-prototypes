@@ -511,7 +511,7 @@ export const adSections: AdSection[] = [
                     {
                         label: "Thumbnail Image",
                         headline: "Auto-pulled from video link",
-                        notes: [],
+                        notes: ["Video auto-plays when the user scrolls"],
                     },
                     {
                         label: "Button (desktop only)",
