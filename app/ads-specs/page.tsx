@@ -306,12 +306,12 @@ export default function AdsSpecsPage() {
               </p>
               <a
                 href="mailto:advertise@goabroad.com"
-                className="mt-8 inline-flex items-center justify-center rounded-lg bg-cobalt-500 px-7 py-3 font-semibold text-white transition-colors hover:bg-cobalt-600"
+                className="mx-auto mt-8 flex w-fit items-center justify-center rounded-lg bg-cobalt-500 px-7 py-3 font-semibold text-white transition-colors hover:bg-cobalt-600 md:mx-0"
               >
                 Contact Us
               </a>
             </div>
-            <div className="mx-auto w-full max-w-xs shrink-0 md:mx-0 md:w-[34%] md:max-w-sm">
+            <div className="hidden w-full max-w-xs shrink-0 md:block md:w-[34%] md:max-w-sm">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/ads-specs/speak-to-audience.svg"
