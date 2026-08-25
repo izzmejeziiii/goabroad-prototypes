@@ -22,7 +22,13 @@ export function CompareHint({ placement }: { placement: "top" | "bottom" }) {
     if (!belongsHere) return null;
 
     return (
-        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+        <div
+            className={clsx(
+                "flex flex-wrap items-center gap-2 text-sm text-slate-600",
+                // Under the cards it sits below a centred Load More button.
+                placement === "bottom" && "justify-center text-center",
+            )}
+        >
             <MdCompareArrows className="text-cobalt-500 h-5 w-5 shrink-0" />
             <span>
                 Tick the compare {version === "v3" ? "checkbox" : "icon"} on up to{" "}
