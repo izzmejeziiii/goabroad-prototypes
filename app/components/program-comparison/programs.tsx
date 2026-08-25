@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import ProgramCard from "./program-card";
-import CompareSectionBar from "./compare/compare-bar";
+import CompareSectionBar, { CompareHint } from "./compare/compare-bar";
 import {
     featuredProgram,
     moreSearchResults,
@@ -67,6 +67,7 @@ export default function Programs({ h2 }: { h2?: string }) {
                     )}
                 </div>
             )}
+            <CompareHint placement="bottom" />
         </div>
     );
 }

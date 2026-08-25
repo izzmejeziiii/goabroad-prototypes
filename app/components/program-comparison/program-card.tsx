@@ -121,12 +121,12 @@ export default function ProgramCard({
             )}
             onClick={selectable ? () => toggle(program) : undefined}
         >
-            <CompareControl program={program} chipPosition="right-10 top-1" />
+            <CompareControl program={program} />
             {/* Save button — hidden while the compare checkbox owns this corner */}
             <div
                 className={clsx(
                     "z-sky group absolute right-1 top-1 h-7 w-7",
-                    selectable && "hidden",
+                    (selectable || version === "v3") && "hidden",
                 )}
             >
                 <button

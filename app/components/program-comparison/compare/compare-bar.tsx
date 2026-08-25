@@ -12,11 +12,40 @@ import {
 } from "./compare-context";
 
 /**
+ * The one-line hint for the flows that select straight from the cards. V2 keeps
+ * it above the grid; V3 shows it under the cards, below Load More.
+ */
+export function CompareHint({ placement }: { placement: "top" | "bottom" }) {
+    const { version, selected, clear } = useCompare();
+    const belongsHere = placement === "top" ? version === "v2" : version === "v3";
+
+    if (!belongsHere) return null;
+
+    return (
+        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+            <MdCompareArrows className="text-cobalt-500 h-5 w-5 shrink-0" />
+            <span>
+                Tick the compare {version === "v3" ? "checkbox" : "icon"} on up to{" "}
+                {MAX_COMPARE} programs to see them side by side.
+            </span>
+            {!!selected.length && (
+                <button
+                    onClick={clear}
+                    className="text-cobalt-500 hover:text-cobalt-600 font-bold underline"
+                >
+                    Clear {selected.length} selected
+                </button>
+            )}
+        </div>
+    );
+}
+
+/**
  * Sits above a grid of program cards.
  *
  * V1: the "Compare Programs" toggle, and once compare mode is on, the running
  * count with the Compare / Cancel pair.
- * V2: a one-line hint — selection lives on the cards and in the bottom tray.
+ * V2: the hint above — selection lives on the cards and in the bottom tray.
  */
 export default function CompareSectionBar({
     /** Search results move the in-progress panel into the filter rail at xl. */
@@ -33,27 +62,10 @@ export default function CompareSectionBar({
         remove,
         canCompare,
         openCompare,
-        clear,
     } = useCompare();
 
     if (version === "v2" || version === "v3") {
-        return (
-            <div className="flex flex-wrap items-center gap-2 text-sm text-slate-600">
-                <MdCompareArrows className="text-cobalt-500 h-5 w-5 shrink-0" />
-                <span>
-                    Tick the compare {version === "v3" ? "checkbox" : "icon"} on up
-                    to {MAX_COMPARE} programs to see them side by side.
-                </span>
-                {!!selected.length && (
-                    <button
-                        onClick={clear}
-                        className="text-cobalt-500 hover:text-cobalt-600 font-bold underline"
-                    >
-                        Clear {selected.length} selected
-                    </button>
-                )}
-            </div>
-        );
+        return <CompareHint placement="top" />;
     }
 
     if (!compareMode) {

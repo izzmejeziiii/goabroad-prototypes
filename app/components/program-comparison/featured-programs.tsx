@@ -16,7 +16,7 @@ import { featuredPrograms } from "./data";
 import type { FeaturedProgram } from "./types";
 import { useCompare } from "./compare/compare-context";
 import CompareControl from "./compare/compare-control";
-import CompareSectionBar from "./compare/compare-bar";
+import CompareSectionBar, { CompareHint } from "./compare/compare-bar";
 
 /** Flattened for the comparison table; ids are namespaced by page. */
 const toComparable = (ad: FeaturedProgram) => ({
@@ -59,7 +59,10 @@ function FeaturedProgramAd({ ad }: { ad: FeaturedProgram }) {
             <CompareControl program={program} />
             {/* Save button — hidden while the compare checkbox owns this corner */}
             <div
-                className={clsx("z-ground absolute right-2 top-1", selectable && "hidden")}
+                className={clsx(
+                    "z-ground absolute right-2 top-1",
+                    (selectable || version === "v3") && "hidden",
+                )}
             >
                 <div className="group relative h-8 w-8">
                     <button
@@ -193,6 +196,8 @@ export default function FeaturedProgramAds() {
                     />
                 ))}
             </div>
+            {/* No Load More on the directory, so the hint follows the cards. */}
+            <CompareHint placement="bottom" />
         </div>
     );
 }
