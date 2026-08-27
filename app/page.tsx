@@ -70,6 +70,15 @@ const cards: PrototypeCard[] = [
         badge: "Campaign page",
         accent: "primary",
     },
+    {
+        href: "/editorial-guidelines",
+        url: "/editorial-guidelines",
+        title: "Editorial Guidelines",
+        description:
+            "The reader-facing editorial guidelines page — our purpose, core editorial values, what we publish and what we don't, how programs get featured, who writes for GoAbroad, and our commitment to readers. Copy taken verbatim from the 2026 article strategy doc.",
+        badge: "Trust & transparency",
+        accent: "primary",
+    },
 ];
 
 export default function Home() {
