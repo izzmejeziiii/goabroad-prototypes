@@ -132,7 +132,7 @@ export const adSections: AdSection[] = [
                 code: "Ad A",
                 name: "Homepage Premier Feature",
                 imageSizes: [{ w: 400, h: 300, note: "minimum · 4:3 ratio" }],
-                quickFacts: ["65-char description", "400 × 300 px image min"],
+                quickFacts: ["65-char description", "403 × 200 px image"],
                 fields: [
                     {
                         label: "Title",
@@ -160,7 +160,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "400 × 300 px minimum (or 4:3 ratio)",
+                        headline: "403 × 200 px",
                         notes: [
                             "Focal point should be on the right since the button and text will be aligned on the left",
                             "The image cannot have any text, graphics, or logo overlay — just a photo, please!",
@@ -177,7 +177,7 @@ export const adSections: AdSection[] = [
                 code: "Ad B",
                 name: "Homepage Feature",
                 imageSizes: [{ w: 282, h: 150, note: "minimum · 3:2 ratio" }],
-                quickFacts: ["60-char title", "282 × 150 px image min"],
+                quickFacts: ["60-char title", "403 × 200 px image"],
                 fields: [
                     {
                         label: "Title",
@@ -191,7 +191,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "282 × 150 px minimum (or 3:2 ratio)",
+                        headline: "403 × 200 px",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay on the original file",
                             "Sides of the image will be cropped on narrower screens",
@@ -215,7 +215,7 @@ export const adSections: AdSection[] = [
                 code: "Ad C",
                 name: "Homepage Organizational Feature",
                 imageSizes: [{ w: 1400, h: 400, note: "or 1.91:1 ratio" }],
-                quickFacts: ["80-char title", "1400 × 400 px banner"],
+                quickFacts: ["80-char title", "636 × 348 px banner"],
                 fields: [
                     {
                         label: "Title",
@@ -228,7 +228,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "1400 × 400 px (or 1.91:1 ratio)",
+                        headline: "636 × 348 px",
                         notes: [
                             "Only one image should be submitted",
                             "Images with subject/s on 70% of the right side are preferred",
@@ -267,7 +267,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Thumbnail Image",
-                        headline: "Auto-pulled from video link",
+                        headline: "733 × 380 px",
                         notes: ["Video auto-plays when the user scrolls"],
                     },
                     {
@@ -299,7 +299,7 @@ export const adSections: AdSection[] = [
                 code: "Ad F",
                 name: "Directory Headline Photo",
                 imageSizes: [{ w: 240, h: 240 }],
-                quickFacts: ["70-char title", "240 × 240 px image"],
+                quickFacts: ["70-char title", "402 × 200 px image"],
                 fields: [
                     {
                         label: "Title",
@@ -312,7 +312,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "240 × 240 px",
+                        headline: "402 × 200 px",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay on the original file",
                             "Choose a high quality image that relates to the feature",
@@ -377,7 +377,7 @@ export const adSections: AdSection[] = [
                 code: "Ad H",
                 name: "Directory Premier Feature",
                 imageSizes: [{ w: 240, h: 240 }],
-                quickFacts: ["70-char title", "240 × 240 px image"],
+                quickFacts: ["70-char title", "402 × 200 px image"],
                 fields: [
                     {
                         label: "Title",
@@ -390,7 +390,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "240 × 240 px",
+                        headline: "402 × 200 px",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image that relates to the feature",
@@ -417,7 +417,7 @@ export const adSections: AdSection[] = [
                 code: "Ad I",
                 name: "Directory Featured Program",
                 imageSizes: [{ w: 240, h: 150 }],
-                quickFacts: ["70-char title", "240 × 150 px image"],
+                quickFacts: ["70-char title", "403 × 200 px image"],
                 fields: [
                     {
                         label: "Title",
@@ -428,7 +428,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "240 × 150 px",
+                        headline: "403 × 200 px",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Sides of the image will be cropped on narrower screens",
@@ -457,7 +457,7 @@ export const adSections: AdSection[] = [
                 code: "Ad J",
                 name: "Directory Organizational Feature",
                 imageSizes: [{ w: 1000, h: 350, note: "or 1.91:1 ratio" }],
-                quickFacts: ["80-char title", "1000 × 350 px banner"],
+                quickFacts: ["80-char title", "639 × 348 px banner"],
                 fields: [
                     {
                         label: "Title",
@@ -470,7 +470,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "1000 × 350 px (or 1.91:1 ratio)",
+                        headline: "639 × 348 px",
                         notes: [
                             "Only one image should be submitted",
                             "Images with subject/s on 70% of the right side are preferred",
@@ -510,7 +510,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Thumbnail Image",
-                        headline: "Auto-pulled from video link",
+                        headline: "550 × 300 px",
                         notes: ["Video auto-plays when the user scrolls"],
                     },
                     {
@@ -588,7 +588,7 @@ export const adSections: AdSection[] = [
                 code: "Ad M",
                 name: "Results Headline Photo",
                 imageSizes: [{ w: 240, h: 240 }],
-                quickFacts: ["70-char title", "240 × 240 px image"],
+                quickFacts: ["70-char title", "321 × 200 px image"],
                 fields: [
                     {
                         label: "Title",
@@ -600,7 +600,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "240 × 240 px",
+                        headline: "321 × 200 px",
                         notes: [
                             "Keep in mind that logo, title, and button will be overlaid on the image",
                             "Image cannot have any text, graphics, or logo overlay",
@@ -627,7 +627,7 @@ export const adSections: AdSection[] = [
                     { w: 320, h: 150, label: "Desktop" },
                     { w: 380, h: 150, label: "Mobile" },
                 ],
-                quickFacts: ["Auto title & description", "320/380 × 150 px images"],
+                quickFacts: ["Auto title & description", "310/356 × 200 px images"],
                 fields: [
                     {
                         label: "Link",
@@ -644,7 +644,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "320 × 150 px (desktop) · 380 × 150 px (mobile)",
+                        headline: "310 × 200 px (desktop) · 356 × 200 px (mobile)",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose an image that's directly related to your chosen listing for the results page — e.g. on the “Volunteer Abroad in Teaching” page, a photo of a school or students makes sense",
@@ -722,7 +722,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "Auto-pulled",
+                        headline: "310 × 200 px",
                         notes: [
                             "Automatically pulled from the primary listing photo",
                         ],
@@ -788,11 +788,11 @@ export const adSections: AdSection[] = [
                     { w: 1440, h: 500, label: "Desktop" },
                     { w: 430, h: 320, label: "Mobile" },
                 ],
-                quickFacts: ["1440 × 500 px desktop", "430 × 320 px mobile"],
+                quickFacts: ["1440 × 500 px desktop", "390 × 320 px mobile"],
                 fields: [
                     {
                         label: "Image",
-                        headline: "1440 × 500 px (desktop) · 430 × 320 px (mobile)",
+                        headline: "1440 × 500 px (desktop) · 390 × 320 px (mobile)",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image that relates to your organization",
@@ -814,11 +814,11 @@ export const adSections: AdSection[] = [
                     { w: 1440, h: 500, label: "Desktop" },
                     { w: 430, h: 320, label: "Mobile" },
                 ],
-                quickFacts: ["1440 × 500 px desktop", "430 × 320 px mobile"],
+                quickFacts: ["1440 × 500 px desktop", "390 × 320 px mobile"],
                 fields: [
                     {
                         label: "Image",
-                        headline: "1440 × 500 px (desktop) · 430 × 320 px (mobile)",
+                        headline: "1440 × 500 px (desktop) · 390 × 320 px (mobile)",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image that relates to your organization — no collage photos allowed!",
@@ -876,7 +876,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "365 × 350 px (desktop) · 335 × 430 px (mobile)",
+                        headline: "421 × 375 px",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image that displays your product if possible",
@@ -925,7 +925,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "365 × 350 px (desktop) · 335 × 430 px (mobile)",
+                        headline: "421 × 375 px",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image that displays your product if possible",
@@ -966,7 +966,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "410 × 350 px (desktop) · 380 × 375 px (mobile)",
+                        headline: "403 × 373 px (desktop) · 356 × 375 px (mobile)",
                         notes: [
                             "Keep in mind that your logo, title, and button will be centered vertically and horizontally as an overlay on the image",
                             "Choose a high quality image that relates to the feature",
@@ -1021,7 +1021,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "275 × 270 px (desktop) · 380 × 180 px (mobile)",
+                        headline: "217 × 128 px (desktop) · 149 × 128 px (mobile)",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image that relates to the feature",
@@ -1073,7 +1073,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "365 × 350 px (desktop) · 335 × 430 px (mobile)",
+                        headline: "421 × 375 px",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image that displays your product if possible",
@@ -1118,7 +1118,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "390 × 350 px (desktop) · 375 × 430 px (mobile)",
+                        headline: "423 × 371 px (desktop) · 356 × 371 px (mobile)",
                         notes: [
                             "Image cannot have any text, graphics, or logo overlay",
                             "Choose a high quality image",
@@ -1142,7 +1142,7 @@ export const adSections: AdSection[] = [
                 code: "NN",
                 name: "Embassy Directory Feature",
                 imageSizes: [{ w: 380, h: 220, note: "desktop & mobile" }],
-                quickFacts: ["70-char title", "380 × 220 px image"],
+                quickFacts: ["70-char title", "411 × 238 px image"],
                 fields: [
                     {
                         label: "Title",
@@ -1155,7 +1155,7 @@ export const adSections: AdSection[] = [
                     },
                     {
                         label: "Image",
-                        headline: "380 × 220 px (desktop & mobile)",
+                        headline: "411 × 238 px (desktop) · 358 × 207 px (mobile)",
                         notes: [
                             "Keep in mind that your logo, title, and button will be centered vertically and horizontally as an overlay on the image",
                             "Choose a high quality image that relates to the feature",
