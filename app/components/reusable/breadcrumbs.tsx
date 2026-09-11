@@ -6,6 +6,9 @@ interface BreadcrumbsProps {
     isDarkBg?: boolean;
     link: string;
     page: string;
+    /** An intermediate crumb for pages nested one level under another
+        prototype (Home › parent › page). */
+    parent?: { link: string; page: string };
 }
 
 export default function Breadcrumbs({
@@ -13,6 +16,7 @@ export default function Breadcrumbs({
     isDarkBg,
     link,
     page,
+    parent,
 }: BreadcrumbsProps) {
     return (
         <div
@@ -26,6 +30,14 @@ export default function Breadcrumbs({
                         Home
                     </Link>
                 </li>
+                {parent && (
+                    <>
+                        <FaChevronRight className="text-xs" />
+                        <li>
+                            <Link href={`/${parent.link}`}>{parent.page}</Link>
+                        </li>
+                    </>
+                )}
                 <FaChevronRight className="text-xs" />
                 <li>
                     <Link href={`/${link}`}>{page}</Link>
