@@ -79,6 +79,15 @@ const cards: PrototypeCard[] = [
         badge: "Trust & transparency",
         accent: "primary",
     },
+    {
+        href: "/top-rated-providers-programs",
+        url: "/top-rated-providers-programs",
+        title: "Top Rated Providers & Programs",
+        description:
+            "The annual Top Rated Providers and the Top Rated Programs consolidated on one page — header photo, what the awards are, program cards per category linking to eleven directory pages, ranked provider cards with ratings and Read Reviews CTAs, notable mentions, previous years, and next steps. Copy from the requirements doc; the winners are dummy data.",
+        badge: "Main page + 11 directory pages",
+        accent: "primary",
+    },
 ];
 
 export default function Home() {
