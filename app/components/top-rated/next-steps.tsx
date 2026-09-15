@@ -44,9 +44,10 @@ function Sentence({ segments }: { segments: TextSegment[] }) {
     );
 }
 
-/* One next step as an action card. From tablet up the cards step down across
-   the band like stairs, and a sun arrow on each card's right edge carries the
-   eye to the next. */
+/* One next step as an action card: three in a row at equal height, with a
+   sun arrow on each card's right edge carrying the eye to the next. The
+   ghost numeral in the corner is the only step number (Jezi asked for the
+   stair-step offsets and the small "01" kicker to go). */
 function StepCard({
     segments,
     index,
@@ -63,11 +64,8 @@ function StepCard({
     const links = segments.filter(
         (s): s is LinkSegment => typeof s !== "string",
     );
-    const stair = ["", "md:mt-10", "md:mt-20"][index] ?? "";
     return (
-        <li
-            className={`relative transition-transform hover:-translate-y-1 ${stair}`}
-        >
+        <li className="relative transition-transform hover:-translate-y-1">
             {/* The card body clips the ghost numeral; the arrow sits outside
                 it so it can overhang the edge. */}
             <div className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white p-6 shadow-xl shadow-cobalt-700/25 sm:p-7">
@@ -81,10 +79,8 @@ function StepCard({
                 <span className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-sun-500 text-cobalt-700">
                     <Icon aria-hidden className="h-7 w-7" />
                 </span>
-                <p className="relative mt-6 text-xs font-semibold tracking-widest uppercase text-cobalt-500">
-                    <span className="sr-only">Step </span>0{index + 1}
-                </p>
-                <h3 className="relative mt-1 text-2xl font-bold tracking-tight text-neutral-900">
+                <h3 className="relative mt-6 text-2xl font-bold tracking-tight text-neutral-900">
+                    <span className="sr-only">Step {index + 1}: </span>
                     {title}
                 </h3>
                 <p className="relative mt-3 leading-relaxed text-slate-600">
@@ -127,7 +123,7 @@ function StepCard({
 }
 
 /* Closing band on the cobalt gradient, bookending the hero. A warm lead, the
-   doc's three next steps as stair-stepped action cards with real buttons,
+   doc's three next steps as a row of action cards with real buttons,
    and the provider call-out beneath carrying the badge a provider would be
    working towards. Shared by the main page and every directory page. */
 export default function NextSteps({ id }: { id?: string }) {
@@ -153,7 +149,7 @@ export default function NextSteps({ id }: { id?: string }) {
                     </p>
                 </div>
 
-                <ol className="mt-12 grid gap-5 md:grid-cols-3 md:gap-8 md:items-start">
+                <ol className="mt-12 grid gap-5 md:grid-cols-3 md:gap-8">
                     {steps.map((segments, i) => (
                         <StepCard
                             key={i}
