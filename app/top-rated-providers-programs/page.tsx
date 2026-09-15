@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { HiOutlineArrowRight } from "react-icons/hi2";
-import ArchiveArticles from "../components/top-rated/archive-articles";
+import {
+    HiChatBubbleLeftEllipsis,
+    HiCheckBadge,
+    HiOutlineArrowRight,
+    HiStar,
+} from "react-icons/hi2";
+import ArchiveCard from "../components/top-rated/archive-articles";
 import TopRatedBadge from "../components/top-rated/badge";
+import CardSlider from "../components/top-rated/card-slider";
 import { badgeUrl } from "../components/top-rated/cdn";
 import {
     directories,
@@ -16,7 +22,6 @@ import {
     providerGroups,
     providers,
     providersSection,
-    sections,
     topRatedPrograms,
     year,
 } from "../components/top-rated/data";
@@ -24,24 +29,50 @@ import DirectoryCard from "../components/top-rated/directory-card";
 import Hero from "../components/top-rated/hero";
 import HowItWorks from "../components/top-rated/how-it-works";
 import NextSteps from "../components/top-rated/next-steps";
-import ProviderCard, { NotableCard } from "../components/top-rated/provider-card";
+import ProviderCard from "../components/top-rated/provider-card";
+import ProviderSideNav, {
+    type SideNavItem,
+} from "../components/top-rated/provider-side-nav";
+import RankLegend from "../components/top-rated/rank-legend";
 import SectionHead from "../components/top-rated/section-head";
-import SectionNav from "../components/top-rated/section-nav";
 
 export const metadata: Metadata = {
     title: meta.title,
     description: meta.description,
 };
 
+const format = new Intl.NumberFormat("en-US");
+
+/* Every directory's Top Rated Programs together, for the figures beside the
+   programs heading (the hero's figures are the providers'). */
+const allPrograms = Object.values(topRatedPrograms).flat();
+const programAverage =
+    allPrograms.reduce((sum, p) => sum + p.rating, 0) / allPrograms.length;
+const programReviews = allPrograms.reduce((sum, p) => sum + p.reviews, 0);
+
+/* Jump links for the providers section: one per directory group (matching
+   the `providers-<id>` anchors below), then the notable mentions. Category
+   level only — the winners under each change every year. */
+const sideNavItems: SideNavItem[] = [
+    ...providerGroups.flatMap((group) => {
+        const directory = getDirectory(group.directoryId);
+        return directory?.providersHeading
+            ? [
+                  {
+                      id: `providers-${group.directoryId}`,
+                      label: directory.cardTitle,
+                      icon: directory.icon,
+                  },
+              ]
+            : [];
+    }),
+    { id: "notable-mentions", label: "Notable Mentions" },
+];
+
 export default function TopRatedProvidersProgramsPage() {
     return (
         <div className="w-full bg-white">
             <Hero />
-
-            <SectionNav
-                items={sections}
-                label="Top Rated Providers and Programs sections"
-            />
 
             {/* What the awards are; the CTA jumps past the program cards to
                 the provider list, as the doc specifies. */}
@@ -54,23 +85,94 @@ export default function TopRatedProvidersProgramsPage() {
                 className="w-full scroll-mt-24 bg-slate-100"
             >
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 xl:px-0">
-                    <SectionHead
-                        kicker={programsSection.kicker}
-                        title={programsSection.heading}
-                        as="h3"
-                    />
-                    <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-600">
-                        {programsSection.paragraph}
-                    </p>
-                    <p className="mt-8 max-w-3xl text-lg font-semibold text-neutral-800">
-                        {programsSection.lead}
-                    </p>
-                    <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+                    {/* Head as two columns from lg: the doc's copy left, and
+                        this year's program figures right so the row doesn't
+                        trail off into blank space. */}
+                    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
+                        <div>
+                            <SectionHead
+                                kicker={programsSection.kicker}
+                                title={programsSection.heading}
+                                as="h3"
+                            />
+                            <p className="mt-6 text-lg leading-relaxed text-slate-600">
+                                {programsSection.paragraph}
+                            </p>
+                            <p className="mt-6 text-lg font-semibold text-neutral-800">
+                                {programsSection.lead}
+                            </p>
+                        </div>
+                        {/* The figures on a cobalt panel — the hero's dotted
+                            field and glass tiles, so the card carries the
+                            page's colour into the section instead of a plain
+                            table. (A slate-800 version was tried and
+                            reverted.) */}
+                        <aside
+                            aria-label={`The ${year} Top Rated Programs at a glance`}
+                            className="relative overflow-hidden rounded-2xl bg-linear-to-br from-cobalt-700 via-cobalt-600 to-cobalt-500 p-6 text-white shadow-xl shadow-cobalt-700/20 sm:p-7"
+                        >
+                            <div
+                                aria-hidden
+                                className="absolute inset-0 [background-image:radial-gradient(circle,rgba(255,255,255,0.14)_1.5px,transparent_1.5px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_60%)]"
+                            />
+                            <div
+                                aria-hidden
+                                className="absolute -top-12 -right-12 h-44 w-44 rounded-full bg-sun-500/25 blur-3xl"
+                            />
+                            <p className="relative text-xs font-semibold tracking-widest uppercase text-sun-500">
+                                The {year} list at a glance
+                            </p>
+                            <dl className="relative mt-6 space-y-5">
+                                {[
+                                    {
+                                        icon: HiCheckBadge,
+                                        value: format.format(
+                                            allPrograms.length,
+                                        ),
+                                        label: "programs earned the badge",
+                                    },
+                                    {
+                                        icon: HiStar,
+                                        value: programAverage.toFixed(2),
+                                        label: "average rating across them",
+                                    },
+                                    {
+                                        icon: HiChatBubbleLeftEllipsis,
+                                        value: format.format(programReviews),
+                                        label: "verified reviews behind them",
+                                    },
+                                ].map(({ icon: Icon, value, label }) => (
+                                    <div
+                                        key={label}
+                                        className="flex items-center gap-4"
+                                    >
+                                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-sun-500 ring-1 ring-white/20 backdrop-blur">
+                                            <Icon
+                                                aria-hidden
+                                                className="h-6 w-6"
+                                            />
+                                        </span>
+                                        <div className="flex flex-col-reverse">
+                                            <dt className="mt-0.5 text-sm text-white/75">
+                                                {label}
+                                            </dt>
+                                            <dd className="text-3xl leading-none font-bold tabular-nums">
+                                                {value}
+                                            </dd>
+                                        </div>
+                                    </div>
+                                ))}
+                            </dl>
+                        </aside>
+                    </div>
+                    <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                         {directories.map((directory) => (
                             <DirectoryCard
                                 key={directory.id}
                                 directory={directory}
-                                programCount={topRatedPrograms[directory.id].length}
+                                programCount={
+                                    topRatedPrograms[directory.id].length
+                                }
                                 year={year}
                             />
                         ))}
@@ -100,114 +202,151 @@ export default function TopRatedProvidersProgramsPage() {
                 className="w-full scroll-mt-24 bg-white"
             >
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 xl:px-0">
-                    <SectionHead
-                        kicker={providersSection.kicker}
-                        title={providersSection.heading}
-                        as="h3"
-                    />
-                    <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-600">
-                        {providersSection.paragraphBefore}
-                        <strong className="font-semibold text-neutral-800">
-                            {providersSection.paragraphBold}
-                        </strong>
-                        {providersSection.paragraphAfter}
-                    </p>
+                    {/* Head as two columns from lg: the doc's copy left, and a
+                        podium legend of how the list is ranked right, plus
+                        the notable mentions. */}
+                    <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
+                        <div>
+                            <SectionHead
+                                kicker={providersSection.kicker}
+                                title={providersSection.heading}
+                                as="h3"
+                            />
+                            <p className="mt-6 text-lg leading-relaxed text-slate-600">
+                                {providersSection.paragraphBefore}
+                                <strong className="font-semibold text-neutral-800">
+                                    {providersSection.paragraphBold}
+                                </strong>
+                                {providersSection.paragraphAfter}
+                            </p>
+                        </div>
+                        <RankLegend
+                            categoryCount={providerGroups.length}
+                            notableCount={notableMentions.length}
+                            notableBadge={providersSection.notableBadge}
+                            notableHref="#notable-mentions"
+                        />
+                    </div>
 
-                    <div className="mt-12">
-                        {providerGroups.map((group, index) => {
-                            const directory = getDirectory(group.directoryId);
-                            if (!directory?.providersHeading) return null;
-                            return (
-                                <div
-                                    key={group.directoryId}
-                                    className={
-                                        index > 0
-                                            ? "mt-14 border-t border-slate-200 pt-14"
-                                            : ""
+                    {/* The list itself: a sticky side rail of jump links
+                        (one per directory group, then the notable mentions)
+                        on the left of the groups from lg up — the right edge
+                        already belongs to the legend card above; the rail
+                        becomes a horizontal chip row above the groups on
+                        smaller screens. */}
+                    <div className="mt-12 lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:items-start lg:gap-12">
+                        <ProviderSideNav items={sideNavItems} />
+                        <div className="mt-8 lg:mt-0">
+                            {providerGroups.map((group, index) => {
+                                const directory = getDirectory(group.directoryId);
+                                if (!directory?.providersHeading) return null;
+                                return (
+                                    <div
+                                        key={group.directoryId}
+                                        id={`providers-${group.directoryId}`}
+                                        className={`scroll-mt-24 ${
+                                            index > 0
+                                                ? "mt-14 border-t border-slate-200 pt-14"
+                                                : ""
+                                        }`}
+                                    >
+                                        <div className="flex items-start justify-between gap-6">
+                                            <div>
+                                                <h4 className="text-xl font-bold tracking-tight text-neutral-800 sm:text-2xl">
+                                                    {directory.providersHeading}
+                                                </h4>
+                                                <Link
+                                                    href={`/top-rated-providers-programs/${directory.id}`}
+                                                    className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-cobalt-500 transition-colors hover:text-cobalt-600"
+                                                >
+                                                    See the Top Rated{" "}
+                                                    {directory.cardTitle.replace(
+                                                        / Programs$/,
+                                                        "",
+                                                    )}{" "}
+                                                    Programs
+                                                    <HiOutlineArrowRight
+                                                        aria-hidden
+                                                        className="h-4 w-4"
+                                                    />
+                                                </Link>
+                                            </div>
+                                            {directory.badge && (
+                                                <Image
+                                                    src={badgeUrl(directory.badge)}
+                                                    alt={`GoAbroad Top Rated Provider ${year} – ${directory.cardTitle} badge`}
+                                                    width={75}
+                                                    height={80}
+                                                    className="h-20 w-auto shrink-0"
+                                                />
+                                            )}
+                                        </div>
+                                        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                            {group.providers.map((alias, rank) => {
+                                                const provider = providers[alias];
+                                                if (!provider) return null;
+                                                return (
+                                                    <ProviderCard
+                                                        key={alias}
+                                                        provider={provider}
+                                                        rank={rank + 1}
+                                                        priority={index === 0}
+                                                    />
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                );
+                            })}
+
+                            {/* Notable mentions */}
+                            <div
+                                id="notable-mentions"
+                                className="mt-14 scroll-mt-24 border-t border-slate-200 pt-14"
+                            >
+                                {/* A slider, like goabroad.com's featured
+                                    provider rows: heading, badge, and
+                                    previous/next buttons over a snap-
+                                    scrolling track of the ten cards — the
+                                    same photo cards as the winners, minus
+                                    the place pill. */}
+                                <CardSlider
+                                    label="notable mentions"
+                                    header={
+                                        <>
+                                            <h4 className="text-xl font-bold tracking-tight text-neutral-800 sm:text-2xl">
+                                                {providersSection.notableHeading}
+                                            </h4>
+                                            <p className="mt-2 text-sm text-slate-500">
+                                                {notableMentions.length}{" "}
+                                                providers
+                                            </p>
+                                        </>
+                                    }
+                                    aside={
+                                        <Image
+                                            src={badgeUrl(
+                                                providersSection.notableBadge,
+                                            )}
+                                            alt={`GoAbroad Top Rated Provider ${year} – Notable Mention badge`}
+                                            width={80}
+                                            height={80}
+                                            className="h-20 w-auto shrink-0"
+                                        />
                                     }
                                 >
-                                    <div className="flex items-start justify-between gap-6">
-                                        <div>
-                                            <h4 className="text-xl font-bold tracking-tight text-neutral-800 sm:text-2xl">
-                                                {directory.providersHeading}
-                                            </h4>
-                                            <Link
-                                                href={`/top-rated-providers-programs/${directory.id}`}
-                                                className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-cobalt-500 transition-colors hover:text-cobalt-600"
-                                            >
-                                                See the Top Rated{" "}
-                                                {directory.cardTitle.replace(
-                                                    / Programs$/,
-                                                    "",
-                                                )}{" "}
-                                                Programs
-                                                <HiOutlineArrowRight
-                                                    aria-hidden
-                                                    className="h-4 w-4"
-                                                />
-                                            </Link>
-                                        </div>
-                                        {directory.badge && (
-                                            <Image
-                                                src={badgeUrl(directory.badge)}
-                                                alt={`GoAbroad Top Rated Provider ${year} – ${directory.cardTitle} badge`}
-                                                width={75}
-                                                height={80}
-                                                className="h-20 w-auto shrink-0"
-                                            />
-                                        )}
-                                    </div>
-                                    <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                                        {group.providers.map((alias, rank) => {
-                                            const provider = providers[alias];
-                                            if (!provider) return null;
-                                            return (
-                                                <ProviderCard
-                                                    key={alias}
-                                                    provider={provider}
-                                                    rank={rank + 1}
-                                                    priority={index === 0}
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            );
-                        })}
-
-                        {/* Notable mentions */}
-                        <div
-                            id="notable-mentions"
-                            className="mt-14 scroll-mt-24 border-t border-slate-200 pt-14"
-                        >
-                            <div className="flex items-start justify-between gap-6">
-                                <div>
-                                    <h4 className="text-xl font-bold tracking-tight text-neutral-800 sm:text-2xl">
-                                        {providersSection.notableHeading}
-                                    </h4>
-                                    <p className="mt-2 text-sm text-slate-500">
-                                        {notableMentions.length} providers
-                                    </p>
-                                </div>
-                                <Image
-                                    src={badgeUrl(providersSection.notableBadge)}
-                                    alt={`GoAbroad Top Rated Provider ${year} – Notable Mention badge`}
-                                    width={80}
-                                    height={80}
-                                    className="h-20 w-auto shrink-0"
-                                />
-                            </div>
-                            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-                                {notableMentions.map((alias) => {
-                                    const provider = providers[alias];
-                                    if (!provider) return null;
-                                    return (
-                                        <NotableCard
-                                            key={alias}
-                                            provider={provider}
-                                        />
-                                    );
-                                })}
+                                    {notableMentions.flatMap((alias) => {
+                                        const provider = providers[alias];
+                                        return provider
+                                            ? [
+                                                  <ProviderCard
+                                                      key={alias}
+                                                      provider={provider}
+                                                  />,
+                                              ]
+                                            : [];
+                                    })}
+                                </CardSlider>
                             </div>
                         </div>
                     </div>
@@ -220,13 +359,21 @@ export default function TopRatedProvidersProgramsPage() {
                 className="w-full scroll-mt-24 bg-slate-100"
             >
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 xl:px-0">
-                    <SectionHead
-                        kicker={previousYearsSection.kicker}
-                        title={previousYearsSection.heading}
-                    />
-                    <div className="mt-10">
-                        <ArchiveArticles links={previousYears} />
-                    </div>
+                    {/* The ten announcements as goabroad.com-style article
+                        cards in a slider, three per view. */}
+                    <CardSlider
+                        label="previous years"
+                        header={
+                            <SectionHead
+                                kicker={previousYearsSection.kicker}
+                                title={previousYearsSection.heading}
+                            />
+                        }
+                    >
+                        {previousYears.map((link) => (
+                            <ArchiveCard key={link.href} link={link} />
+                        ))}
+                    </CardSlider>
                 </div>
             </section>
 

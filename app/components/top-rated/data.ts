@@ -61,14 +61,6 @@ export const hero: {
     ],
 };
 
-/** Sticky jump strip. */
-export const sections = [
-    { id: "top-rated-programs", label: "Top Rated Programs" },
-    { id: "top-rated-providers", label: "Top Rated Providers" },
-    { id: "previous-years", label: "Previous Years" },
-    { id: "next-steps", label: "Next Steps" },
-];
-
 export const intro = {
     kicker: "How it works",
     heading: "What are the Top Rated Providers and Programs?",
@@ -112,51 +104,71 @@ export const previousYears: YearLink[] = [
         label: "Top Rated Providers of 2024",
         href: `${GOABROAD}/articles/top-rated-travel-providers-2024`,
         image: "program_content/IpNiddnQABpVRLb5cqUEpurYFMuDfR9GCx0ZVitG.jpg",
+        author: "GoAbroad Writing Team",
+        date: "2025-01-15",
     },
     {
         label: "Top Rated Providers of 2023",
         href: `${GOABROAD}/articles/top-rated-travel-providers-2023`,
         image: "program_content/682TfJlSQi6rjdiHlhHdWipjEtVmJ1mj8cgxCrRj.jpg",
+        author: "GoAbroad Writing Team",
+        date: "2024-01-19",
     },
     {
         label: "Top Rated Organizations & Programs of 2022",
         href: `${GOABROAD}/articles/top-rated-travel-organizations-2022`,
         image: "program_content/gge6GzPLfbcYUBIlziyM9qLYg76RXvHkjel2Zi6K.jpg",
+        author: "GoAbroad Writing Team",
+        date: "2023-01-17",
     },
     {
         label: "Top Rated Organizations & Programs of 2021",
         href: `${GOABROAD}/articles/top-rated-travel-organizations-2021`,
         image: "program_content/DBJV2zjxr5AHShOUVmaelvgKBYlfDD1WpeJJLtf6.jpg",
+        author: "GoAbroad Writing Team",
+        date: "2022-01-20",
     },
     {
         label: "Top Rated Organizations & Programs of 2020",
         href: `${GOABROAD}/articles/top-rated-organizations-2020`,
         image: "program_content/top-rated-travel-programs-2020-featured-image-1611036262.jpg",
+        author: "GoAbroad Writing Team",
+        date: "2021-01-22",
     },
     {
         label: "Top Rated Organizations & Programs of 2019",
         href: `${GOABROAD}/articles/top-rated-2019`,
         image: "program_content/cover-1579505816.png",
+        author: "GoAbroad Writing Team",
+        date: "2020-01-20",
     },
     {
         label: "Top Rated Organizations & Programs of 2018",
         href: `${GOABROAD}/articles/top-rated-2018-announcement`,
         image: "program_content/cover-1547629226.png",
+        author: "GoAbroad Writing Team",
+        date: "2019-01-17",
     },
     {
         label: "Top Rated Organizations & Programs of 2017",
         href: `${GOABROAD}/articles/top-rated-organizations-programs-2017`,
         image: "program_content/cover-1516185434.jpg",
+        author: "GoAbroad Writing Team",
+        date: "2018-01-17",
     },
     {
         label: "Top Rated Organizations & Programs of 2016",
         href: `${GOABROAD}/articles/top-rated-organizations-programs-of-2016`,
         image: "program_content/prime-top-rated-1485335160.png",
+        author: "GoAbroad Writing Team",
+        date: "2017-01-25",
     },
     {
         label: "Top Rated Organizations & Programs of 2015",
         href: `${GOABROAD}/articles/top-rated-organizations-programs-of-2015`,
         image: "program_content/prime-top-rated-1454575577.jpg",
+        author: "GoAbroad Writing Team",
+        date: "2016-02-05",
     },
 ];
 
@@ -769,6 +781,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.51,
         reviews: 439,
         logo: "JwjQjZvnaOouhFwN7ycjBabcbVfpCmJrpc7dEZBU.png",
+        photo: {
+            path: "listingphotos/standard/colorful-building-and-cherry-blossoms-in-taiwan1787752426.jpg",
+            alt: "Colorful building and cherry blossoms in Taiwan",
+        },
     },
     cisabroad: {
         alias: "cisabroad",
@@ -776,6 +792,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.22,
         reviews: 1576,
         logo: "logo0521201213376206715041117.jpg",
+        photo: {
+            path: "listingphotos/standard/japanese-traditional-tea-ceremony1759484273.jpg",
+            alt: "Japanese traditional tea ceremony",
+        },
     },
     "wild-at-tuli-safaris-botswana": {
         alias: "wild-at-tuli-safaris-botswana",
@@ -789,6 +809,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.93,
         reviews: 158,
         logo: "logo_41705_526977df099e51382643679.jpg",
+        photo: {
+            path: "listingphotos/standard/group-photo-of-volunteers-working-on-local-farm-in-hawaii1778595379.jpg",
+            alt: "Group photo of GIVE volunteers working on a local farm in Hawaii",
+        },
     },
     "asia-internship-programme": {
         alias: "asia-internship-programme",
@@ -796,6 +820,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.72,
         reviews: 717,
         logo: "goabroadavatar-1611563426.jpg",
+        photo: {
+            path: "listingphotos/standard/south-africa1776829914.jpg",
+            alt: "Asia Internship Program interns in South Africa",
+        },
     },
     "learning-beyond-academy": {
         alias: "learning-beyond-academy",
@@ -803,6 +831,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.52,
         reviews: 245,
         logo: "beyond-academy-1582179967.png",
+        photo: {
+            path: "listingphotos/standard/beyond-academy1761200547.jpg",
+            alt: "Beyond Academy interns",
+        },
     },
     cercaabroad: {
         alias: "cercaabroad",
@@ -810,6 +842,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.99,
         reviews: 129,
         logo: "bSW81lM0YrAbtgUj4NRHNivt1ebdhU4vCOqSofAX.jpg",
+        photo: {
+            path: "listingphotos/standard/tourism-hospitality-hotel-admin-culinary-internships1767960677.jpg",
+            alt: "Tourism and hospitality interns with Cerca Abroad",
+        },
     },
     "premier-tefl": {
         alias: "premier-tefl",
@@ -817,6 +853,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.63,
         reviews: 1992,
         logo: "3XrE0GDTBB6VpLT0Jvb5KqYDMt9QYaWrYaGUKTzh.png",
+        photo: {
+            path: "listingphotos/standard/south-korea-view1788363537.jpg",
+            alt: "A view in South Korea, where Premier TEFL places teachers",
+        },
     },
     "the-tefl-institute": {
         alias: "the-tefl-institute",
@@ -824,6 +864,10 @@ export const providers: Record<string, Provider> = {
         rating: 4.87,
         reviews: 645,
         logo: "aL5O2BvJaMj4RGqD2GGlWmTmsinhTSCMbrJDOg8X.png",
+        photo: {
+            path: "listingphotos/standard/tefl-teacher-visiting-gyeongbokgung-palace-in-seoul-during-a-weekend-trip-in-south-korea1780655053.jpg",
+            alt: "TEFL teacher visiting Gyeongbokgung Palace in Seoul on a weekend trip",
+        },
     },
 };
 
@@ -1908,3 +1952,12 @@ export const winnerCount = providerGroups.reduce(
     (n, group) => n + group.providers.length,
     0,
 );
+
+/* ── Previous years of the per-directory program lists ───────────────────── */
+
+/** Years with an archived Top Rated Programs list per directory, newest
+ *  first — each is a page at `/top-rated-providers-programs/<directory>/<year>`
+ *  (the requirement added after the doc: "page/links of previous year of per
+ *  directory top rated programs"). Dummy: three years back; the admin would
+ *  add a year each time the list rolls over. */
+export const programArchiveYears: number[] = [year - 1, year - 2, year - 3];

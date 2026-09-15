@@ -85,4 +85,8 @@ export type YearLink = {
     href: string;
     /** The article's own cover image (its og:image), as a path under `images2/`. */
     image?: string;
+    /** The article's byline, as published. */
+    author?: string;
+    /** The article's publish date, ISO 8601. */
+    date?: string;
 };
