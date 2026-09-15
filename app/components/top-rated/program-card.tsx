@@ -1,18 +1,18 @@
 import Image from "next/image";
-import { HiCheckBadge, HiOutlineArrowRight, HiOutlineMapPin } from "react-icons/hi2";
+import { HiMapPin, HiOutlineArrowRight } from "react-icons/hi2";
 import { logoUrl, photoUrl, programUrl } from "./cdn";
 import StarRating from "./rating";
 import type { TopRatedProgram } from "./types";
 
 /* A Top Rated Program on a directory page. The title is an H2, as the
-   requirements doc specifies for these cards. */
+   requirements doc specifies for these cards. The chip on the photo is the
+   destination — every card on the page is Top Rated, so saying so on each
+   one would be redundant (Jezi's call). */
 export default function ProgramCard({
     program,
-    year,
     priority = false,
 }: {
     program: TopRatedProgram;
-    year: number;
     priority?: boolean;
 }) {
     const href = programUrl(program);
@@ -34,10 +34,13 @@ export default function ProgramCard({
                         className="h-full w-full bg-linear-to-br from-cobalt-700 via-cobalt-600 to-cobalt-500"
                     />
                 )}
-                <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-md bg-sun-500 px-2.5 py-1 text-xs font-bold text-white shadow-sm">
-                    <HiCheckBadge aria-hidden className="h-4 w-4" />
-                    Top Rated {year}
-                </span>
+                <p className="absolute top-3 left-3 inline-flex max-w-[calc(100%-1.5rem)] items-center gap-1.5 rounded-md bg-white/95 px-2.5 py-1 text-xs font-bold text-cobalt-700 shadow-sm">
+                    <HiMapPin
+                        aria-hidden
+                        className="h-4 w-4 shrink-0 text-cobalt-500"
+                    />
+                    <span className="truncate">{program.destination}</span>
+                </p>
             </div>
             <div className="flex flex-1 flex-col gap-3 p-5">
                 <div className="flex items-center gap-2.5">
@@ -62,10 +65,6 @@ export default function ProgramCard({
                     </a>
                 </h2>
                 <StarRating rating={program.rating} reviews={program.reviews} />
-                <p className="flex items-center gap-1.5 text-sm text-slate-500">
-                    <HiOutlineMapPin aria-hidden className="h-4 w-4 shrink-0" />
-                    {program.destination}
-                </p>
                 <a
                     href={href}
                     target="_blank"
