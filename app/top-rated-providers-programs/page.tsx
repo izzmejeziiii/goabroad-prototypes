@@ -8,7 +8,6 @@ import {
     HiStar,
 } from "react-icons/hi2";
 import ArchiveCard from "../components/top-rated/archive-articles";
-import TopRatedBadge from "../components/top-rated/badge";
 import CardSlider from "../components/top-rated/card-slider";
 import { badgeUrl } from "../components/top-rated/cdn";
 import {
@@ -29,6 +28,7 @@ import DirectoryCard from "../components/top-rated/directory-card";
 import Hero from "../components/top-rated/hero";
 import HowItWorks from "../components/top-rated/how-it-works";
 import NextSteps from "../components/top-rated/next-steps";
+import ProgramBadge from "../components/top-rated/program-badge";
 import ProviderCard from "../components/top-rated/provider-card";
 import ProviderSideNav, {
     type SideNavItem,
@@ -177,14 +177,16 @@ export default function TopRatedProvidersProgramsPage() {
                             />
                         ))}
                         {/* Eleven cards leave a hole at the end of the grid —
-                            a badge card closes it rather than a gap. */}
+                            a badge card closes it rather than a gap. It
+                            carries the Top Rated PROGRAMS badge (this is the
+                            programs section) with the live year. */}
                         <div
                             aria-hidden
                             className="flex h-full flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-cobalt-500/30 bg-slate-100 p-6 text-center"
                         >
-                            <TopRatedBadge
+                            <ProgramBadge
                                 year={year}
-                                className="w-[40%] drop-shadow-md"
+                                className="w-[46%] drop-shadow-md"
                             />
                             <p className="text-sm leading-snug font-semibold text-cobalt-700 sm:text-base">
                                 Every badge is earned from verified participant
