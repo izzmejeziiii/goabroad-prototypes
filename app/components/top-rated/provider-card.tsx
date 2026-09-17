@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HiOutlineArrowRight, HiTrophy } from "react-icons/hi2";
+import { HiOutlineArrowRight } from "react-icons/hi2";
 import TopRatedBadge from "./badge";
 import { logoUrl, photoUrl, providerReviewsUrl } from "./cdn";
 import { year } from "./data";
@@ -46,80 +46,20 @@ function Monogram({ name, className }: { name: string; className: string }) {
     );
 }
 
-const ordinals: Record<number, string> = { 1: "st", 2: "nd", 3: "rd" };
-
-/* Gold, silver, bronze as the metals actually look — a light-to-dark sheen
-   on each disc — with a white trophy embossed on top. These are the one
-   place the page steps outside the brand palette, because a sun-coloured
-   "gold" and a slate "silver" didn't read as medals. Anything past third
-   (the doc lists three per directory) falls back to a neutral disc. */
-const medalStyles: Record<number, string> = {
-    1: "bg-linear-to-br from-[#f6d565] via-[#e2b53a] to-[#b9871a] text-white",
-    2: "bg-linear-to-br from-[#eef0f3] via-[#c3c7cd] to-[#8f949c] text-white",
-    3: "bg-linear-to-br from-[#e6a873] via-[#c9803f] to-[#96561f] text-white",
-};
-
-/* The trophy on its metal disc, on its own — the place pills use it, and so
-   does the podium legend beside the providers heading. */
-export function MedalDisc({
-    rank,
-    className = "h-7 w-7",
-    iconClassName = "h-4 w-4",
-}: {
-    rank: number;
-    className?: string;
-    iconClassName?: string;
-}) {
-    return (
-        <span
-            aria-hidden
-            className={`flex items-center justify-center rounded-full shadow-inner ${
-                medalStyles[rank] ?? "bg-slate-200 text-slate-800"
-            } ${className}`}
-        >
-            <HiTrophy className={`drop-shadow-sm ${iconClassName}`} />
-        </span>
-    );
-}
-
-/* A place pill: "1st place" in a solid white pill, headed by a trophy on a
-   gold, silver, or bronze disc, so the three cards in a group read as a
-   podium rather than a numbered list. */
-export function RankBadge({
-    rank,
-    className,
-}: {
-    rank: number;
-    className?: string;
-}) {
-    const suffix = ordinals[rank] ?? "th";
-    return (
-        <span
-            className={`inline-flex items-center gap-2 rounded-full bg-white py-1 pr-3.5 pl-1 text-sm font-bold text-neutral-900 shadow-lg shadow-black/25 ring-1 ring-black/10 ${className ?? ""}`}
-        >
-            <MedalDisc rank={rank} />
-            <span>
-                <span className="sr-only">Ranked </span>
-                {rank}
-                {suffix} place
-            </span>
-        </span>
-    );
-}
-
-/* One Top Rated Provider, laid out like a profile card: gallery photo with the
-   rank as a place pill, the logo as an avatar tile straddling the photo's
-   bottom edge, name and rating, and a full-width footer row that reads "Read
-   Reviews". The whole card is the link into the reviews section of the
-   provider page. `rank` is the position in the directory's list, which the
-   requirements doc numbers 1–3. */
+/* One Top Rated Provider, laid out like a profile card: gallery photo, the
+   logo as an avatar tile straddling the photo's bottom edge, name, stars
+   with the rating, the opening of the provider's own description, and a
+   full-width footer row that reads "Read Reviews". The whole card is the
+   link into the reviews section of the provider page. Feedback on the
+   prototype took off the "1st/2nd/3rd place" pills (the doc's lists are
+   still in order, but the page doesn't rank them) and the review counts,
+   and asked for the company intro in their place. Used for the winners and
+   the notable mentions alike. */
 export default function ProviderCard({
     provider,
-    rank,
     priority = false,
 }: {
     provider: Provider;
-    rank?: number;
     priority?: boolean;
 }) {
     const reviewsHref = providerReviewsUrl(provider.alias);
@@ -147,25 +87,11 @@ export default function ProviderCard({
                 ) : (
                     <PhotoFallback />
                 )}
-                {/* Soft cobalt foot so the avatar tile reads against any
-                    photo, and — when there is a place pill — a lighter head
-                    so the pill does too. */}
+                {/* Soft cobalt foot so the avatar tile reads against any photo. */}
                 <div
                     aria-hidden
                     className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-cobalt-700/45 to-transparent"
                 />
-                {rank !== undefined && (
-                    <>
-                        <div
-                            aria-hidden
-                            className="absolute inset-x-0 top-0 h-2/5 bg-linear-to-b from-cobalt-700/40 to-transparent"
-                        />
-                        <RankBadge
-                            rank={rank}
-                            className="absolute top-3 left-3"
-                        />
-                    </>
-                )}
             </div>
 
             <div className="relative flex flex-1 flex-col px-5 pb-5">
@@ -189,9 +115,14 @@ export default function ProviderCard({
                 <h5 className="text-lg leading-snug font-semibold text-neutral-800 transition-colors group-hover:text-cobalt-600">
                     {provider.name}
                 </h5>
-                <div className="mt-3">
-                    <StarRating rating={provider.rating} reviews={provider.reviews} />
+                <div className="mt-2">
+                    <StarRating rating={provider.rating} />
                 </div>
+                {provider.description && (
+                    <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-600">
+                        {provider.description}
+                    </p>
+                )}
             </div>
 
             <div className="relative mt-auto flex items-center justify-between border-t border-slate-100 px-5 py-3.5 text-sm font-semibold text-cobalt-500 transition-colors group-hover:bg-slate-50">

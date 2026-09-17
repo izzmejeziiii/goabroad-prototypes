@@ -2,9 +2,10 @@ import { HiStar } from "react-icons/hi2";
 
 const format = new Intl.NumberFormat("en-US");
 
-/* Five stars with a fractional sun-coloured fill, the numeric rating, and the
-   review count — the same three facts the directory's program cards show,
-   drawn a little larger because here the rating is the point of the card. */
+/* Five stars with a fractional sun-coloured fill, the numeric rating, and —
+   when given — the review count, drawn a little larger because here the
+   rating is the point of the card. Provider cards leave the count out
+   (feedback on the prototype: "just leave the rating and stars"). */
 export default function StarRating({
     rating,
     reviews,
@@ -12,7 +13,7 @@ export default function StarRating({
     stacked = false,
 }: {
     rating: number;
-    reviews: number;
+    reviews?: number;
     /** Tighter layout for the notable-mention cards. */
     compact?: boolean;
     /** Review count always on its own line under the stars, centred — for
@@ -53,13 +54,16 @@ export default function StarRating({
             >
                 {rating.toFixed(2)}
             </span>
-            <span
-                className={`text-slate-500 ${compact ? "text-xs" : "text-sm"} ${
-                    stacked ? "basis-full" : ""
-                }`}
-            >
-                ({format.format(reviews)} {reviews === 1 ? "review" : "reviews"})
-            </span>
+            {reviews !== undefined && (
+                <span
+                    className={`text-slate-500 ${compact ? "text-xs" : "text-sm"} ${
+                        stacked ? "basis-full" : ""
+                    }`}
+                >
+                    ({format.format(reviews)}{" "}
+                    {reviews === 1 ? "review" : "reviews"})
+                </span>
+            )}
         </div>
     );
 }

@@ -56,6 +56,8 @@ export type Provider = {
     logo?: string;
     /** First photo in the provider's media gallery. */
     photo?: CdnPhoto;
+    /** Opening of the provider's own "About" copy on goabroad.com. */
+    description?: string;
 };
 
 export type TopRatedProgram = {

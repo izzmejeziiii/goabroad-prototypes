@@ -282,14 +282,13 @@ export default function TopRatedProvidersProgramsPage() {
                                             )}
                                         </div>
                                         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                                            {group.providers.map((alias, rank) => {
+                                            {group.providers.map((alias) => {
                                                 const provider = providers[alias];
                                                 if (!provider) return null;
                                                 return (
                                                     <ProviderCard
                                                         key={alias}
                                                         provider={provider}
-                                                        rank={rank + 1}
                                                         priority={index === 0}
                                                     />
                                                 );

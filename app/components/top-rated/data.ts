@@ -446,6 +446,8 @@ export const providers: Record<string, Provider> = {
         name: "Arcos Learning Abroad",
         rating: 4.77,
         reviews: 677,
+        description:
+            "Arcos Learning Abroad is a global education community focused on providing study abroad programs to participants from throughout the world.",
         logo: "arcos-la-01-1600657378.png",
         photo: {
             path: "listingphotos/standard/students-santiago-de-compostela1704054009.jpg",
@@ -457,6 +459,8 @@ export const providers: Record<string, Provider> = {
         name: "University Studies Abroad Consortium",
         rating: 4.38,
         reviews: 1693,
+        description:
+            "The University Studies Abroad Consortium (USAC) provides university students with affordable, valuable study abroad programs, and contributes to the internationalization of universities in the United States and abroad.",
         logo: "AeMvAwNjFiSS9IMB5t2ZKNvuwh28C2GVzuzltcgb.png",
         photo: {
             path: "listingphotos/standard/students-holding-sign1769121704.jpg",
@@ -468,6 +472,8 @@ export const providers: Record<string, Provider> = {
         name: "Therapy Abroad Inc.",
         rating: 4.68,
         reviews: 279,
+        description:
+            "Therapy Abroad is unique! No other program offers group travel and faculty-led programs with structured, professional experiences designed exclusively for those interested in speech-language pathology, audiology, physical therapy,…",
         logo: "0VCMwP5Pr6edNBGMCpG3ZASMPjt7drTyAyOqU1cy.png",
         photo: {
             path: "listingphotos/standard/81752658033.jpg",
@@ -479,6 +485,8 @@ export const providers: Record<string, Provider> = {
         name: "Intern Abroad HQ",
         rating: 4.7,
         reviews: 1192,
+        description:
+            "Whether you're a student, recent graduate, or young professional, our international internships are designed to help you stand out and land your dream job.",
         logo: "5sz4mirJRxPumUQESB1GqVffXrehOS0fcnZs5z7U.png",
         photo: {
             path: "listingphotos/standard/iahq-interns-sitting-on-a-bench-taking-a-group-photo1784160663.jpg",
@@ -490,6 +498,8 @@ export const providers: Record<string, Provider> = {
         name: "Go Abroad China Ltd.",
         rating: 4.7,
         reviews: 569,
+        description:
+            "Launch your global career with Go Abroad China's 22 years of expertise. We've placed 4,000+ students from 50+ countries in internship placements and Mandarin programs across Asia.",
         logo: "WtuBJgUnigfCiEeJouYYRrRnJ1dqaRh9FmcJxjMA.png",
         photo: {
             path: "listingphotos/standard/participants-in-activity1787746372.jpg",
@@ -501,6 +511,8 @@ export const providers: Record<string, Provider> = {
         name: "International Medical Aid (IMA)",
         rating: 4.97,
         reviews: 411,
+        description:
+            "International Medical Aid (IMA) is a distinguished nonprofit organization standing at the forefront of global healthcare study-abroad endeavors.",
         logo: "inter2-1457107573.png",
         photo: {
             path: "listingphotos/standard/international-medical-aid-ima1763716138.jpg",
@@ -512,6 +524,8 @@ export const providers: Record<string, Provider> = {
         name: "MAXIMO NIVEL",
         rating: 4.69,
         reviews: 3238,
+        description:
+            "Maximo Nivel is a leading educational travel and study abroad organization. We offer a range of programs in Costa Rica, Guatemala, and Peru, including Volunteer Abroad, International Internships, Native Spanish Program, TEFL Certification,…",
         logo: "logo-goabroad-final-1535591337.png",
         photo: {
             path: "listingphotos/standard/maximo-nivel-internship-in-latin-america1787915949.jpg",
@@ -523,6 +537,8 @@ export const providers: Record<string, Provider> = {
         name: "International Volunteer HQ (IVHQ)",
         rating: 4.7,
         reviews: 2203,
+        description:
+            "International Volunteer HQ welcomes people from all backgrounds who want to make a meaningful difference while enjoying the adventure of a lifetime.",
         logo: "b7aQwxqKkTQs1TCbQKDnmQAVGPjGCilE6Nj4ktx5.jpg",
         photo: {
             path: "listingphotos/standard/a-person-in-a-vehicle-watches-elephants-on-a-savanna1776827218.jpg",
@@ -534,6 +550,8 @@ export const providers: Record<string, Provider> = {
         name: "GoEco",
         rating: 4.8,
         reviews: 920,
+        description:
+            "GoEco is one of the world's top volunteer organizations, with award-winning programs that are carefully chosen by the company's founding sustainable travel experts.",
         logo: "volunteer-abroad-logo-goeco-1628821098.png",
         photo: {
             path: "listingphotos/standard/south-africa-sardine-run-ocean-expedition1784705377.jpg",
@@ -545,6 +563,8 @@ export const providers: Record<string, Provider> = {
         name: "International TEFL Academy",
         rating: 4.68,
         reviews: 3833,
+        description:
+            "International TEFL Academy (ITA), established in 2010, is the world's leading provider of TEFL certification training for English teaching abroad and online.",
         logo: "download-1512589034.png",
         photo: {
             path: "listingphotos/standard/teaching-english-in-myanmar1727375539.jpg",
@@ -556,6 +576,8 @@ export const providers: Record<string, Provider> = {
         name: "The TEFL Academy",
         rating: 4.57,
         reviews: 2045,
+        description:
+            "The TEFL Academy is one of the major organizations offering teaching English as a foreign language courses online and in classrooms all around the world.",
         logo: "rsz-tta-new-logo-1600257009.png",
         photo: {
             path: "listingphotos/standard/limerick8-9june2019-1564049611.jpg",
@@ -567,6 +589,8 @@ export const providers: Record<string, Provider> = {
         name: "The TEFL Org",
         rating: 4.59,
         reviews: 447,
+        description:
+            "Gain your internationally recognized TEFL qualification with The TEFL Org, the world’s most accredited TEFL course provider.",
         logo: "FczsRFaHv6WrlcO7sAt01nmS8g64ThwLiEqnj4Za.png",
         photo: {
             path: "listingphotos/standard/man-smiles-and-waves-to-the-camera-while-taking-selfie-with-a-classroom-of-students-behind-him1777461954.jpg",
@@ -578,6 +602,8 @@ export const providers: Record<string, Provider> = {
         name: "That's Mandarin",
         rating: 4.95,
         reviews: 953,
+        description:
+            "Established in 2005, That’s Mandarin has been committed to providing exceptional Chinese language education for 20 years, serving a diverse community of over 200,000 students from all over the world.",
         logo: "ebymADHM72Y8pszdqK4NtpefsEwrzzHXLT2crwbe.png",
         photo: {
             path: "listingphotos/standard/chinese-summer-camp1727050682.jpg",
@@ -589,6 +615,8 @@ export const providers: Record<string, Provider> = {
         name: "LTL Language School",
         rating: 4.75,
         reviews: 685,
+        description:
+            "LTL Language School believes that language study should not be limited to the classroom. For us, learning Mandarin, Japanese, Korean, or any other language means fully immersing ourselves in the country and the culture from day one.",
         logo: "JAScUUcULVN66sTeXdzkrCH2lcRxwheyqghwc0YU.png",
         photo: {
             path: "listingphotos/standard/ltl-shanghai-students1785301770.jpg",
@@ -600,6 +628,8 @@ export const providers: Record<string, Provider> = {
         name: "Meiji Academy",
         rating: 4.86,
         reviews: 494,
+        description:
+            "Meiji Academy, established in 2014, is a Japanese language school that opened its doors to international students interested in learning the Japanese language.",
         logo: "dypFvEKMiw1npI7YKQyHX557OZAqHfLGejj01qOc.png",
         photo: {
             path: "listingphotos/standard/cooking-workshop1750402975.jpg",
@@ -611,6 +641,8 @@ export const providers: Record<string, Provider> = {
         name: "VACorps",
         rating: 4.8,
         reviews: 650,
+        description:
+            "VAC offers superior internship placements in Cape Town, South Africa. We commit all of our energy to one purpose – helping our program participants to have a professionally and personally rewarding internship experience in Cape Town.",
         logo: "ZJUKR1DjtTJ0y3hb3WyV32z9rn5e029SY1GV9nlq.png",
         photo: {
             path: "listingphotos/standard/gap-year1785708827.jpg",
@@ -622,6 +654,8 @@ export const providers: Record<string, Provider> = {
         name: "Quest",
         rating: 4.56,
         reviews: 25,
+        description:
+            "QUEST is a human development program disguised as an African adventure. Our approach is simple and demanding: take young adults out of the classroom and into the real world, where they are tested by challenge, shaped by community, and…",
         logo: "CjaJJmuq7CKsyU4RwHHwDtZbSjaKYHBinBLOQ1Bl.png",
         photo: {
             path: "listingphotos/standard/a-group-of-hikers-with-colorful-backpacks-huddle-together-appearing-focused-and-engaged-in-conversation-against-a-cloudy-mountain-backdrop1758906928.png",
@@ -633,6 +667,8 @@ export const providers: Record<string, Provider> = {
         name: "Pacific Discovery",
         rating: 4.51,
         reviews: 295,
+        description:
+            "Join us on an overland journey of discovery, and get immersed in a facilitated learning environment that is designed to maximize the educational and life-skills potential for our participants.",
         logo: "logo-for-go-abroad-1538952256.jpg",
         photo: {
             path: "listingphotos/standard/tokyo1760570596.jpg",
@@ -644,6 +680,8 @@ export const providers: Record<string, Provider> = {
         name: "The Language House TEFL",
         rating: 4.86,
         reviews: 370,
+        description:
+            "The Language House TEFL in Prague is the most popular TEFL certification course in the Czech Republic, one of the largest in Europe, and one of the most highly-reviewed TEFL organizations in the world.",
         logo: "Rb8tY3OLL5zcbCFj1r8vJczBoxoikw1idtmFrt3Q.png",
         photo: {
             path: "listingphotos/standard/the-language-house-tefl1778552142.png",
@@ -655,6 +693,8 @@ export const providers: Record<string, Provider> = {
         name: "RVF International",
         rating: 4.46,
         reviews: 56,
+        description:
+            "RVF International was founded in 2015 by Harrison Fowler after his own experience teaching English in Spain.",
         logo: "y1pi6hLx8hUXLtfDCXnrMNEAWhtAah2sIUvO8yVy.png",
         photo: {
             path: "listingphotos/standard/rvf-international-south-korea1778656672.jpg",
@@ -666,6 +706,8 @@ export const providers: Record<string, Provider> = {
         name: "Teach Explore Asia (XploreAsia)",
         rating: 4.53,
         reviews: 612,
+        description:
+            "XploreAsia is a cross-cultural adventure organization that enables participants to enjoy the life-changing experience of living and working abroad and giving back to local communities through cultural exchange and volunteerism.",
         logo: "logo_41601_526bce4b7147f1382796875.jpg",
         photo: {
             path: "listingphotos/standard/matt-and-elyssa-team-teaching-at-a-local-school-in-hua-hin-96100.jpg",
@@ -677,6 +719,8 @@ export const providers: Record<string, Provider> = {
         name: "Arcos Journeys Abroad",
         rating: 4.8,
         reviews: 414,
+        description:
+            "Arcos Journeys Abroad, a division of Arcos Learning Abroad, is committed to serving and working with students under 18 years old.",
         logo: "arcos-ja-01-1632115523.jpg",
         photo: {
             path: "listingphotos/standard/arcos-journeys-abroad1784773108.jpg",
@@ -688,6 +732,8 @@ export const providers: Record<string, Provider> = {
         name: "CIEE High School Abroad",
         rating: 4.29,
         reviews: 112,
+        description:
+            "With CIEE Global Navigator High School programs, the possibilities are endless. As a U.S. high school student, you can study abroad from as little as three weeks in the summer to an entire semester or academic year.",
         logo: "ibzGBHzpszqupyLzDpjMmUasXGPW4MgA3Atyf7pc.png",
         photo: {
             path: "listingphotos/standard/students-touring-croke-park1782849165.jpg",
@@ -699,6 +745,8 @@ export const providers: Record<string, Provider> = {
         name: "Global Leadership Adventures",
         rating: 4.82,
         reviews: 261,
+        description:
+            "Global Leadership Adventures (GLA) offers life-changing international volunteer and internship programs for high school students in countries worldwide.",
         logo: "1290608881_glalogo.jpg",
         photo: {
             path: "listingphotos/standard/gla-cr1760895297.jpg",
@@ -710,6 +758,8 @@ export const providers: Record<string, Provider> = {
         name: "John Cabot University",
         rating: 4.24,
         reviews: 579,
+        description:
+            "John Cabot University is a prestigious American-style liberal arts institution situated in Rome, Italy.",
         logo: "kJpW9vPaQ0C6kSKYJIQKHyDbJcWp2svSwoLqQnEg.jpg",
         photo: {
             path: "a/LF/9TF3vi6R10Mfza7e4CSJ3oE89ot9HFzNma0vELVf.jpg",
@@ -721,6 +771,8 @@ export const providers: Record<string, Provider> = {
         name: "Tel Aviv University",
         rating: 4.22,
         reviews: 45,
+        description:
+            "Tel Aviv University (TAU), Israel's most comprehensive institution of higher learning, has over 30,000 students and 1,200 researchers in nine faculties, and over 125 schools and departments across sciences, humanities, and the arts.",
         logo: "4uuSFqTreA4UdanTWsjsSoQxFyRYrO8w6HbEVTWo.png",
         photo: {
             path: "listingphotos/standard/students-on-a-trip-to-haifa1672218791.jpg",
@@ -732,6 +784,8 @@ export const providers: Record<string, Provider> = {
         name: "University of New York in Prague",
         rating: 4.36,
         reviews: 25,
+        description:
+            "UNYP: A Unique International University Founded in 1998, the University of New York in Prague (UNYP) is one of the largest English-language higher education institutions in the Czech Republic.",
         logo: "VBtYe4RHMk630aRynkZ9iPQ9f8zCozsqSqFXlvgV.png",
         photo: {
             path: "listingphotos/standard/unyp1757987055.jpg",
@@ -743,6 +797,8 @@ export const providers: Record<string, Provider> = {
         name: "Travel For Teens",
         rating: 4.78,
         reviews: 370,
+        description:
+            "Travel For Teens is a program provider that believes that teen travel should be both enriching and fun. TFT offers a full range of travel experiences that teens can choose from to create their own ideal international experience.",
         logo: "icon-1572552669.png",
         photo: {
             path: "listingphotos/standard/travel-for-teens1764229128.jpg",
@@ -754,12 +810,16 @@ export const providers: Record<string, Provider> = {
         name: "Warriors Academy",
         rating: 4.46,
         reviews: 99,
+        description:
+            "The Warriors Academy, founded in 2004 by Rudi and Rene Viljoen, is located in South Africa's picturesque Magoebaskloof mountains.",
     },
     "rustic-pathways": {
         alias: "rustic-pathways",
         name: "Rustic Pathways",
         rating: 4.7,
         reviews: 202,
+        description:
+            "Rustic Pathways is an educational travel company founded in 1983. It runs cultural immersion, service-learning, and adventure programs in 38 countries for students ages 14 to 18 and has served 155,829 students from 53 countries.",
         logo: "U9gJmHVlKQIURr36OxVRuCrb98gCeDnXb2Qo175W.png",
         photo: {
             path: "listingphotos/standard/two-friends-walk-on-a-boardwalk-under-palm-trees-in-belize1784851467.jpg",
@@ -773,6 +833,8 @@ export const providers: Record<string, Provider> = {
         name: "Loop Abroad",
         rating: 4.91,
         reviews: 1037,
+        description:
+            "Started in 2009 with nine students and one elephant in Chiang Mai, Thailand, Loop Abroad now welcomes hundreds of students over dozens of programs with an uncompromising focus on supporting animals in need and partnering only with ethical,…",
         logo: "loop-abroad-logo-1602049892.png",
     },
     "sit-study-abroad": {
@@ -780,6 +842,8 @@ export const providers: Record<string, Provider> = {
         name: "SIT Study Abroad",
         rating: 4.51,
         reviews: 439,
+        description:
+            "SIT Study Abroad offers semester and summer undergraduate programs in Africa, Europe, Latin America, Asia and the Pacific, and the Middle East.",
         logo: "JwjQjZvnaOouhFwN7ycjBabcbVfpCmJrpc7dEZBU.png",
         photo: {
             path: "listingphotos/standard/colorful-building-and-cherry-blossoms-in-taiwan1787752426.jpg",
@@ -791,6 +855,8 @@ export const providers: Record<string, Provider> = {
         name: "CIS Abroad",
         rating: 4.22,
         reviews: 1576,
+        description:
+            "CIS Abroad is a company dedicated to creating a more connected and compassionate world through international experiences.",
         logo: "logo0521201213376206715041117.jpg",
         photo: {
             path: "listingphotos/standard/japanese-traditional-tea-ceremony1759484273.jpg",
@@ -802,12 +868,16 @@ export const providers: Record<string, Provider> = {
         name: "Wild at Tuli Safaris",
         rating: 5,
         reviews: 59,
+        description:
+            "Wild At Tuli Safaris is based in the Tuli Block in south eastern Botswana. Run by Helena Fitchat and Judi Gounaris, two women with a great sense of adventure and an undying passion for the African wilderness, you have the opportunity to…",
     },
     "growth-international-volunteer-excursions": {
         alias: "growth-international-volunteer-excursions",
         name: "GIVE Volunteers",
         rating: 4.93,
         reviews: 158,
+        description:
+            "GIVE is a grassroots, Seattle-based organization that offers responsible travel and volunteer programs that transform the lives of its participants, igniting new passions and inspiring incredible personal growth.",
         logo: "logo_41705_526977df099e51382643679.jpg",
         photo: {
             path: "listingphotos/standard/group-photo-of-volunteers-working-on-local-farm-in-hawaii1778595379.jpg",
@@ -819,6 +889,8 @@ export const providers: Record<string, Provider> = {
         name: "Asia Internship Program",
         rating: 4.72,
         reviews: 717,
+        description:
+            "Founded in 2011, Asia Internship Program (AIP) facilitates customized international internships designed to help individuals develop practical professional experience.",
         logo: "goabroadavatar-1611563426.jpg",
         photo: {
             path: "listingphotos/standard/south-africa1776829914.jpg",
@@ -830,6 +902,8 @@ export const providers: Record<string, Provider> = {
         name: "Beyond Academy",
         rating: 4.52,
         reviews: 245,
+        description:
+            "Beyond Academy is one of the world’s top-rated providers of international internships.",
         logo: "beyond-academy-1582179967.png",
         photo: {
             path: "listingphotos/standard/beyond-academy1761200547.jpg",
@@ -841,6 +915,8 @@ export const providers: Record<string, Provider> = {
         name: "Cerca Abroad",
         rating: 4.99,
         reviews: 129,
+        description:
+            "Cerca Abroad offers transformative study and internship programs for students who want to gain professional experience while exploring the world.",
         logo: "bSW81lM0YrAbtgUj4NRHNivt1ebdhU4vCOqSofAX.jpg",
         photo: {
             path: "listingphotos/standard/tourism-hospitality-hotel-admin-culinary-internships1767960677.jpg",
@@ -852,6 +928,8 @@ export const providers: Record<string, Provider> = {
         name: "Premier TEFL",
         rating: 4.63,
         reviews: 1992,
+        description:
+            "With more than 30 years of combined experience in the English teaching and TEFL space, Premier TEFL offers fully accredited options for TEFL (Teaching English as a Foreign Language) certification, IELTS (International English Language…",
         logo: "3XrE0GDTBB6VpLT0Jvb5KqYDMt9QYaWrYaGUKTzh.png",
         photo: {
             path: "listingphotos/standard/south-korea-view1788363537.jpg",
@@ -863,6 +941,8 @@ export const providers: Record<string, Provider> = {
         name: "The TEFL Institute",
         rating: 4.87,
         reviews: 645,
+        description:
+            "Ready to launch a career that lets you work from anywhere, make a global impact, and level up your résumé?",
         logo: "aL5O2BvJaMj4RGqD2GGlWmTmsinhTSCMbrJDOg8X.png",
         photo: {
             path: "listingphotos/standard/tefl-teacher-visiting-gyeongbokgung-palace-in-seoul-during-a-weekend-trip-in-south-korea1780655053.jpg",
