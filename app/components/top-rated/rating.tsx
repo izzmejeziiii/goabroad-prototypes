@@ -4,8 +4,9 @@ const format = new Intl.NumberFormat("en-US");
 
 /* Five stars with a fractional sun-coloured fill, the numeric rating, and —
    when given — the review count, drawn a little larger because here the
-   rating is the point of the card. Provider cards leave the count out
-   (feedback on the prototype: "just leave the rating and stars"). */
+   rating is the point of the card. Provider and program cards both leave
+   the count out (feedback on the prototype: "just leave the rating and
+   stars"). */
 export default function StarRating({
     rating,
     reviews,

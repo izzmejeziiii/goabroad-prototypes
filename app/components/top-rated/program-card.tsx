@@ -7,7 +7,8 @@ import type { TopRatedProgram } from "./types";
 /* A Top Rated Program on a directory page. The title is an H2, as the
    requirements doc specifies for these cards. The chip on the photo is the
    destination — every card on the page is Top Rated, so saying so on each
-   one would be redundant (Jezi's call). */
+   one would be redundant (Jezi's call). Stars and rating only, no review
+   count, matching the provider cards after stakeholder feedback. */
 export default function ProgramCard({
     program,
     priority = false,
@@ -64,7 +65,7 @@ export default function ProgramCard({
                         {program.title}
                     </a>
                 </h2>
-                <StarRating rating={program.rating} reviews={program.reviews} />
+                <StarRating rating={program.rating} />
                 <a
                     href={href}
                     target="_blank"
