@@ -1,21 +1,23 @@
 import Link from "next/link";
 import { HiOutlineArrowRight } from "react-icons/hi2";
-import TopRatedBadge from "./badge";
+import ProgramBadge from "./program-badge";
 
 /* One year of a directory's Top Rated Programs list, as a badge card: the
-   real Top Rated badge wearing that year (the year is drawn over the
-   year-less artwork, so every card gets its own) on the page's dotted slate
-   band with a sun glow, the list's title beneath, and "View the list". The
-   current year carries a sun "Current" chip. Replaced a plain card with a
-   big cobalt numeral (Jezi: "try another design that still aligns with
-   goabroad"). */
+   Top Rated Programs badge for this category wearing that year, on the
+   page's dotted slate band with a sun glow, the list's title beneath, and
+   "View the list". The current year carries a sun "Current" chip. Replaced
+   a plain card with a big cobalt numeral (Jezi: "try another design that
+   still aligns with goabroad"). */
 export default function YearCard({
     year,
+    category,
     title,
     href,
     current = false,
 }: {
     year: number;
+    /** The directory's name for the badge ribbon, e.g. "Teach Abroad". */
+    category: string;
     title: string;
     href: string;
     current?: boolean;
@@ -34,9 +36,10 @@ export default function YearCard({
                     aria-hidden
                     className="absolute top-1/2 left-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sun-500/25 blur-2xl"
                 />
-                <TopRatedBadge
+                <ProgramBadge
+                    category={category}
                     year={year}
-                    className="relative mx-auto w-24 drop-shadow-xl transition-transform group-hover:-rotate-3"
+                    className="relative mx-auto w-36 drop-shadow-xl transition-transform group-hover:-rotate-3"
                 />
                 {current && (
                     <span className="absolute top-3 right-3 rounded-full bg-sun-500 px-2.5 py-1 text-[11px] font-bold tracking-wider text-cobalt-700 uppercase shadow-sm">

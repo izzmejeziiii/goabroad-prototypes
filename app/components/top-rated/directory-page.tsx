@@ -9,7 +9,6 @@ import {
     HiOutlineArrowRight,
     HiStar,
 } from "react-icons/hi2";
-import TopRatedBadge from "./badge";
 import { photoUrl } from "./cdn";
 import {
     directories,
@@ -21,6 +20,7 @@ import {
 import CardSlider from "./card-slider";
 import DirectoryCard from "./directory-card";
 import NextSteps from "./next-steps";
+import ProgramBadge from "./program-badge";
 import ProgramCard from "./program-card";
 import SectionHead from "./section-head";
 import type { Directory } from "./types";
@@ -286,9 +286,10 @@ export default function DirectoryPageView({
                                         aria-hidden
                                         className="absolute top-1/2 left-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sun-500/25 blur-2xl"
                                     />
-                                    <TopRatedBadge
+                                    <ProgramBadge
+                                        category={directory.cardTitle}
                                         year={year}
-                                        className="relative mx-auto w-28 drop-shadow-xl"
+                                        className="relative mx-auto w-44 drop-shadow-xl"
                                     />
                                 </div>
                                 <div className="px-6 pt-5 pb-7 sm:px-7">
@@ -359,6 +360,7 @@ export default function DirectoryPageView({
                             <li key={y}>
                                 <YearCard
                                     year={y}
+                                    category={directory.cardTitle}
                                     title={titleForYear(directory, y)}
                                     href={directoryPath(directory, y)}
                                     current={y === year}
