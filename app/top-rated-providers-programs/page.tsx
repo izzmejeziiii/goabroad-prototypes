@@ -373,6 +373,7 @@ export default function TopRatedProvidersProgramsPage() {
             </section>
 
             <NextSteps id="next-steps" />
+            <BackToTop />
         </div>
     );
 }

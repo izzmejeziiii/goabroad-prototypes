@@ -9,6 +9,7 @@ import {
     HiOutlineArrowRight,
     HiStar,
 } from "react-icons/hi2";
+import BackToTop from "./back-to-top";
 import { photoUrl } from "./cdn";
 import {
     directories,
@@ -419,6 +420,7 @@ export default function DirectoryPageView({
             </section>
 
             <NextSteps />
+            <BackToTop />
         </div>
     );
 }
