@@ -18,16 +18,29 @@ const BADGE = {
     red: "#ca4545",
 };
 
+/* Year-less artwork from the design team, all on the same 568×609 shield
+   with the ribbon at y=290–396, so one year geometry fits every variant.
+   `generic` is the plain "TOP RATED" badge; the category variants are for
+   categories GoAbroad's CDN has no dated badge for. */
+const ART = {
+    generic: "/images/top-rated/badge.png",
+    "degree-abroad": "/images/top-rated/provider-badge-degree-abroad.png",
+} as const;
+
+export type BadgeVariant = keyof typeof ART;
+
 /* GoAbroad's Top Rated badge with the year rendered live on top of the
    year-less artwork, so the page can roll over each year without a new image.
    Sized by the className; scales as one piece because the text lives inside
    the SVG's viewBox. */
 export default function TopRatedBadge({
     year,
+    variant = "generic",
     className,
     label,
 }: {
     year: number;
+    variant?: BadgeVariant;
     className?: string;
     /** Accessible name; defaults to "GoAbroad Top Rated {year}". */
     label?: string;
@@ -40,7 +53,7 @@ export default function TopRatedBadge({
             aria-label={label ?? `GoAbroad Top Rated ${year}`}
         >
             <image
-                href="/images/top-rated/badge.png"
+                href={ART[variant]}
                 width={BADGE.width}
                 height={BADGE.height}
             />

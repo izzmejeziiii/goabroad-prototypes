@@ -1,6 +1,4 @@
-import Image from "next/image";
-import { HiCheck, HiOutlineArrowRight } from "react-icons/hi2";
-import { badgeUrl } from "./cdn";
+import { HiCheck } from "react-icons/hi2";
 
 /* Page furniture: the doc's methodology ("the most outstanding reviews from
    program participants") as three checks. */
@@ -12,23 +10,13 @@ const criteria = [
 
 /* Beside the Top Rated Providers heading: how the list works, on the same
    cobalt panel as the programs figures — what a provider needs to earn a
-   place, as three sun checks, then the notable mentions as a glass tile
-   that jumps to them (the badge that sat beside the checks was removed at
-   Jezi's request). The lists below run three providers
-   per category without places: feedback on the prototype took the
-   "1st/2nd/3rd" pills off the cards, so the podium that explained them
-   went too. */
-export default function RankLegend({
-    categoryCount,
-    notableCount,
-    notableBadge,
-    notableHref,
-}: {
-    categoryCount: number;
-    notableCount: number;
-    notableBadge: string;
-    notableHref: string;
-}) {
+   place, as three sun checks. The notable mentions are reached from the
+   Quick Links like every other group; a jump tile here pulled more
+   attention than the directories themselves (reviewer feedback), so it is
+   gone. The lists below run three providers per category without places:
+   earlier feedback took the "1st/2nd/3rd" pills off the cards, so the
+   podium that explained them went too. */
+export default function RankLegend({ categoryCount }: { categoryCount: number }) {
     return (
         <aside
             aria-label="How the Top Rated Providers list works"
@@ -64,29 +52,6 @@ export default function RankLegend({
                     </li>
                 ))}
             </ul>
-
-            <a
-                href={notableHref}
-                className="group relative mt-6 flex items-center gap-3 rounded-xl bg-white/10 p-3 ring-1 ring-white/20 backdrop-blur transition-colors hover:bg-white/15 hover:ring-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-sun-500"
-            >
-                <Image
-                    src={badgeUrl(notableBadge)}
-                    alt=""
-                    width={44}
-                    height={48}
-                    className="h-12 w-auto shrink-0 drop-shadow-md"
-                />
-                <span className="flex-1 text-sm font-semibold text-white">
-                    {notableCount} Notable Mentions
-                    <span className="mt-0.5 block text-xs font-normal text-white/70">
-                        Providers recognized beyond the top three
-                    </span>
-                </span>
-                <HiOutlineArrowRight
-                    aria-hidden
-                    className="h-4 w-4 shrink-0 text-sun-500 transition-transform group-hover:translate-x-0.5"
-                />
-            </a>
         </aside>
     );
 }

@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import {
-    HiChatBubbleLeftEllipsis,
-    HiCheckBadge,
-    HiOutlineArrowRight,
-    HiStar,
-} from "react-icons/hi2";
-import ArchiveCard from "../components/top-rated/archive-articles";
+import { HiChatBubbleLeftEllipsis, HiCheckBadge, HiStar } from "react-icons/hi2";
+import ArchiveTimeline from "../components/top-rated/archive-timeline";
+import BackToTop from "../components/top-rated/back-to-top";
+import TopRatedBadge from "../components/top-rated/badge";
 import CardSlider from "../components/top-rated/card-slider";
 import { badgeUrl } from "../components/top-rated/cdn";
 import {
@@ -222,23 +218,19 @@ export default function TopRatedProvidersProgramsPage() {
                                 {providersSection.paragraphAfter}
                             </p>
                         </div>
-                        <RankLegend
-                            categoryCount={providerGroups.length}
-                            notableCount={notableMentions.length}
-                            notableBadge={providersSection.notableBadge}
-                            notableHref="#notable-mentions"
-                        />
+                        <RankLegend categoryCount={providerGroups.length} />
                     </div>
 
                     {/* The list itself: a sticky side rail of jump links
                         (one per directory group, then the notable mentions)
                         on the left of the groups from lg up — the right edge
-                        already belongs to the legend card above; the rail
-                        becomes a horizontal chip row above the groups on
-                        smaller screens. */}
+                        already belongs to the legend card above. On smaller
+                        screens the rail is a fixed tab strip that appears
+                        only while the groups are on screen, so it takes no
+                        room here. */}
                     <div className="mt-12 lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:items-start lg:gap-12">
                         <ProviderSideNav items={sideNavItems} />
-                        <div className="mt-8 lg:mt-0">
+                        <div>
                             {providerGroups.map((group, index) => {
                                 const directory = getDirectory(group.directoryId);
                                 if (!directory?.providersHeading) return null;
@@ -252,33 +244,35 @@ export default function TopRatedProvidersProgramsPage() {
                                                 : ""
                                         }`}
                                     >
-                                        <div className="flex items-start justify-between gap-6">
-                                            <div>
-                                                <h4 className="text-xl font-bold tracking-tight text-neutral-800 sm:text-2xl">
-                                                    {directory.providersHeading}
-                                                </h4>
-                                                <Link
-                                                    href={`/top-rated-providers-programs/${directory.id}`}
-                                                    className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-cobalt-500 transition-colors hover:text-cobalt-600"
-                                                >
-                                                    See the Top Rated{" "}
-                                                    {directory.cardTitle.replace(
-                                                        / Programs$/,
-                                                        "",
-                                                    )}{" "}
-                                                    Programs
-                                                    <HiOutlineArrowRight
-                                                        aria-hidden
-                                                        className="h-4 w-4"
-                                                    />
-                                                </Link>
-                                            </div>
-                                            {directory.badge && (
+                                        {/* Heading and this category's badge.
+                                            A "See the Top Rated … Programs"
+                                            link used to sit under the heading;
+                                            it read as "more providers" on
+                                            phones, so it is gone (reviewer).
+                                            Categories without a dated badge on
+                                            the CDN use year-less artwork with
+                                            the year drawn live (Degree Abroad)
+                                            or, failing that, the generic
+                                            provider badge (Volunteer Abroad,
+                                            until the design team supplies
+                                            its artwork). */}
+                                        <div className="flex items-center justify-between gap-6">
+                                            <h4 className="text-xl font-bold tracking-tight text-neutral-800 sm:text-2xl">
+                                                {directory.providersHeading}
+                                            </h4>
+                                            {directory.badge ? (
                                                 <Image
                                                     src={badgeUrl(directory.badge)}
                                                     alt={`GoAbroad Top Rated Provider ${year} – ${directory.cardTitle} badge`}
                                                     width={75}
                                                     height={80}
+                                                    className="h-20 w-auto shrink-0"
+                                                />
+                                            ) : (
+                                                <TopRatedBadge
+                                                    year={year}
+                                                    variant={directory.badgeVariant}
+                                                    label={`GoAbroad Top Rated Provider ${year} – ${directory.cardTitle} badge`}
                                                     className="h-20 w-auto shrink-0"
                                                 />
                                             )}

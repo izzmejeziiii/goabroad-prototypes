@@ -37,6 +37,9 @@ export type Directory = {
     summary: string[];
     /** Key into the icon map in `icons.tsx`. */
     icon: string;
+    /** Year-less category artwork shipped with the prototype, for categories
+        GoAbroad's CDN has no dated badge for; the year is drawn live. */
+    badgeVariant?: "degree-abroad";
     /** Card and directory-page hero photo. */
     photo: CdnPhoto;
     /** GoAbroad's badge artwork for this directory's providers, when one

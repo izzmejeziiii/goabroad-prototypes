@@ -401,6 +401,9 @@ export const directories: Directory[] = [
     {
         id: "degree-abroad",
         cardTitle: "Degree Abroad",
+        /* No dated badge on the CDN for this category; the design team's
+           year-less "DEGREES ABROAD" artwork ships with the prototype. */
+        badgeVariant: "degree-abroad",
         providersHeading: "Top Rated Degree Abroad Providers",
         pageTitle: `Top Rated Degree Abroad Programs of ${year}`,
         metaName: "Degree Abroad",
