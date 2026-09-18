@@ -1971,83 +1971,11 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             },
         },
     ],
-    "jobs-abroad": [
-        {
-            id: 187631,
-            title: "Working Holiday Australia | Earn, Travel & Explore",
-            slug: "working-holiday-australia",
-            providerAlias: "global-work-travel",
-            providerName: "Global Work & Travel",
-            providerLogo: "global-logo-colour-rgb-1629271775.png",
-            rating: 4.94,
-            reviews: 49,
-            destination: "Australia",
-            photo: {
-                path: LF("X6vRYxEpLF4NEMj2mpqNotcxYEaSbxR01tPxU1Ow.jpg"),
-                alt: "A Global Work & Travel working holiday in Australia",
-            },
-        },
-        {
-            id: 186075,
-            title: "Spanish Cultural Immersion and Adventure in Mexico",
-            slug: "teach-english-learn-spanish-and-travel-in-mexico",
-            providerAlias: "iguana-abroad",
-            providerName: "Iguana Abroad",
-            providerLogo: "nNgTUe2vAQcAQO0o9Bx9nd18O5YRcmRkNs2VeFOQ.jpg",
-            rating: 4.9,
-            reviews: 122,
-            destination: "Mexico",
-            photo: {
-                path: gallery("ia1764032861.jpg"),
-                alt: "Iguana Abroad participants in Mexico",
-            },
-        },
-        {
-            id: 171364,
-            title: "Make English Teaching Fun in China",
-            slug: "20-new-job-openings-as-we-expand-in-china",
-            providerAlias: "mef-china",
-            providerName: "MEF World (MEF English)",
-            providerLogo: "logo-big-mef-1557368639.png",
-            rating: 5,
-            reviews: 5,
-            destination: "China",
-            photo: {
-                path: LF("v950xxnTnundwGHYgiZmd9XlYquv9Bjv97AETkqe_1776927461.jpg"),
-                alt: "An MEF World teacher with kindergarten students in China",
-            },
-        },
-        {
-            id: 192003,
-            title: "Intern in the UK with JENZA",
-            slug: "internship-uk",
-            providerAlias: "jenza",
-            providerName: "JENZA",
-            providerLogo: "5c8TrEbcfqjiVZ0rTeNbrtAfrl0JfddbtNrn4ju7.jpg",
-            rating: 4.67,
-            reviews: 6,
-            destination: "United Kingdom",
-            photo: {
-                path: LF("P4VUq8eHIXNbYJZJMAoGyQ4mHxvtDnMX8MNHSfFc_1764817125.jpg"),
-                alt: "JENZA interns in the UK",
-            },
-        },
-        {
-            id: 173887,
-            title: "Teach English in Poland with English Wizards",
-            slug: "teach-english-in-poland",
-            providerAlias: "english-wizards",
-            providerName: "English Wizards",
-            providerLogo: "k1QNrC92gLmUT6yH2YpKVeOucENYMxEOFDvpENdz.jpg",
-            rating: 4.31,
-            reviews: 39,
-            destination: "Poland",
-            photo: {
-                path: gallery("teacher-internship-group1667892329.jpg"),
-                alt: "English Wizards teaching internship group in Poland",
-            },
-        },
-    ],
+    /* Empty on purpose: Jobs Abroad usually has no Top Rated Programs list
+       (reviewer), so this models the "no programs listed this year" state
+       on the main-page card and the directory page. The 2025 dummy list is
+       in git history if it is ever needed back. */
+    "jobs-abroad": [],
 };
 
 /** Every ranked winner across the ten groups — the hero counts these. */
@@ -2061,6 +1989,6 @@ export const winnerCount = providerGroups.reduce(
 /** Years with an archived Top Rated Programs list per directory, newest
  *  first — each is a page at `/top-rated-providers-programs/<directory>/<year>`
  *  (the requirement added after the doc: "page/links of previous year of per
- *  directory top rated programs"). Dummy: three years back; the admin would
+ *  directory top rated programs"). Dummy: five years back; the admin would
  *  add a year each time the list rolls over. */
-export const programArchiveYears: number[] = [year - 1, year - 2, year - 3];
+export const programArchiveYears: number[] = [1, 2, 3, 4, 5].map((n) => year - n);

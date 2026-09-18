@@ -20,6 +20,7 @@ import {
 } from "./data";
 import CardSlider from "./card-slider";
 import DirectoryCard from "./directory-card";
+import ExpandableGrid from "./expandable-grid";
 import NextSteps from "./next-steps";
 import ProgramBadge from "./program-badge";
 import ProgramCard from "./program-card";
@@ -64,8 +65,10 @@ export default function DirectoryPageView({
     const isCurrent = listYear === year;
     const programs = topRatedPrograms[directory.id];
     const others = directories.filter((d) => d.id !== directory.id);
-    const averageRating =
-        programs.reduce((sum, p) => sum + p.rating, 0) / programs.length;
+    const hasPrograms = programs.length > 0;
+    const averageRating = hasPrograms
+        ? programs.reduce((sum, p) => sum + p.rating, 0) / programs.length
+        : 0;
     const totalReviews = programs.reduce((sum, p) => sum + p.reviews, 0);
     const title = titleForYear(directory, listYear);
     const otherYears = [year, ...programArchiveYears].filter(
@@ -163,7 +166,11 @@ export default function DirectoryPageView({
                             {title}
                         </h1>
                         {/* This year's numbers for the list, then the jump
-                            into the cards. */}
+                            into the cards — or, when no list was published
+                            for this directory and year, a plain note and a
+                            jump to the other years. */}
+                        {hasPrograms ? (
+                            <>
                         <dl className="mt-6 flex flex-wrap gap-2">
                             <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3.5 py-2 text-sm ring-1 ring-white/20 backdrop-blur">
                                 <HiStar aria-hidden className="h-4 w-4 text-sun-500" />
@@ -204,6 +211,25 @@ export default function DirectoryPageView({
                                 className="h-4 w-4"
                             />
                         </a>
+                            </>
+                        ) : (
+                            <>
+                                <p className="mt-6 inline-flex items-center rounded-full bg-white/10 px-3.5 py-2 text-sm ring-1 ring-white/20 backdrop-blur">
+                                    No programs listed{" "}
+                                    {isCurrent ? "this year" : `in ${listYear}`}
+                                </p>
+                                <a
+                                    href="#other-years"
+                                    className="mt-8 inline-flex items-center gap-2 rounded-lg bg-sun-500 px-6 py-3 font-semibold text-cobalt-700 transition-colors hover:bg-sun-300"
+                                >
+                                    See {isCurrent ? "previous" : "other"} years
+                                    <HiOutlineArrowRight
+                                        aria-hidden
+                                        className="h-4 w-4"
+                                    />
+                                </a>
+                            </>
+                        )}
                     </div>
                 </div>
             </header>
@@ -274,9 +300,13 @@ export default function DirectoryPageView({
                                 })}
                             </div>
 
+                            {/* First on phones, so the summary's closing line
+                                ("Ready to…?") runs straight into the cards
+                                instead of being interrupted (reviewer);
+                                beside the copy from lg up. */}
                             <aside
                                 aria-label="How programs earn the badge"
-                                className="overflow-hidden rounded-2xl bg-slate-100 ring-1 ring-slate-200"
+                                className="order-first overflow-hidden rounded-2xl bg-slate-100 ring-1 ring-slate-200 lg:order-none"
                             >
                                 <div className="relative overflow-hidden bg-linear-to-br from-slate-200 to-slate-100 px-6 pt-8 pb-6">
                                     <div
@@ -328,27 +358,54 @@ export default function DirectoryPageView({
                     <p className="text-sm font-semibold tracking-widest uppercase text-cobalt-500">
                         Top Rated {directory.cardTitle} Programs of {listYear}
                     </p>
-                    <p className="mt-1 text-2xl font-bold tracking-tight text-neutral-800 sm:text-3xl">
-                        {programs.length}{" "}
-                        {programs.length === 1 ? "program" : "programs"} earned
-                        the badge {isCurrent ? "this year" : `in ${listYear}`}
-                    </p>
-                    <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {programs.map((program, i) => (
-                            <ProgramCard
-                                key={program.id}
-                                program={program}
-                                priority={i < 3}
-                            />
-                        ))}
-                    </div>
+                    {hasPrograms ? (
+                        <>
+                            <p className="mt-1 text-2xl font-bold tracking-tight text-neutral-800 sm:text-3xl">
+                                {programs.length}{" "}
+                                {programs.length === 1 ? "program" : "programs"}{" "}
+                                earned the badge{" "}
+                                {isCurrent ? "this year" : `in ${listYear}`}
+                            </p>
+                            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                {programs.map((program, i) => (
+                                    <ProgramCard
+                                        key={program.id}
+                                        program={program}
+                                        priority={i < 3}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        /* No list this year: say so plainly, and point at the
+                           other years and categories below. */
+                        <>
+                            <p className="mt-1 text-2xl font-bold tracking-tight text-neutral-800 sm:text-3xl">
+                                No programs listed{" "}
+                                {isCurrent ? "this year" : `in ${listYear}`}
+                            </p>
+                            <div className="mt-10 rounded-2xl border border-dashed border-cobalt-500/30 bg-white p-8 text-center sm:p-12">
+                                <ProgramBadge
+                                    category={directory.cardTitle}
+                                    year={listYear}
+                                    className="mx-auto w-36 opacity-60 grayscale"
+                                />
+                                <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-slate-600">
+                                    GoAbroad didn&rsquo;t publish a Top Rated{" "}
+                                    {directory.cardTitle} Programs list for{" "}
+                                    {listYear}. Browse an earlier year below,
+                                    or another category.
+                                </p>
+                            </div>
+                        </>
+                    )}
                 </div>
             </section>
 
             {/* This directory's lists from other years — the requirement
                 added after the doc. On the current page: the archive years;
                 on an archived page: the current list first, then the rest. */}
-            <section className="w-full bg-white">
+            <section id="other-years" className="w-full scroll-mt-24 bg-white">
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-20 xl:px-0">
                     <SectionHead
                         kicker={isCurrent ? "Archive" : "Other years"}
@@ -356,19 +413,26 @@ export default function DirectoryPageView({
                             isCurrent ? "Previous Years" : "Other Years"
                         }`}
                     />
-                    <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                    {/* Three most recent years, then a "Show all" button for
+                        the rest — the archive grows by one a year, and a
+                        reader looks a year up rather than browsing, so an
+                        expanding grid beats a carousel here. */}
+                    <ExpandableGrid
+                        initial={3}
+                        noun="years"
+                        className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+                    >
                         {otherYears.map((y) => (
-                            <li key={y}>
-                                <YearCard
-                                    year={y}
-                                    category={directory.cardTitle}
-                                    title={titleForYear(directory, y)}
-                                    href={directoryPath(directory, y)}
-                                    current={y === year}
-                                />
-                            </li>
+                            <YearCard
+                                key={y}
+                                year={y}
+                                category={directory.cardTitle}
+                                title={titleForYear(directory, y)}
+                                href={directoryPath(directory, y)}
+                                current={y === year}
+                            />
                         ))}
-                    </ul>
+                    </ExpandableGrid>
                 </div>
             </section>
 
