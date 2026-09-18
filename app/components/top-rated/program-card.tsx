@@ -6,9 +6,11 @@ import type { TopRatedProgram } from "./types";
 
 /* A Top Rated Program on a directory page. The title is an H2, as the
    requirements doc specifies for these cards. The chip on the photo is the
-   destination — every card on the page is Top Rated, so saying so on each
-   one would be redundant (Jezi's call). Stars and rating only, no review
-   count, matching the provider cards after stakeholder feedback. */
+   program's COUNTRY (or countries, for multi-country programs) as the admin
+   records it in the Top Rated tool — not the listing's city-level location,
+   which can run long (reviewer's point) — and every card on the page is Top
+   Rated, so the chip doesn't say so (Jezi's call). Stars and rating only,
+   no review count, matching the provider cards after stakeholder feedback. */
 export default function ProgramCard({
     program,
     priority = false,
@@ -56,11 +58,14 @@ export default function ProgramCard({
                             />
                         </span>
                     ) : null}
-                    <p className="text-sm font-bold text-slate-700">
+                    <p className="min-w-0 truncate text-sm font-bold text-slate-700">
                         {program.providerName}
                     </p>
                 </div>
-                <h2 className="text-lg leading-snug font-bold text-cobalt-500 transition-colors group-hover:text-cobalt-600">
+                {/* Two lines reserved for every title so the cards in a grid
+                    come out the same height whether a title runs one line
+                    or two (reviewer: the cards were uneven). */}
+                <h2 className="line-clamp-2 min-h-[3.1rem] text-lg leading-snug font-bold text-cobalt-500 transition-colors group-hover:text-cobalt-600">
                     <a href={href} target="_blank" rel="noopener">
                         {program.title}
                     </a>

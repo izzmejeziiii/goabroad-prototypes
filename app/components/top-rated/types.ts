@@ -75,6 +75,9 @@ export type TopRatedProgram = {
     providerLogo?: string;
     rating: number;
     reviews: number;
+    /** The program's country as the admin records it in the Top Rated tool
+        (a list of countries for multi-country programs, "Online" for online
+        courses) — not the listing's city-level location. */
     destination: string;
     photo?: CdnPhoto;
 };

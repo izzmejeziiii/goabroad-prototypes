@@ -178,13 +178,15 @@ export default function TopRatedProvidersProgramsPage() {
                             programs section) with the live year. */}
                         <div
                             aria-hidden
-                            className="flex h-full flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-cobalt-500/30 bg-slate-100 p-6 text-center"
+                            className="flex h-full flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-cobalt-500/30 bg-slate-100 p-4 text-center sm:gap-4 sm:p-6"
                         >
                             <ProgramBadge
                                 year={year}
-                                className="w-[46%] drop-shadow-md"
+                                className="w-[42%] drop-shadow-md sm:w-[46%]"
                             />
-                            <p className="text-sm leading-snug font-semibold text-cobalt-700 sm:text-base">
+                            {/* Sized so this card never sets its row taller
+                                than the category cards beside it. */}
+                            <p className="text-xs leading-snug font-semibold text-cobalt-700 sm:text-base">
                                 Every badge is earned from verified participant
                                 reviews.
                             </p>

@@ -1061,7 +1061,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "AeMvAwNjFiSS9IMB5t2ZKNvuwh28C2GVzuzltcgb.png",
             rating: 4.52,
             reviews: 103,
-            destination: "Alicante, Spain",
+            destination: "Spain",
             photo: {
                 path: gallery("woman-sitting-on-stairs-with-plant-decorated-house1715850884.jpg"),
                 alt: "A student sitting on the stairs of a plant-decorated house in Alicante",
@@ -1076,7 +1076,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "arcos-la-01-1600657378.png",
             rating: 4.78,
             reviews: 249,
-            destination: "Heredia, Costa Rica",
+            destination: "Costa Rica",
             photo: {
                 path: gallery("arenal-volcano-costa-rica-1598267288.jpg"),
                 alt: "Excursion to Arenal Volcano, Costa Rica",
@@ -1091,7 +1091,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "MBlUGlFaccWWlZXptGDBPPL5KUSR8eKRGDus1SNk.png",
             rating: 4.83,
             reviews: 125,
-            destination: "Gold Coast, Australia",
+            destination: "Australia",
             photo: {
                 path: gallery("surfing-the-gold-coast1785599387.jpg"),
                 alt: "Students surfing on the Gold Coast",
@@ -1106,7 +1106,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "dypFvEKMiw1npI7YKQyHX557OZAqHfLGejj01qOc.png",
             rating: 4.86,
             reviews: 105,
-            destination: "Hokkaido, Japan",
+            destination: "Japan",
             photo: {
                 path: gallery("meiji-students-at-the-beach1750302821.jpg"),
                 alt: "Meiji Academy students at the beach in Hokkaido",
@@ -1121,7 +1121,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "JwjQjZvnaOouhFwN7ycjBabcbVfpCmJrpc7dEZBU.png",
             rating: 4.73,
             reviews: 45,
-            destination: "Buenos Aires, Argentina",
+            destination: "Argentina",
             photo: {
                 path: gallery("madres-de-plaza-de-mayo1782758216.jpg"),
                 alt: "Madres de Plaza de Mayo in Buenos Aires",
@@ -1136,7 +1136,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "CuzbjcevxeHR1lmiqjFQhKuODNdO5qz13kHRaQZA.jpg",
             rating: 4.52,
             reviews: 161,
-            destination: "London, England",
+            destination: "England",
             photo: {
                 path: gallery("061419724069372bd52159bf642278f384dea93f.jpg"),
                 alt: "CEA CAPA students in London",
@@ -1168,7 +1168,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "5sz4mirJRxPumUQESB1GqVffXrehOS0fcnZs5z7U.png",
             rating: 4.6,
             reviews: 169,
-            destination: "Valencia, Spain",
+            destination: "Spain",
             photo: {
                 path: gallery("1754354555.jpg"),
                 alt: "Intern Abroad HQ interns in Spain",
@@ -1183,7 +1183,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "PK9GqBUeAhkM0YHPNa87wJZfmrBWpMhw3JPgnMJb.png",
             rating: 4.83,
             reviews: 71,
-            destination: "London, England",
+            destination: "England",
             photo: {
                 path: gallery("dsc-8672-edit-1505818428.jpg"),
                 alt: "The London Eye, Absolute Internship London program",
@@ -1198,7 +1198,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "WtuBJgUnigfCiEeJouYYRrRnJ1dqaRh9FmcJxjMA.png",
             rating: 4.73,
             reviews: 174,
-            destination: "Shanghai & Beijing, China",
+            destination: "China",
             photo: {
                 path: gallery("gac-career-launch-internship-program-in-china1779739702.jpg"),
                 alt: "Go Abroad China career launch interns",
@@ -1213,7 +1213,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "goabroadavatar-1611563426.jpg",
             rating: 4.73,
             reviews: 172,
-            destination: "Seoul, South Korea",
+            destination: "South Korea",
             photo: {
                 path: gallery("dsc-4364-1-copy-1529392853.JPG"),
                 alt: "Asia Internship Program interns in Seoul",
@@ -1228,7 +1228,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "ZJUKR1DjtTJ0y3hb3WyV32z9rn5e029SY1GV9nlq.png",
             rating: 4.8,
             reviews: 301,
-            destination: "Cape Town, South Africa",
+            destination: "South Africa",
             photo: {
                 path: gallery("internships1788890013.jpg"),
                 alt: "VACorps interns in Cape Town",
@@ -1260,7 +1260,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "b7aQwxqKkTQs1TCbQKDnmQAVGPjGCilE6Nj4ktx5.jpg",
             rating: 4.89,
             reviews: 54,
-            destination: "Nusa Penida, Indonesia",
+            destination: "Indonesia",
             photo: {
                 path: gallery("a-person-gently-cradling-a-tiny-baby-turtle-in-their-hand1716778210.jpg"),
                 alt: "A volunteer gently cradling a tiny baby turtle",
@@ -1290,7 +1290,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "logo_41705_526977df099e51382643679.jpg",
             rating: 4.92,
             reviews: 39,
-            destination: "Zanzibar, Tanzania",
+            destination: "Tanzania",
             photo: {
                 path: gallery("volunteer-experience-with-local-masaii-men-in-rural-tanzania1778593501.jpg"),
                 alt: "GIVE volunteers with local Maasai men in rural Tanzania",
@@ -1320,7 +1320,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "logo-ioi-new-1559786117.png",
             rating: 4.74,
             reviews: 144,
-            destination: "Isabela, Galápagos, Ecuador",
+            destination: "Ecuador",
             photo: {
                 path: LF("YGyt9BImLLrdR4owQdRebXtJgg11OlVT9tEzWdLo.jpg"),
                 alt: "Volunteers at the plant nursery in the Galápagos highlands",
@@ -1337,7 +1337,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "download-1512589034.png",
             rating: 4.67,
             reviews: 2987,
-            destination: "Online & 25 locations worldwide",
+            destination: "Online",
             photo: {
                 path: gallery("two-women-tefl-teachers-posing-with-their-children-students1715677365.jpg"),
                 alt: "Two TEFL teachers posing with their young students",
@@ -1412,7 +1412,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "tww-new-2021-small-1614678264.png",
             rating: 4.76,
             reviews: 350,
-            destination: "Prague, Czech Republic",
+            destination: "Czech Republic",
             photo: {
                 path: LF("jAQ8yXHmPzi9VqvDt8HH9tP2LXdxJxs7a4vqZKs6.jpg"),
                 alt: "TEFL Worldwide trainees in Prague",
@@ -1429,7 +1429,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "arcos-ja-01-1632115523.jpg",
             rating: 4.8,
             reviews: 112,
-            destination: "Oaxaca, Mexico",
+            destination: "Mexico",
             photo: {
                 path: gallery("arcos-journeys-abroad1784711273.jpg"),
                 alt: "Arcos Journeys Abroad students in Oaxaca",
@@ -1444,7 +1444,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "ibzGBHzpszqupyLzDpjMmUasXGPW4MgA3Atyf7pc.png",
             rating: 4.43,
             reviews: 14,
-            destination: "Barcelona, Spain",
+            destination: "Spain",
             photo: {
                 path: gallery("garita-de-la-campana1729175721.jpg"),
                 alt: "Garita de la Campana in Barcelona",
@@ -1504,7 +1504,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "28hnRhxOtWgi6pagvrb4jKzbJV1gXWN1Mt5Gfvjj.png",
             rating: 4.74,
             reviews: 66,
-            destination: "Seville, Spain",
+            destination: "Spain",
             photo: {
                 path: LF("uyCJkUZsREc4BSpYGLfmdZqRamHSebfZdMfdAYAY_1774338799.jpg"),
                 alt: "Seville Abroad high school students in Seville",
@@ -1521,7 +1521,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "Rb8tY3OLL5zcbCFj1r8vJczBoxoikw1idtmFrt3Q.png",
             rating: 4.86,
             reviews: 370,
-            destination: "Prague, Czech Republic",
+            destination: "Czech Republic",
             photo: {
                 path: gallery("the-language-house-tefl1778552142.png"),
                 alt: "The Language House TEFL trainees in Prague",
@@ -1536,7 +1536,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "logo_41601_526bce4b7147f1382796875.jpg",
             rating: 4.62,
             reviews: 242,
-            destination: "Hua Hin, Thailand",
+            destination: "Thailand",
             photo: {
                 path: gallery("matt-and-elyssa-team-teaching-at-a-local-school-in-hua-hin-96100.jpg"),
                 alt: "Two XploreAsia teachers team-teaching at a local school in Hua Hin",
@@ -1613,7 +1613,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "ZJUKR1DjtTJ0y3hb3WyV32z9rn5e029SY1GV9nlq.png",
             rating: 4.9,
             reviews: 72,
-            destination: "Cape Town, South Africa",
+            destination: "South Africa",
             photo: {
                 path: gallery("gap-year1785708827.jpg"),
                 alt: "VACorps gap year participants in Cape Town",
@@ -1658,7 +1658,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "seamester-logo-new-1548263537-1613395105.jpg",
             rating: 4.66,
             reviews: 122,
-            destination: "Multiple destinations at sea",
+            destination: "Multiple countries",
             photo: {
                 path: LF("wgf5QMdj4uX47hFUNus4IJvOB6qI7INgQrZEFPH6.jpg"),
                 alt: "Seamester students aboard the ship",
@@ -1705,7 +1705,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "ebymADHM72Y8pszdqK4NtpefsEwrzzHXLT2crwbe.png",
             rating: 4.97,
             reviews: 580,
-            destination: "Beijing, Shanghai & 3 more cities, China",
+            destination: "China",
             photo: {
                 path: gallery("intensive-group-chinese-class1726680149.jpg"),
                 alt: "An intensive group Chinese class at That's Mandarin",
@@ -1720,7 +1720,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "JAScUUcULVN66sTeXdzkrCH2lcRxwheyqghwc0YU.png",
             rating: 4.73,
             reviews: 499,
-            destination: "8 cities across China",
+            destination: "China",
             photo: {
                 path: gallery("influencer-jamie-zhu-studying-at-ltl-shanghai1775706891.jpg"),
                 alt: "A student studying at LTL Shanghai",
@@ -1735,7 +1735,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "dypFvEKMiw1npI7YKQyHX557OZAqHfLGejj01qOc.png",
             rating: 4.92,
             reviews: 73,
-            destination: "Hokkaido, Japan",
+            destination: "Japan",
             photo: {
                 path: gallery("temple-visit1750311571.jpg"),
                 alt: "A Meiji Academy student in a kimono visiting a temple",
@@ -1765,7 +1765,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "ih-logo-con-fondo-blanco-perfil-1556092713.jpg",
             rating: 4.9,
             reviews: 174,
-            destination: "Bilbao, Spain",
+            destination: "Spain",
             photo: {
                 path: LF("0eY1s56MgYts4JqpPhySW2WudBN8Z4xKAQ3Ls5vp_1781764737.jpg"),
                 alt: "Instituto Hemingway students in Bilbao",
@@ -1780,7 +1780,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "1329874944_KCP-Logo-normal.png",
             rating: 4.68,
             reviews: 62,
-            destination: "Tokyo, Japan",
+            destination: "Japan",
             photo: {
                 path: LF("WRfJ1vef6k7qL3g5C4xSBiumAZV2VPBWxXKuvl0R.jpg"),
                 alt: "KCP International students in Tokyo",
@@ -1797,7 +1797,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "kJpW9vPaQ0C6kSKYJIQKHyDbJcWp2svSwoLqQnEg.jpg",
             rating: 4.24,
             reviews: 579,
-            destination: "Rome, Italy",
+            destination: "Italy",
             photo: {
                 path: LF("9TF3vi6R10Mfza7e4CSJ3oE89ot9HFzNma0vELVf.jpg"),
                 alt: "John Cabot University students in Rome",
@@ -1812,7 +1812,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "4uuSFqTreA4UdanTWsjsSoQxFyRYrO8w6HbEVTWo.png",
             rating: 4.36,
             reviews: 11,
-            destination: "Tel Aviv, Israel",
+            destination: "Israel",
             photo: {
                 path: gallery("students-on-a-trip-to-haifa1672218791.jpg"),
                 alt: "Tel Aviv University international students on a trip to Haifa",
@@ -1827,7 +1827,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "VBtYe4RHMk630aRynkZ9iPQ9f8zCozsqSqFXlvgV.png",
             rating: 4.4,
             reviews: 5,
-            destination: "Prague, Czech Republic",
+            destination: "Czech Republic",
             photo: {
                 path: gallery("unyp1757986379.jpg"),
                 alt: "Students at the University of New York in Prague",
@@ -1842,7 +1842,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "new-deakin-logo-2017-jpg-1510890708.jpg",
             rating: 5,
             reviews: 15,
-            destination: "Melbourne & Geelong, Australia",
+            destination: "Australia",
             photo: {
                 path: LF("U5AYTrRQpuNLHfpBpFfem4iPIDvgtkKYtBkiu1gN.jpg"),
                 alt: "Deakin University campus in Australia",
@@ -1857,7 +1857,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "O79iWLllS85VMV7wEVMgp11U1wYokFEooI6tEmjG.jpg",
             rating: 4.64,
             reviews: 14,
-            destination: "Lausanne, Switzerland",
+            destination: "Switzerland",
             photo: {
                 path: LF("8O0zmH6sTwdO5wXe14vGYeXKN0G9IClYsv2OHmcX.jpg"),
                 alt: "EHL Hospitality Business School students",
@@ -1872,7 +1872,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "WtuBJgUnigfCiEeJouYYRrRnJ1dqaRh9FmcJxjMA.png",
             rating: 4.7,
             reviews: 569,
-            destination: "Beijing & Shanghai, China",
+            destination: "China",
             photo: {
                 path: LF("7qfVwdFN65tK9lwIHlIyzVp1N2ENuYW1AxYodHCP_1778575404.jpg"),
                 alt: "International degree students in China with Go Abroad China",
@@ -1919,7 +1919,7 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             providerLogo: "QJiYbe1QNQddiB9H6aFZBAs4IjGKqRqhxiw1m1z0.png",
             rating: 4.96,
             reviews: 89,
-            destination: "12 countries across Europe",
+            destination: "12 countries in Europe",
             photo: {
                 path: gallery("amsterdam1733737888.jpg"),
                 alt: "Euroventure travelers in Amsterdam",
