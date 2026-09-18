@@ -99,7 +99,7 @@ function StepCard({
                                     : "border border-cobalt-500 text-cobalt-500 hover:bg-slate-50"
                             }`}
                         >
-                            {capitalise(link.text)}
+                            {link.cta ?? capitalise(link.text)}
                             <HiOutlineArrowRight
                                 aria-hidden
                                 className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1"
@@ -109,14 +109,24 @@ function StepCard({
                 </div>
             </div>
 
-            {/* Arrow into the next step. */}
+            {/* Arrow into the next step: off the right edge when the cards
+                sit in a row, off the bottom edge (pointing down) when they
+                stack on phones. */}
             {!last && (
-                <span
-                    aria-hidden
-                    className="absolute top-1/2 -right-4 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-sun-500 text-cobalt-700 shadow-md ring-4 ring-cobalt-600 md:flex"
-                >
-                    <HiOutlineArrowRight className="h-4 w-4" />
-                </span>
+                <>
+                    <span
+                        aria-hidden
+                        className="absolute top-1/2 -right-4 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-sun-500 text-cobalt-700 shadow-md ring-4 ring-cobalt-600 md:flex"
+                    >
+                        <HiOutlineArrowRight className="h-4 w-4" />
+                    </span>
+                    <span
+                        aria-hidden
+                        className="absolute -bottom-4 left-1/2 z-10 flex h-9 w-9 -translate-x-1/2 items-center justify-center rounded-full bg-sun-500 text-cobalt-700 shadow-md ring-4 ring-cobalt-600 md:hidden"
+                    >
+                        <HiOutlineArrowRight className="h-4 w-4 rotate-90" />
+                    </span>
+                </>
             )}
         </li>
     );
@@ -149,7 +159,7 @@ export default function NextSteps({ id }: { id?: string }) {
                     </p>
                 </div>
 
-                <ol className="mt-12 grid gap-5 md:grid-cols-3 md:gap-8">
+                <ol className="mt-12 grid gap-8 md:grid-cols-3">
                     {steps.map((segments, i) => (
                         <StepCard
                             key={i}
@@ -160,31 +170,36 @@ export default function NextSteps({ id }: { id?: string }) {
                     ))}
                 </ol>
 
-                {/* For providers: the badge they'd be earning, the doc's
-                    question, and the contact link as a white button. The
-                    whole banner is the link. */}
+                {/* For providers, laid out to the reviewer's mock: next
+                    year's badge (the one a provider would be earning), a
+                    bold headline, a lighter line under it, and a sun "Get
+                    started" button. The whole banner is the link. */}
                 <a
                     href={providerCta.href}
                     target="_blank"
                     rel="noopener"
-                    className="group mt-12 flex flex-col gap-6 rounded-2xl bg-white/10 p-6 ring-1 ring-white/20 backdrop-blur transition-colors hover:bg-white/15 hover:ring-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-sun-500 sm:p-8 lg:flex-row lg:items-center lg:justify-between"
+                    className="group mt-12 flex flex-col gap-6 rounded-2xl bg-white/10 p-6 ring-1 ring-white/20 backdrop-blur transition-colors hover:bg-white/15 hover:ring-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-sun-500 sm:p-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
                 >
-                    <span className="flex items-center gap-5 sm:gap-6">
+                    {/* Badge above the words on phones, beside them from sm. */}
+                    <span className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
                         <TopRatedBadge
-                            year={year}
+                            year={year + 1}
                             className="w-16 shrink-0 drop-shadow-lg transition-transform group-hover:-rotate-3 sm:w-20"
                         />
                         <span>
                             <span className="block text-xs font-semibold tracking-widest uppercase text-sun-500">
                                 For providers
                             </span>
-                            <h3 className="mt-1 text-lg leading-snug font-semibold text-white sm:text-xl">
+                            <h3 className="mt-1 text-xl leading-snug font-bold text-white sm:text-2xl">
                                 {providerCta.heading}
                             </h3>
+                            <span className="mt-1.5 block text-sm leading-relaxed text-white/80 sm:text-base">
+                                {providerCta.subheading}
+                            </span>
                         </span>
                     </span>
-                    <span className="inline-flex w-fit shrink-0 items-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-cobalt-700 transition-colors group-hover:bg-sun-500">
-                        {providerCta.linkText}!
+                    <span className="inline-flex w-fit shrink-0 items-center gap-2 rounded-lg bg-sun-500 px-6 py-3 font-semibold text-cobalt-700 transition-colors group-hover:bg-sun-300">
+                        {providerCta.linkText}
                         <HiOutlineArrowRight
                             aria-hidden
                             className="h-4 w-4 transition-transform group-hover:translate-x-1"

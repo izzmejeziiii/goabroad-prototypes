@@ -172,7 +172,14 @@ export const previousYears: YearLink[] = [
     },
 ];
 
-export type TextSegment = string | { text: string; href: string };
+export type TextSegment =
+    | string
+    | {
+          text: string;
+          href: string;
+          /** Button label when the linked phrase alone reads too terse. */
+          cta?: string;
+      };
 
 export const nextStepsSection: {
     kicker: string;
@@ -192,20 +199,33 @@ export const nextStepsSection: {
             { text: "Online Advisor", href: `${GOABROAD}/onlineadvisor` },
             " to match you with programs that fit your interests—you’ll get recommendations instantly!",
         ],
+        /* Reviewer's copy (2026-09-18) in place of the doc's "Browse our
+           Travel Article Directory or sign up for our Newsletter to stay
+           motivated and inspired!", so the newsletter's value is spelled
+           out. */
         [
-            "Browse our ",
+            "Explore our ",
             { text: "Travel Article Directory", href: `${GOABROAD}/articles` },
-            " or ",
-            { text: "sign up for our Newsletter", href: `${GOABROAD}/newsletter` },
-            " to stay motivated and inspired!",
+            ", or get program picks, scholarship deadlines, and real stories in our free ",
+            {
+                text: "Newsletter",
+                href: `${GOABROAD}/newsletter`,
+                cta: "Sign up for the free Newsletter",
+            },
+            ".",
         ],
     ],
 };
 
+/* Reviewer's copy (2026-09-18) in place of the doc's "Are you an
+   international educator or provider who wants to make it to our top rated
+   lists?" / "Contact us to start gathering more reviews now" — the target
+   year is next year's list, so it rolls over. */
 export const providerCta = {
-    heading:
-        "Are you an international educator or provider who wants to make it to our top rated lists?",
-    linkText: "Contact us to start gathering more reviews now",
+    heading: `Get your program on the ${year + 1} Top Rated list.`,
+    subheading:
+        "Participant reviews are what get you there — we’ll help you gather them.",
+    linkText: "Get started",
     href: `${GOABROAD}/contact/advertise`,
 };
 
