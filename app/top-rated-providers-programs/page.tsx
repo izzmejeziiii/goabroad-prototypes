@@ -356,21 +356,20 @@ export default function TopRatedProvidersProgramsPage() {
                 className="w-full scroll-mt-24 bg-slate-100"
             >
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 xl:px-0">
-                    {/* The ten announcements as goabroad.com-style article
-                        cards in a slider, three per view. */}
-                    <CardSlider
-                        label="previous years"
-                        header={
-                            <SectionHead
-                                kicker={previousYearsSection.kicker}
-                                title={previousYearsSection.heading}
-                            />
-                        }
-                    >
-                        {previousYears.map((link) => (
-                            <ArchiveCard key={link.href} link={link} />
-                        ))}
-                    </CardSlider>
+                    {/* The ten announcements as a clickable timeline, headed
+                        by this year's lists (reviewer's request, in place of
+                        article cards whose covers were all different). */}
+                    <SectionHead
+                        kicker={previousYearsSection.kicker}
+                        title={previousYearsSection.heading}
+                    />
+                    <div className="mt-12">
+                        <ArchiveTimeline
+                            links={previousYears}
+                            currentYear={year}
+                            currentHref="#top-rated-programs"
+                        />
+                    </div>
                 </div>
             </section>
 
