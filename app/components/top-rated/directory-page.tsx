@@ -20,13 +20,12 @@ import {
 } from "./data";
 import CardSlider from "./card-slider";
 import DirectoryCard from "./directory-card";
-import ExpandableGrid from "./expandable-grid";
+import ArchiveTimeline, { yearStops } from "./archive-timeline";
 import NextSteps from "./next-steps";
 import ProgramBadge from "./program-badge";
 import ProgramCard from "./program-card";
 import SectionHead from "./section-head";
 import type { Directory } from "./types";
-import YearCard from "./year-card";
 
 const format = new Intl.NumberFormat("en-US");
 
@@ -71,9 +70,9 @@ export default function DirectoryPageView({
         : 0;
     const totalReviews = programs.reduce((sum, p) => sum + p.reviews, 0);
     const title = titleForYear(directory, listYear);
-    const otherYears = [year, ...programArchiveYears].filter(
-        (y) => y !== listYear,
-    );
+    /* Every year with a list for this directory, newest first — the page's
+       own year included, marked as where the reader is. */
+    const allYears = [year, ...programArchiveYears];
 
     return (
         <div className="w-full bg-white">
@@ -402,9 +401,11 @@ export default function DirectoryPageView({
                 </div>
             </section>
 
-            {/* This directory's lists from other years — the requirement
-                added after the doc. On the current page: the archive years;
-                on an archived page: the current list first, then the rest. */}
+            {/* This directory's lists over the years — the requirement added
+                after the doc — as the same dashed route-map timeline the
+                main page uses for its archive (Jezi's call), with the page's
+                own year marked "You are here". Every year is on the route,
+                so no "show all" button is needed. */}
             <section id="other-years" className="w-full scroll-mt-24 bg-white">
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-20 xl:px-0">
                     <SectionHead
@@ -413,26 +414,19 @@ export default function DirectoryPageView({
                             isCurrent ? "Previous Years" : "Other Years"
                         }`}
                     />
-                    {/* Three most recent years, then a "Show all" button for
-                        the rest — the archive grows by one a year, and a
-                        reader looks a year up rather than browsing, so an
-                        expanding grid beats a carousel here. */}
-                    <ExpandableGrid
-                        initial={3}
-                        noun="years"
-                        className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6"
-                    >
-                        {otherYears.map((y) => (
-                            <YearCard
-                                key={y}
-                                year={y}
-                                category={directory.cardTitle}
-                                title={titleForYear(directory, y)}
-                                href={directoryPath(directory, y)}
-                                current={y === year}
-                            />
-                        ))}
-                    </ExpandableGrid>
+                    <div className="mt-12">
+                        <ArchiveTimeline
+                            surface="white"
+                            perRow={3}
+                            stops={yearStops({
+                                years: allYears,
+                                hereYear: listYear,
+                                hereHref: "#programs",
+                                titleFor: (y) => titleForYear(directory, y),
+                                hrefFor: (y) => directoryPath(directory, y),
+                            })}
+                        />
+                    </div>
                 </div>
             </section>
 

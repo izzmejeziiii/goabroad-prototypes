@@ -11,18 +11,81 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
 });
 
-type Stop = {
+export type TimelineStop = {
     year: string;
     title: string;
+    /** Small line beside the year: an announcement date, or "You are here". */
     meta: string;
     href: string;
     action: string;
     external: boolean;
+    /** The stop the reader is on — sun ring and sun meta. */
     current: boolean;
 };
 
-/* Stops per row on the desktop route. */
-const PER_ROW = 4;
+type Stop = TimelineStop;
+
+/* The main page's stops: this year's lists, then each previous year's
+   announcement article with its publish date. */
+export function articleStops(
+    links: YearLink[],
+    currentYear: number,
+    currentHref: string,
+): TimelineStop[] {
+    return [
+        {
+            year: String(currentYear),
+            title: `Top Rated Providers & Programs of ${currentYear}`,
+            meta: "You are here",
+            href: currentHref,
+            action: "This year's lists",
+            external: false,
+            current: true,
+        },
+        ...links.map((link) => ({
+            year: link.label.match(/\d{4}$/)?.[0] ?? "",
+            title: link.label,
+            meta: link.date ? dateFormat.format(new Date(link.date)) : "",
+            href: link.href,
+            action: "Read the article",
+            external: true,
+            current: false,
+        })),
+    ];
+}
+
+/* A directory page's stops: every year that has a list for the
+   directory, newest first, with the page's own year marked as where the
+   reader is. */
+export function yearStops({
+    years,
+    hereYear,
+    hereHref,
+    titleFor,
+    hrefFor,
+}: {
+    years: number[];
+    hereYear: number;
+    hereHref: string;
+    titleFor: (year: number) => string;
+    hrefFor: (year: number) => string;
+}): TimelineStop[] {
+    return years.map((y) => {
+        const here = y === hereYear;
+        return {
+            year: String(y),
+            title: titleFor(y),
+            meta: here ? "You are here" : "",
+            href: here ? hereHref : hrefFor(y),
+            action: here ? "This list" : "View the list",
+            external: false,
+            current: here,
+        };
+    });
+}
+
+/* Stops per row on the desktop route unless the caller says otherwise. */
+const DEFAULT_PER_ROW = 4;
 
 /* One milestone card: the year large, when it was announced, the article's
    title, and the link line. A coloured top edge ties the card to its stop
@@ -89,11 +152,15 @@ type MarkerKind = "plane" | "pin" | "point";
 function Marker({
     kind,
     heading,
+    ring,
     className,
 }: {
     kind: MarkerKind;
     /** Which way the plane flies: along the desktop row or up the rail. */
     heading: "left" | "up";
+    /** Ring in the section's background colour, so the marker punches a
+        gap in the dashed line. */
+    ring: string;
     className?: string;
 }) {
     return (
@@ -102,7 +169,9 @@ function Marker({
             className={`flex h-10 w-10 items-center justify-center ${className ?? ""}`}
         >
             {kind === "plane" ? (
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sun-500 text-cobalt-700 shadow-md shadow-sun-500/40 ring-4 ring-slate-100">
+                <span
+                    className={`flex h-10 w-10 items-center justify-center rounded-full bg-sun-500 text-cobalt-700 shadow-md shadow-sun-500/40 ring-4 ${ring}`}
+                >
                     <HiPaperAirplane
                         className={`h-5 w-5 ${
                             heading === "left" ? "rotate-180" : "-rotate-90"
@@ -110,11 +179,15 @@ function Marker({
                     />
                 </span>
             ) : kind === "pin" ? (
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-cobalt-500 shadow-md ring-4 ring-slate-100">
+                <span
+                    className={`flex h-10 w-10 items-center justify-center rounded-full bg-white text-cobalt-500 shadow-md ring-4 ${ring}`}
+                >
                     <HiMapPin className="h-5 w-5" />
                 </span>
             ) : (
-                <span className="h-5 w-5 rounded-full bg-white shadow-[inset_0_0_0_4px_var(--color-cobalt-500)] ring-4 ring-slate-100" />
+                <span
+                    className={`h-5 w-5 rounded-full bg-white shadow-[inset_0_0_0_4px_var(--color-cobalt-500)] ring-4 ${ring}`}
+                />
             )}
         </span>
     );
@@ -123,47 +196,32 @@ function Marker({
 const markerKind = (index: number, last: number): MarkerKind =>
     index === 0 ? "plane" : index === last ? "point" : "pin";
 
-/* The previous years' announcements as a route on a map: a dashed travel
-   line that snakes across the section — left to right, a U-turn, right to
-   left — with a marker at every stop and a card beneath it carrying the
-   year, the announcement date, the article's title, and the link. Read as
-   a journey it runs from 2015 (a point) through map pins up to this year,
-   where the plane sits on a sun disc; laid out newest first, so the plane
-   is top-left and the point is the last stop.
-   Phones and tablets get the same stops down one vertical dashed rail. No
-   cover images — the articles' covers are all different shapes, which is
-   what the reviewer wanted to get away from. */
+/* Previous years as a route on a map: a dashed travel line that snakes
+   across the section — left to right, a U-turn, right to left — with a
+   marker at every stop and a card beneath it carrying the year, a small
+   line (date or "You are here"), the title, and the link. Read as a
+   journey it runs from the oldest year (a point) through map pins up to
+   this year, where the plane sits on a sun disc; laid out newest first, so
+   the plane is top-left and the point is the last stop. Phones and
+   tablets get the same stops down one vertical dashed rail. Used on the
+   main page for the announcement articles and on the directory pages for
+   each directory's own past lists (`articleStops` / `yearStops` build the
+   stops). No cover images — the articles' covers are all different
+   shapes, which is what the reviewer wanted to get away from. */
 export default function ArchiveTimeline({
-    links,
-    currentYear,
-    currentHref,
+    stops,
+    surface = "slate",
+    perRow = DEFAULT_PER_ROW,
 }: {
-    links: YearLink[];
-    currentYear: number;
-    /** Where this year's stop points — the top of the current lists. */
-    currentHref: string;
+    stops: TimelineStop[];
+    /** The section's background, so the markers' rings match it. */
+    surface?: "slate" | "white";
+    /** Stops per row on the desktop route — four on the main page, three
+        on the directory pages (Jezi's call). */
+    perRow?: number;
 }) {
-    const stops: Stop[] = [
-        {
-            year: String(currentYear),
-            title: `Top Rated Providers & Programs of ${currentYear}`,
-            meta: "You are here",
-            href: currentHref,
-            action: "This year's lists",
-            external: false,
-            current: true,
-        },
-        ...links.map((link) => ({
-            year: link.label.match(/\d{4}$/)?.[0] ?? "",
-            title: link.label,
-            meta: link.date ? dateFormat.format(new Date(link.date)) : "",
-            href: link.href,
-            action: "Read the article",
-            external: true,
-            current: false,
-        })),
-    ];
-    const rows = Math.ceil(stops.length / PER_ROW);
+    const ring = surface === "white" ? "ring-white" : "ring-slate-100";
+    const rows = Math.ceil(stops.length / perRow);
     const last = stops.length - 1;
     const line = "absolute top-[19px] border-t-2 border-dashed border-cobalt-500/50";
 
@@ -171,14 +229,17 @@ export default function ArchiveTimeline({
         <>
             {/* Desktop route: gutter columns either side hold the U-turns. */}
             <ol
-                className="hidden lg:grid lg:grid-cols-[3rem_repeat(4,minmax(0,1fr))_3rem] lg:gap-x-3 lg:gap-y-10"
-                style={{ gridAutoRows: "1fr" }}
+                className="hidden lg:grid lg:gap-x-3 lg:gap-y-10"
+                style={{
+                    gridAutoRows: "1fr",
+                    gridTemplateColumns: `3rem repeat(${perRow}, minmax(0, 1fr)) 3rem`,
+                }}
             >
                 {stops.map((stop, i) => {
-                    const row = Math.floor(i / PER_ROW);
-                    const pos = i % PER_ROW;
+                    const row = Math.floor(i / perRow);
+                    const pos = i % perRow;
                     const ltr = row % 2 === 0;
-                    const col = ltr ? pos : PER_ROW - 1 - pos;
+                    const col = ltr ? pos : perRow - 1 - pos;
                     const extent =
                         i === 0
                             ? "left-1/2 right-0"
@@ -197,6 +258,7 @@ export default function ArchiveTimeline({
                             <Marker
                                 kind={markerKind(i, last)}
                                 heading="left"
+                                ring={ring}
                                 className="absolute top-0 left-1/2 -translate-x-1/2"
                             />
                             <StopCard stop={stop} />
@@ -214,7 +276,7 @@ export default function ArchiveTimeline({
                             aria-hidden
                             className="relative"
                             style={{
-                                gridColumn: right ? PER_ROW + 2 : 1,
+                                gridColumn: right ? perRow + 2 : 1,
                                 gridRow: `${row + 1} / span 2`,
                             }}
                         >
@@ -237,6 +299,7 @@ export default function ArchiveTimeline({
                         <Marker
                             kind={markerKind(i, last)}
                             heading="up"
+                            ring={ring}
                             className="absolute top-1 -left-[3.3rem]"
                         />
                         <StopCard stop={stop} />

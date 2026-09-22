@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { HiChatBubbleLeftEllipsis, HiCheckBadge, HiStar } from "react-icons/hi2";
-import ArchiveTimeline from "../components/top-rated/archive-timeline";
+import ArchiveTimeline, {
+    articleStops,
+} from "../components/top-rated/archive-timeline";
 import BackToTop from "../components/top-rated/back-to-top";
 import TopRatedBadge from "../components/top-rated/badge";
 import CardSlider from "../components/top-rated/card-slider";
@@ -365,9 +367,11 @@ export default function TopRatedProvidersProgramsPage() {
                     />
                     <div className="mt-12">
                         <ArchiveTimeline
-                            links={previousYears}
-                            currentYear={year}
-                            currentHref="#top-rated-programs"
+                            stops={articleStops(
+                                previousYears,
+                                year,
+                                "#top-rated-programs",
+                            )}
                         />
                     </div>
                 </div>
