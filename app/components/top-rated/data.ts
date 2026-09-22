@@ -41,8 +41,7 @@ export const hero: {
     secondaryCta: string;
     photos: [CdnPhoto, CdnPhoto, CdnPhoto];
 } = {
-    lead:
-        "Every year we recognize the organizations and programs that real participants rated highest on GoAbroad. Here they all are, in one place.",
+    lead: "Every year we recognize the organizations and programs that real participants rated highest on GoAbroad. Here they all are, in one place.",
     primaryCta: "Explore the Top Rated Programs",
     secondaryCta: "Meet the Top Rated Providers",
     photos: [
@@ -88,7 +87,8 @@ export const providersSection = {
     paragraphAfter:
         " have consistently delivered high-quality, meaningful travel experiences and earned the trust and praise of the global community. Let their impact speak for itself; explore programs from the best in the field.",
     notableHeading: "Top Rated Notable Mentions",
-    notableBadge: "goabroad-top-rated-provider-2025---notable-mention1769477551.png",
+    notableBadge:
+        "goabroad-top-rated-provider-2025---notable-mention1769477551.png",
 };
 
 export const previousYearsSection = {
@@ -313,7 +313,7 @@ export const directories: Directory[] = [
         summary: [
             "Planning to teach English abroad or online? Our Top Rated TEFL Courses are backed by real reviews from aspiring and experienced teachers who’ve successfully completed their training and gone on to lead classrooms around the world.",
             `These courses stood out in ${year - 1} for their high-quality instruction, practical preparation, and ongoing support—whether in-person or online. We selected this list based on both the number and quality of participant reviews, so you can find a TEFL course that’s trusted and worth your investment.`,
-            "Start your teaching journey with confidence and explore the Top TEFL Courses!",
+            "Start your teaching journey with confidence and explore the Top Rated TEFL Courses!",
         ],
         icon: "tefl-courses",
         photo: {
@@ -986,7 +986,11 @@ export const providerGroups: ProviderGroup[] = [
     },
     {
         directoryId: "intern-abroad",
-        providers: ["intern-abroad-hq-1", "go-abroad-china", "international-medical-aid"],
+        providers: [
+            "intern-abroad-hq-1",
+            "go-abroad-china",
+            "international-medical-aid",
+        ],
     },
     {
         directoryId: "volunteer-abroad",
@@ -994,11 +998,19 @@ export const providerGroups: ProviderGroup[] = [
     },
     {
         directoryId: "tefl-courses",
-        providers: ["international-tefl-academy", "the-tefl-academy", "tefl-org"],
+        providers: [
+            "international-tefl-academy",
+            "the-tefl-academy",
+            "tefl-org",
+        ],
     },
     {
         directoryId: "language-schools",
-        providers: ["thats-mandarin", "live-the-language-school", "meiji-academy"],
+        providers: [
+            "thats-mandarin",
+            "live-the-language-school",
+            "meiji-academy",
+        ],
     },
     {
         directoryId: "gap-year",
@@ -1006,7 +1018,11 @@ export const providerGroups: ProviderGroup[] = [
     },
     {
         directoryId: "teach-abroad",
-        providers: ["the-language-house-tefl", "rvf-international", "xploreasia"],
+        providers: [
+            "the-language-house-tefl",
+            "rvf-international",
+            "xploreasia",
+        ],
     },
     {
         directoryId: "high-school-abroad",
@@ -1063,7 +1079,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 103,
             destination: "Spain",
             photo: {
-                path: gallery("woman-sitting-on-stairs-with-plant-decorated-house1715850884.jpg"),
+                path: gallery(
+                    "woman-sitting-on-stairs-with-plant-decorated-house1715850884.jpg",
+                ),
                 alt: "A student sitting on the stairs of a plant-decorated house in Alicante",
             },
         },
@@ -1200,7 +1218,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 174,
             destination: "China",
             photo: {
-                path: gallery("gac-career-launch-internship-program-in-china1779739702.jpg"),
+                path: gallery(
+                    "gac-career-launch-internship-program-in-china1779739702.jpg",
+                ),
                 alt: "Go Abroad China career launch interns",
             },
         },
@@ -1262,7 +1282,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 54,
             destination: "Indonesia",
             photo: {
-                path: gallery("a-person-gently-cradling-a-tiny-baby-turtle-in-their-hand1716778210.jpg"),
+                path: gallery(
+                    "a-person-gently-cradling-a-tiny-baby-turtle-in-their-hand1716778210.jpg",
+                ),
                 alt: "A volunteer gently cradling a tiny baby turtle",
             },
         },
@@ -1277,7 +1299,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 51,
             destination: "Zimbabwe",
             photo: {
-                path: gallery("zimbabwe-african-wildlife-orphanage-05-1-1519819951.jpg"),
+                path: gallery(
+                    "zimbabwe-african-wildlife-orphanage-05-1-1519819951.jpg",
+                ),
                 alt: "Volunteers at the African wildlife orphanage in Zimbabwe",
             },
         },
@@ -1292,7 +1316,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 39,
             destination: "Tanzania",
             photo: {
-                path: gallery("volunteer-experience-with-local-masaii-men-in-rural-tanzania1778593501.jpg"),
+                path: gallery(
+                    "volunteer-experience-with-local-masaii-men-in-rural-tanzania1778593501.jpg",
+                ),
                 alt: "GIVE volunteers with local Maasai men in rural Tanzania",
             },
         },
@@ -1339,7 +1365,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 2987,
             destination: "Online",
             photo: {
-                path: gallery("two-women-tefl-teachers-posing-with-their-children-students1715677365.jpg"),
+                path: gallery(
+                    "two-women-tefl-teachers-posing-with-their-children-students1715677365.jpg",
+                ),
                 alt: "Two TEFL teachers posing with their young students",
             },
         },
@@ -1369,7 +1397,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 372,
             destination: "Online",
             photo: {
-                path: gallery("female-tefl-teacher-leading-a-classroom-of-young-students-seated-on-the-floor-using-hand-gestures-during-a-lesson1777455166.jpg"),
+                path: gallery(
+                    "female-tefl-teacher-leading-a-classroom-of-young-students-seated-on-the-floor-using-hand-gestures-during-a-lesson1777455166.jpg",
+                ),
                 alt: "A TEFL teacher leading a classroom of young students seated on the floor",
             },
         },
@@ -1461,7 +1491,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 64,
             destination: "Costa Rica",
             photo: {
-                path: LF("YoMfBV5x5oBdiHz2vYvD28hrePeT0IP2c0dm2gh6_1714527981.jpg"),
+                path: LF(
+                    "YoMfBV5x5oBdiHz2vYvD28hrePeT0IP2c0dm2gh6_1714527981.jpg",
+                ),
                 alt: "Global Leadership Adventures teens volunteering in Costa Rica",
             },
         },
@@ -1506,7 +1538,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 66,
             destination: "Spain",
             photo: {
-                path: LF("uyCJkUZsREc4BSpYGLfmdZqRamHSebfZdMfdAYAY_1774338799.jpg"),
+                path: LF(
+                    "uyCJkUZsREc4BSpYGLfmdZqRamHSebfZdMfdAYAY_1774338799.jpg",
+                ),
                 alt: "Seville Abroad high school students in Seville",
             },
         },
@@ -1538,7 +1572,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 242,
             destination: "Thailand",
             photo: {
-                path: gallery("matt-and-elyssa-team-teaching-at-a-local-school-in-hua-hin-96100.jpg"),
+                path: gallery(
+                    "matt-and-elyssa-team-teaching-at-a-local-school-in-hua-hin-96100.jpg",
+                ),
                 alt: "Two XploreAsia teachers team-teaching at a local school in Hua Hin",
             },
         },
@@ -1553,7 +1589,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 124,
             destination: "Costa Rica",
             photo: {
-                path: gallery("get-tefl-certified-teach-english-in-costa-rica-2-1578515867.jpg"),
+                path: gallery(
+                    "get-tefl-certified-teach-english-in-costa-rica-2-1578515867.jpg",
+                ),
                 alt: "An International TEFL Academy teacher in Costa Rica",
             },
         },
@@ -1630,7 +1668,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 31,
             destination: "Peru & Ecuador",
             photo: {
-                path: gallery("south-america-gap-semester-pacific-discovery1726192737.png"),
+                path: gallery(
+                    "south-america-gap-semester-pacific-discovery1726192737.png",
+                ),
                 alt: "Pacific Discovery's South America gap semester",
             },
         },
@@ -1645,7 +1685,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 14,
             destination: "South Africa",
             photo: {
-                path: gallery("a-group-of-hikers-wearing-colorful-clothing-gathers-atop-rocky-cliffs-surrounded-by-trees-and-mist-conveying-a-sense-of-adventure-and-camaraderie1758905764.png"),
+                path: gallery(
+                    "a-group-of-hikers-wearing-colorful-clothing-gathers-atop-rocky-cliffs-surrounded-by-trees-and-mist-conveying-a-sense-of-adventure-and-camaraderie1758905764.png",
+                ),
                 alt: "A group of hikers gathers atop rocky cliffs surrounded by trees and mist",
             },
         },
@@ -1722,7 +1764,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 499,
             destination: "China",
             photo: {
-                path: gallery("influencer-jamie-zhu-studying-at-ltl-shanghai1775706891.jpg"),
+                path: gallery(
+                    "influencer-jamie-zhu-studying-at-ltl-shanghai1775706891.jpg",
+                ),
                 alt: "A student studying at LTL Shanghai",
             },
         },
@@ -1752,7 +1796,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 718,
             destination: "Costa Rica, Guatemala & Peru",
             photo: {
-                path: gallery("maximo-nivel-spanish-immersion-program-participants1787904116.jpg"),
+                path: gallery(
+                    "maximo-nivel-spanish-immersion-program-participants1787904116.jpg",
+                ),
                 alt: "Maximo Nivel Spanish immersion program participants",
             },
         },
@@ -1767,7 +1813,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 174,
             destination: "Spain",
             photo: {
-                path: LF("0eY1s56MgYts4JqpPhySW2WudBN8Z4xKAQ3Ls5vp_1781764737.jpg"),
+                path: LF(
+                    "0eY1s56MgYts4JqpPhySW2WudBN8Z4xKAQ3Ls5vp_1781764737.jpg",
+                ),
                 alt: "Instituto Hemingway students in Bilbao",
             },
         },
@@ -1874,7 +1922,9 @@ export const topRatedPrograms: Record<DirectoryId, TopRatedProgram[]> = {
             reviews: 569,
             destination: "China",
             photo: {
-                path: LF("7qfVwdFN65tK9lwIHlIyzVp1N2ENuYW1AxYodHCP_1778575404.jpg"),
+                path: LF(
+                    "7qfVwdFN65tK9lwIHlIyzVp1N2ENuYW1AxYodHCP_1778575404.jpg",
+                ),
                 alt: "International degree students in China with Go Abroad China",
             },
         },
@@ -1991,4 +2041,6 @@ export const winnerCount = providerGroups.reduce(
  *  (the requirement added after the doc: "page/links of previous year of per
  *  directory top rated programs"). Dummy: five years back; the admin would
  *  add a year each time the list rolls over. */
-export const programArchiveYears: number[] = [1, 2, 3, 4, 5].map((n) => year - n);
+export const programArchiveYears: number[] = [1, 2, 3, 4, 5].map(
+    (n) => year - n,
+);
