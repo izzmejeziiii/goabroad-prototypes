@@ -35,7 +35,7 @@ export function articleStops(
             title: `Top Rated Providers & Programs of ${currentYear}`,
             meta: "You are here",
             href: currentHref,
-            action: "This year's lists",
+            action: "View this year's lists",
             external: false,
             current: true,
         },
@@ -53,7 +53,8 @@ export function articleStops(
 
 /* A directory page's stops: every year that has a list for the
    directory, newest first, with the page's own year marked as where the
-   reader is. */
+   reader is. The active stop's link reads "View this list" (reviewer's
+   wording, in place of "This list"). */
 export function yearStops({
     years,
     hereYear,
@@ -74,7 +75,7 @@ export function yearStops({
             title: titleFor(y),
             meta: here ? "You are here" : "",
             href: here ? hereHref : hrefFor(y),
-            action: here ? "This list" : "View the list",
+            action: here ? "View this list" : "View the list",
             external: false,
             current: here,
         };
