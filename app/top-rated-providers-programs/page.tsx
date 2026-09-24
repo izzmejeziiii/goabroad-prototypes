@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { HiChatBubbleLeftEllipsis, HiCheckBadge, HiStar } from "react-icons/hi2";
-import ArchiveTimeline, {
-    articleStops,
-} from "../components/top-rated/archive-timeline";
+import { articleStops } from "../components/top-rated/archive-stops";
+import ArchiveTimeline from "../components/top-rated/archive-timeline";
 import BackToTop from "../components/top-rated/back-to-top";
 import TopRatedBadge from "../components/top-rated/badge";
 import CardSlider from "../components/top-rated/card-slider";
@@ -360,13 +359,17 @@ export default function TopRatedProvidersProgramsPage() {
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 xl:px-0">
                     {/* The ten announcements as a clickable timeline, headed
                         by this year's lists (reviewer's request, in place of
-                        article cards whose covers were all different). */}
+                        article cards whose covers were all different). One
+                        row of four shows at first; "See more years" unfolds
+                        the rest (reviewer, via Jezi: the fold "will also
+                        apply on the homepage"). */}
                     <SectionHead
                         kicker={previousYearsSection.kicker}
                         title={previousYearsSection.heading}
                     />
                     <div className="mt-12">
                         <ArchiveTimeline
+                            visible={4}
                             stops={articleStops(
                                 previousYears,
                                 year,

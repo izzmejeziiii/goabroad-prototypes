@@ -1,88 +1,16 @@
+"use client";
+
+import { useId, useState } from "react";
 import {
+    HiChevronDown,
+    HiChevronUp,
     HiMapPin,
     HiOutlineArrowUpRight,
     HiPaperAirplane,
 } from "react-icons/hi2";
-import type { YearLink } from "./types";
-
-const dateFormat = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-});
-
-export type TimelineStop = {
-    year: string;
-    title: string;
-    /** Small line beside the year: an announcement date, or "You are here". */
-    meta: string;
-    href: string;
-    action: string;
-    external: boolean;
-    /** The stop the reader is on — sun ring and sun meta. */
-    current: boolean;
-};
+import type { TimelineStop } from "./archive-stops";
 
 type Stop = TimelineStop;
-
-/* The main page's stops: this year's lists, then each previous year's
-   announcement article with its publish date. */
-export function articleStops(
-    links: YearLink[],
-    currentYear: number,
-    currentHref: string,
-): TimelineStop[] {
-    return [
-        {
-            year: String(currentYear),
-            title: `Top Rated Providers & Programs of ${currentYear}`,
-            meta: "You are here",
-            href: currentHref,
-            action: "This year's lists",
-            external: false,
-            current: true,
-        },
-        ...links.map((link) => ({
-            year: link.label.match(/\d{4}$/)?.[0] ?? "",
-            title: link.label,
-            meta: link.date ? dateFormat.format(new Date(link.date)) : "",
-            href: link.href,
-            action: "Read the article",
-            external: true,
-            current: false,
-        })),
-    ];
-}
-
-/* A directory page's stops: every year that has a list for the
-   directory, newest first, with the page's own year marked as where the
-   reader is. */
-export function yearStops({
-    years,
-    hereYear,
-    hereHref,
-    titleFor,
-    hrefFor,
-}: {
-    years: number[];
-    hereYear: number;
-    hereHref: string;
-    titleFor: (year: number) => string;
-    hrefFor: (year: number) => string;
-}): TimelineStop[] {
-    return years.map((y) => {
-        const here = y === hereYear;
-        return {
-            year: String(y),
-            title: titleFor(y),
-            meta: here ? "You are here" : "",
-            href: here ? hereHref : hrefFor(y),
-            action: here ? "This list" : "View the list",
-            external: false,
-            current: here,
-        };
-    });
-}
 
 /* Stops per row on the desktop route unless the caller says otherwise. */
 const DEFAULT_PER_ROW = 4;
@@ -193,6 +121,9 @@ function Marker({
     );
 }
 
+/* `last` is the index of the oldest stop in the whole list, so while the
+   route is folded the point (the journey's start) stays out of sight and
+   the last stop showing is still a pin — the route goes on past it. */
 const markerKind = (index: number, last: number): MarkerKind =>
     index === 0 ? "plane" : index === last ? "point" : "pin";
 
@@ -205,13 +136,20 @@ const markerKind = (index: number, last: number): MarkerKind =>
    the plane is top-left and the point is the last stop. Phones and
    tablets get the same stops down one vertical dashed rail. Used on the
    main page for the announcement articles and on the directory pages for
-   each directory's own past lists (`articleStops` / `yearStops` build the
-   stops). No cover images — the articles' covers are all different
-   shapes, which is what the reviewer wanted to get away from. */
+   each directory's own past lists (`articleStops` / `yearStops` in
+   archive-stops.ts build the stops). No cover images — the articles'
+   covers are all different shapes, which is what the reviewer wanted to
+   get away from.
+
+   With `visible`, only that many stops show at first (the newest), the
+   dashed line trails off past the last of them, and a "See more years"
+   button unfolds the rest — the reviewer's ask for the directory pages,
+   whose archives grow by a year every year. */
 export default function ArchiveTimeline({
     stops,
     surface = "slate",
     perRow = DEFAULT_PER_ROW,
+    visible,
 }: {
     stops: TimelineStop[];
     /** The section's background, so the markers' rings match it. */
@@ -219,23 +157,41 @@ export default function ArchiveTimeline({
     /** Stops per row on the desktop route — four on the main page, three
         on the directory pages (Jezi's call). */
     perRow?: number;
+    /** Stops shown before the "See more years" button; every stop when
+        left out. */
+    visible?: number;
 }) {
+    const [expanded, setExpanded] = useState(false);
+    const listId = useId();
+    const foldable = visible !== undefined && stops.length > visible;
+    const folded = foldable && !expanded;
+    const shown = folded ? stops.slice(0, visible) : stops;
+
     const ring = surface === "white" ? "ring-white" : "ring-slate-100";
-    const rows = Math.ceil(stops.length / perRow);
+    const rows = Math.ceil(shown.length / perRow);
     const last = stops.length - 1;
     const line = "absolute top-[19px] border-t-2 border-dashed border-cobalt-500/50";
+
+    /* Where the folded route trails off: the cell after the last stop
+       showing (the gutter, when that stop ends its row). */
+    const tailIndex = shown.length - 1;
+    const tailRow = Math.floor(tailIndex / perRow);
+    const tailLtr = tailRow % 2 === 0;
+    const tailPos = tailIndex % perRow;
+    const tailCol = tailLtr ? tailPos + 1 : perRow - 2 - tailPos;
 
     return (
         <>
             {/* Desktop route: gutter columns either side hold the U-turns. */}
             <ol
+                id={`${listId}-route`}
                 className="hidden lg:grid lg:gap-x-3 lg:gap-y-10"
                 style={{
                     gridAutoRows: "1fr",
                     gridTemplateColumns: `3rem repeat(${perRow}, minmax(0, 1fr)) 3rem`,
                 }}
             >
-                {stops.map((stop, i) => {
+                {shown.map((stop, i) => {
                     const row = Math.floor(i / perRow);
                     const pos = i % perRow;
                     const ltr = row % 2 === 0;
@@ -290,22 +246,66 @@ export default function ArchiveTimeline({
                         </li>
                     );
                 })}
+                {/* Folded: the line carries on past the last stop showing
+                    and fades out — the route continues. */}
+                {folded && (
+                    <li
+                        aria-hidden
+                        className="relative"
+                        style={{ gridColumn: tailCol + 2, gridRow: tailRow + 1 }}
+                    >
+                        <span
+                            className={`${line} ${
+                                tailLtr
+                                    ? "-left-1.5 right-0 [mask-image:linear-gradient(to_right,black,transparent)]"
+                                    : "left-0 -right-1.5 [mask-image:linear-gradient(to_left,black,transparent)]"
+                            }`}
+                        />
+                    </li>
+                )}
             </ol>
 
             {/* Phone and tablet route: one vertical dashed rail. */}
-            <ol className="relative ml-5 space-y-5 border-l-2 border-dashed border-cobalt-500/50 pl-8 lg:hidden">
-                {stops.map((stop, i) => (
-                    <li key={stop.year} className="relative">
-                        <Marker
-                            kind={markerKind(i, last)}
-                            heading="up"
-                            ring={ring}
-                            className="absolute top-1 -left-[3.3rem]"
-                        />
-                        <StopCard stop={stop} />
-                    </li>
-                ))}
-            </ol>
+            <div id={`${listId}-rail`} className="lg:hidden">
+                <ol className="relative ml-5 space-y-5 border-l-2 border-dashed border-cobalt-500/50 pl-8">
+                    {shown.map((stop, i) => (
+                        <li key={stop.year} className="relative">
+                            <Marker
+                                kind={markerKind(i, last)}
+                                heading="up"
+                                ring={ring}
+                                className="absolute top-1 -left-[3.3rem]"
+                            />
+                            <StopCard stop={stop} />
+                        </li>
+                    ))}
+                </ol>
+                {folded && (
+                    <span
+                        aria-hidden
+                        className="ml-5 block h-14 border-l-2 border-dashed border-cobalt-500/50 [mask-image:linear-gradient(to_bottom,black,transparent)]"
+                    />
+                )}
+            </div>
+
+            {foldable && (
+                <div className="mt-6 flex justify-center lg:mt-10">
+                    <button
+                        type="button"
+                        onClick={() => setExpanded((open) => !open)}
+                        aria-expanded={expanded}
+                        aria-controls={`${listId}-route ${listId}-rail`}
+                        className="inline-flex items-center gap-2 rounded-lg border border-cobalt-500 px-5 py-3 text-sm font-semibold text-cobalt-500 transition-colors hover:bg-cobalt-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cobalt-500 focus-visible:ring-offset-2"
+                    >
+                        {expanded ? "See fewer years" : "See more years"}
+                        {expanded ? (
+                            <HiChevronUp aria-hidden className="h-4 w-4" />
+                        ) : (
+                            <HiChevronDown aria-hidden className="h-4 w-4" />
+                        )}
+                    </button>
+                </div>
+            )}
         </>
     );
 }

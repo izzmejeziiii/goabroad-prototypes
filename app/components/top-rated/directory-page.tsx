@@ -20,7 +20,8 @@ import {
 } from "./data";
 import CardSlider from "./card-slider";
 import DirectoryCard from "./directory-card";
-import ArchiveTimeline, { yearStops } from "./archive-timeline";
+import { yearStops } from "./archive-stops";
+import ArchiveTimeline from "./archive-timeline";
 import NextSteps from "./next-steps";
 import ProgramBadge from "./program-badge";
 import ProgramCard from "./program-card";
@@ -404,8 +405,9 @@ export default function DirectoryPageView({
             {/* This directory's lists over the years — the requirement added
                 after the doc — as the same dashed route-map timeline the
                 main page uses for its archive (Jezi's call), with the page's
-                own year marked "You are here". Every year is on the route,
-                so no "show all" button is needed. */}
+                own year marked "You are here". Three years show at first
+                and a "See more years" button unfolds the rest (reviewer's
+                ask, so the section stays short as the archive grows). */}
             <section id="other-years" className="w-full scroll-mt-24 bg-white">
                 <div className="mx-auto max-w-7xl px-4 py-16 md:py-20 xl:px-0">
                     <SectionHead
@@ -418,6 +420,7 @@ export default function DirectoryPageView({
                         <ArchiveTimeline
                             surface="white"
                             perRow={3}
+                            visible={3}
                             stops={yearStops({
                                 years: allYears,
                                 hereYear: listYear,
