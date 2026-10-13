@@ -3,7 +3,11 @@
 import clsx from "clsx";
 import { FaCheck } from "react-icons/fa";
 import { MdCompareArrows } from "react-icons/md";
-import { useCompare, type ComparableProgram } from "./compare-context";
+import {
+    MAX_COMPARE,
+    useCompare,
+    type ComparableProgram,
+} from "./compare-context";
 
 /**
  * The per-card selector.
@@ -11,7 +15,8 @@ import { useCompare, type ComparableProgram } from "./compare-context";
  * V1 puts a checkbox where the save heart normally sits, but only once the
  * visitor has pressed "Compare Programs". V2 keeps a compare icon beside the
  * heart at all times. V3 combines the two: V1's checkbox, always on, in the
- * corner the save heart has vacated.
+ * corner the save heart has vacated. V4 leaves the corner to the heart and
+ * selects from the card's footer instead — see CompareCardFooter.
  */
 export default function CompareControl({
     program,
@@ -21,6 +26,8 @@ export default function CompareControl({
     const { version, compareMode, isSelected, isFull, toggle } = useCompare();
     const selected = isSelected(program.id);
     const disabled = !selected && isFull;
+
+    if (version === "v4") return null;
 
     if (version === "v1" || version === "v3") {
         // V1 reveals the checkbox only in compare mode; V3 always shows it.
@@ -95,5 +102,57 @@ export default function CompareControl({
                       : "Add to comparison"}
             </span>
         </div>
+    );
+}
+
+/**
+ * V4's selector: a labelled "Add to compare" row along the bottom of the card,
+ * under the two CTAs, so it reads as one of the card's actions and the save
+ * heart keeps its corner.
+ */
+export function CompareCardFooter({ program }: { program: ComparableProgram }) {
+    const { version, isSelected, isFull, toggle } = useCompare();
+
+    if (version !== "v4") return null;
+
+    const selected = isSelected(program.id);
+    const disabled = !selected && isFull;
+
+    return (
+        <label
+            className={clsx(
+                "has-[:focus-visible]:ring-cobalt-500 flex shrink-0 items-center gap-2.5 rounded-b-md border-t px-4 py-3 text-sm font-bold transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset",
+                selected
+                    ? "border-cobalt-500/30 bg-cobalt-500/5 text-cobalt-600 hover:bg-cobalt-500/10 cursor-pointer"
+                    : disabled
+                      ? "cursor-not-allowed border-slate-200 bg-slate-50 text-slate-500"
+                      : "cursor-pointer border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100",
+            )}
+        >
+            <input
+                type="checkbox"
+                className="sr-only"
+                checked={selected}
+                disabled={disabled}
+                onChange={() => toggle(program)}
+            />
+            <span
+                className={clsx(
+                    "flex h-5 w-5 shrink-0 items-center justify-center rounded border",
+                    selected
+                        ? "bg-cobalt-500 border-cobalt-500 text-white"
+                        : disabled
+                          ? "border-slate-300 bg-slate-100"
+                          : "border-gray-400 bg-white",
+                )}
+            >
+                {selected && <FaCheck className="h-3 w-3" />}
+            </span>
+            {selected
+                ? "Added to compare"
+                : disabled
+                  ? `Compare is full (${MAX_COMPARE} of ${MAX_COMPARE})`
+                  : "Add to compare"}
+        </label>
     );
 }

@@ -154,14 +154,32 @@ body {
     }
 }
 
-/* V2's compare tray pins to the bottom of the viewport — give the page room
-   and lift the other bottom-anchored controls above it. */
+/* V2/V3's compare tray and V4's dock pin to the bottom of the viewport — give
+   the page room and lift the other bottom-anchored controls above them. */
 body.compare-tray-open {
     padding-bottom: calc(var(--compare-tray-height, 140px) + 16px);
 }
 
 body.compare-tray-open .compare-shift {
     bottom: calc(var(--compare-tray-height, 140px) + 16px);
+}
+
+/* V4's dock and its panel rise into place */
+@keyframes compare-dock-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+.compare-dock-in {
+    animation: compare-dock-in 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .compare-dock-in {
+        animation: none;
+    }
 }
 
 /* Ride along with the tray as it expands and collapses */

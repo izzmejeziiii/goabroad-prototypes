@@ -52,6 +52,7 @@ export function CompareHint({ placement }: { placement: "top" | "bottom" }) {
  * V1: the "Compare Programs" toggle, and once compare mode is on, the running
  * count with the Compare / Cancel pair.
  * V2: the hint above — selection lives on the cards and in the bottom tray.
+ * V4: nothing — the "Add to compare" row on each card explains itself.
  */
 export default function CompareSectionBar({
     /** Search results move the in-progress panel into the filter rail at xl. */
@@ -73,6 +74,8 @@ export default function CompareSectionBar({
     if (version === "v2" || version === "v3") {
         return <CompareHint placement="top" />;
     }
+
+    if (version === "v4") return null;
 
     if (!compareMode) {
         return (
@@ -166,13 +169,11 @@ export function CompareTray() {
 
     // The mobile filter pill, the Online Advisor bubble and the version toggle
     // all live at the bottom of the viewport — lift them above the tray, by
-    // however tall the tray actually is.
+    // however tall the tray actually is. While hidden it leaves the body alone,
+    // since V4's dock sets the same class.
     useEffect(() => {
-        document.body.classList.toggle("compare-tray-open", showTray);
-        if (!showTray) {
-            document.body.style.removeProperty("--compare-tray-height");
-            return () => document.body.classList.remove("compare-tray-open");
-        }
+        if (!showTray) return;
+        document.body.classList.add("compare-tray-open");
 
         const measure = () => {
             const height = trayRef.current?.offsetHeight ?? 0;

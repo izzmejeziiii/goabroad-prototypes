@@ -15,7 +15,7 @@ import {
 import { featuredPrograms } from "./data";
 import type { FeaturedProgram } from "./types";
 import { useCompare } from "./compare/compare-context";
-import CompareControl from "./compare/compare-control";
+import CompareControl, { CompareCardFooter } from "./compare/compare-control";
 import CompareSectionBar, { CompareHint } from "./compare/compare-bar";
 
 /** Flattened for the comparison table; ids are namespaced by page. */
@@ -173,6 +173,7 @@ function FeaturedProgramAd({ ad }: { ad: FeaturedProgram }) {
                     </Link>
                 </div>
             </div>
+            <CompareCardFooter program={program} />
         </div>
     );
 }

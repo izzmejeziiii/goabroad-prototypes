@@ -9,6 +9,7 @@ const options = [
     { id: "v1", short: "V1", label: "V1 · Compare mode" },
     { id: "v2", short: "V2", label: "V2 · Quick add" },
     { id: "v3", short: "V3", label: "V3 · Checkbox add" },
+    { id: "v4", short: "V4", label: "V4 · Footer add" },
 ] as const;
 
 /**
@@ -34,7 +35,7 @@ export default function CompareVersionToggle() {
                         Prototype
                     </span>
                     <span className="hidden truncate font-medium text-white/80 sm:inline">
-                        This page has three program comparison flows — toggle to
+                        This page has four program comparison flows — toggle to
                         compare.
                     </span>
                 </div>

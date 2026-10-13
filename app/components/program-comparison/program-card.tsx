@@ -10,7 +10,7 @@ import { IoMdOpen, IoMdStar } from "react-icons/io";
 import { PiCaretDownBold } from "react-icons/pi";
 import type { ProgramResult } from "./types";
 import { useCompare } from "./compare/compare-context";
-import CompareControl from "./compare/compare-control";
+import CompareControl, { CompareCardFooter } from "./compare/compare-control";
 
 /** Flattened for the comparison table; ids are namespaced by page. */
 const toComparable = (listing: ProgramResult) => ({
@@ -246,6 +246,7 @@ export default function ProgramCard({
                     </Link>
                 </div>
             </div>
+            <CompareCardFooter program={program} />
         </div>
     );
 }

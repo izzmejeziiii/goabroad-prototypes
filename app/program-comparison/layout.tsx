@@ -1,5 +1,6 @@
 import { CompareProvider } from "../components/program-comparison/compare/compare-context";
 import { CompareTray } from "../components/program-comparison/compare/compare-bar";
+import CompareDock from "../components/program-comparison/compare/compare-dock";
 import SignInModal from "../components/program-comparison/compare/sign-in-modal";
 import CompareVersionToggle from "../components/program-comparison/compare/version-toggle";
 
@@ -20,6 +21,7 @@ export default function ProgramComparisonLayout({
         <CompareProvider>
             {children}
             <CompareTray />
+            <CompareDock />
             <SignInModal />
             <CompareVersionToggle />
         </CompareProvider>
