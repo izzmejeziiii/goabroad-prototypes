@@ -88,6 +88,15 @@ const cards: PrototypeCard[] = [
         badge: "Main page + 11 directory pages",
         accent: "primary",
     },
+    {
+        href: "/invoice-tool",
+        url: "/invoice-tool",
+        title: "Invoice Tool",
+        description:
+            "A no-login page where clients find a GoAbroad invoice by number and email, then pay it — card with a billing-address fee check, bank transfer, wire, Wise, or PayPal. Covers open, overdue, partly paid, waiting-to-match, over-the-card-limit, and paid invoices. Modelled on the staged GHL payments portal; demo data.",
+        badge: "Lookup + payment flow",
+        accent: "primary",
+    },
 ];
 
 export default function Home() {
