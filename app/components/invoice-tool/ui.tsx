@@ -33,37 +33,40 @@ export const buttonSecondary =
 export const textLink =
     "font-semibold text-cobalt-500 underline underline-offset-2 hover:text-cobalt-700";
 
-/** The deep-blue band across the top of the card: the logo centred, the page
- *  label and the route-style step tracker. Leave `step` out to hide the
- *  tracker. The logo sits straight on the blue, as on the goabroad.com hero. */
+/** The hero at the top of the card: white like the rest of the card, with the
+ *  logo centred, the page label and the route-style step tracker, closed off
+ *  by a divider that follows the card's side padding (not edge to edge).
+ *  Leave `step` out to hide the tracker. */
 export function BrandBand({ step }: { step?: 1 | 2 | 3 }) {
     return (
-        <div className="rounded-t-2xl bg-cobalt-700 px-5 pt-8 pb-8 sm:px-10 sm:pt-10 sm:pb-10 lg:px-14">
-            <div className="relative flex items-center justify-center">
-                <Link
-                    href="/invoice-tool"
-                    aria-label={`${business.name} — pay an invoice`}
-                    className="rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-sun-300/70"
-                >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src={business.logo}
-                        alt={business.name}
-                        className="h-16 w-auto"
-                    />
-                </Link>
-                <span className="absolute top-0 right-0 hidden items-center gap-1.5 text-sm font-medium text-white/80 sm:inline-flex">
-                    <Lock className="h-3.5 w-3.5" aria-hidden />
-                    Pay an Invoice
-                </span>
+        <div className="px-5 pt-8 sm:px-10 sm:pt-10 lg:px-14">
+            <div className="border-b border-slate-200 pb-8 sm:pb-10">
+                <div className="relative flex items-center justify-center">
+                    <Link
+                        href="/invoice-tool"
+                        aria-label={`${business.name} — pay an invoice`}
+                        className="rounded-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cobalt-500/20"
+                    >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={business.logo}
+                            alt={business.name}
+                            className="h-16 w-auto"
+                        />
+                    </Link>
+                    <span className="absolute top-0 right-0 hidden items-center gap-1.5 text-sm font-medium text-slate-600 sm:inline-flex">
+                        <Lock className="h-3.5 w-3.5" aria-hidden />
+                        Pay an Invoice
+                    </span>
+                </div>
+                {step ? <Progress step={step} className="mt-8" /> : null}
             </div>
-            {step ? <Progress step={step} className="mt-8" /> : null}
         </div>
     );
 }
 
 /** The two steps drawn as a short flight route — Invoice → Payment → Paid —
- *  in white and orange on the brand band, each label under its stop. Step 3
+ *  in the hero, each label under its stop. Step 3
  *  means the invoice is paid. */
 export function Progress({ step, className }: { step: 1 | 2 | 3; className?: string }) {
     const stops = ["Invoice", "Payment"];
@@ -85,11 +88,11 @@ export function Progress({ step, className }: { step: 1 | 2 | 3; className?: str
                             <span
                                 className={cn(
                                     "grid h-8 w-8 place-items-center rounded-full text-sm font-bold",
-                                    done && "bg-white text-cobalt-700",
+                                    done && "bg-cobalt-500 text-white",
                                     current && "bg-sun-500 text-cobalt-700",
                                     !done &&
                                         !current &&
-                                        "border-2 border-white/40 text-white/80",
+                                        "border-2 border-slate-300 bg-white text-slate-500",
                                 )}
                             >
                                 {done ? (
@@ -106,8 +109,8 @@ export function Progress({ step, className }: { step: 1 | 2 | 3; className?: str
                                 className={cn(
                                     "text-sm",
                                     done || current
-                                        ? "font-semibold text-white"
-                                        : "text-white/75",
+                                        ? "font-semibold text-slate-900"
+                                        : "text-slate-600",
                                 )}
                             >
                                 {label}
@@ -117,11 +120,11 @@ export function Progress({ step, className }: { step: 1 | 2 | 3; className?: str
                             <span
                                 className={cn(
                                     "block border-t-2 border-dashed",
-                                    done ? "border-white/70" : "border-white/30",
+                                    done ? "border-cobalt-500/60" : "border-slate-300",
                                 )}
                             />
                             {n + 1 === step ? (
-                                <Plane className="absolute top-1/2 right-0 h-4 w-4 -translate-y-1/2 rotate-45 bg-cobalt-700 fill-current text-sun-500" />
+                                <Plane className="absolute top-1/2 right-0 h-4 w-4 -translate-y-1/2 rotate-45 bg-white fill-current text-cobalt-500" />
                             ) : null}
                         </li>
                     </Fragment>
@@ -132,8 +135,8 @@ export function Progress({ step, className }: { step: 1 | 2 | 3; className?: str
                     className={cn(
                         "grid h-8 w-8 place-items-center rounded-full",
                         step === 3
-                            ? "bg-sun-500 text-cobalt-700"
-                            : "border-2 border-dashed border-white/40 text-sun-500",
+                            ? "bg-cobalt-500 text-white"
+                            : "border-2 border-dashed border-slate-300 bg-white text-slate-500",
                     )}
                 >
                     <MapPin className="h-4 w-4" aria-hidden />
@@ -141,7 +144,7 @@ export function Progress({ step, className }: { step: 1 | 2 | 3; className?: str
                 <span
                     className={cn(
                         "text-sm",
-                        step === 3 ? "font-semibold text-white" : "text-white/75",
+                        step === 3 ? "font-semibold text-slate-900" : "text-slate-600",
                     )}
                 >
                     Paid
