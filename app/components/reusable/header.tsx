@@ -273,7 +273,8 @@ export default function Header() {
     if (
         pathname?.startsWith("/program-listing") ||
         pathname?.startsWith("/admin") ||
-        pathname?.startsWith("/ayu-giving")
+        pathname?.startsWith("/ayu-giving") ||
+        pathname?.startsWith("/invoice-tool")
     )
         return null;
 
