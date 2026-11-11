@@ -22,9 +22,10 @@ export const inputClass =
     "block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-base text-gray-700 shadow-sm outline-none transition-shadow placeholder:text-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-300 disabled:cursor-not-allowed disabled:bg-gray-100 sm:text-sm aria-invalid:border-red-600 aria-invalid:text-red-600 aria-invalid:focus:border-red-600 aria-invalid:focus:ring-red-300";
 
 /* GoAbroad's red button (#dc625a with white text), as on goabroad.com's
-   "Apply Now" and "Subscribe" buttons. */
+   "Apply Now" button, sized like its main CTAs: 14px semibold text,
+   px-7 py-3, about 44px tall. */
 export const buttonPrimary =
-    "inline-flex items-center justify-center gap-2 rounded-lg bg-roman-500 px-7 py-3 text-base font-semibold text-white transition-colors hover:bg-roman-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-roman-300/60 disabled:cursor-wait disabled:opacity-70";
+    "inline-flex items-center justify-center gap-2 rounded-lg bg-roman-500 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-roman-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-roman-300/60 disabled:cursor-wait disabled:opacity-70";
 
 export const buttonSecondary =
     "inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cobalt-500/20";
