@@ -249,6 +249,8 @@ const Footer: React.FC = () => {
     };
 
     if (
+        // The landing page is a full-screen library index with its own top bar.
+        pathname === "/" ||
         pathname?.startsWith("/program-listing") ||
         pathname?.startsWith("/admin") ||
         pathname?.startsWith("/ayu-giving") ||
