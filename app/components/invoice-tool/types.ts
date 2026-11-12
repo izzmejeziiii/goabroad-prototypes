@@ -45,8 +45,9 @@ export interface DemoInvoice {
     lateFees: LateFee[];
     /** Payments recorded before today (partial payments). */
     paidCents: number;
-    /** Card is switched off for some invoices (e.g. over the card limit). */
-    cardAllowed: boolean;
+    /** The billing address on the client's GoAbroad account. The card step
+     *  starts with it filled in. */
+    billingAddress: BillingAddress;
     claim?: TransferClaim;
     payment?: RecordedPayment;
     /** Short label for the prototype's demo-invoice list. */
@@ -77,14 +78,11 @@ export interface TransferMethod {
 }
 
 export interface BillingAddress {
-    country: string;
+    /** Street address, including any suite or unit. */
+    line1: string;
+    city: string;
+    /** A code from `subdivisions` when the country has a list, else free text. */
     region: string;
     postalCode: string;
-}
-
-export interface CardQuote {
-    applies: boolean;
-    feeCents: number;
-    chargeCents: number;
-    disclosure: string;
+    country: string;
 }

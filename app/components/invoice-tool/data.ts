@@ -1,5 +1,4 @@
-import { countryName, regionName } from "./regions";
-import type { BillingAddress, CardQuote, DemoInvoice, TransferMethod } from "./types";
+import type { DemoInvoice, TransferMethod } from "./types";
 
 /* ------------------------------------------------------------------ */
 /* Business details                                                    */
@@ -15,13 +14,11 @@ export const business = {
     lateFeePolicy: "Invoices still unpaid 15 days after the due date get a 5% late fee.",
 };
 
-/** Card is switched off above this amount (bank, wire, Wise or PayPal only). */
-export const CARD_LIMIT_CENTS = 5_000_00;
-export const CARD_FEE_RATE = 0.03;
-
-/** Places where card surcharges aren't allowed, so no card fee applies. */
-const NO_SURCHARGE_COUNTRIES = ["GB", "IE", "ES", "IT", "FR", "DE", "NL"];
-const NO_SURCHARGE_US_STATES = ["CT", "MA", "ME", "PR"];
+/** Card is only offered when the amount being paid is this or less. GoAbroad
+ *  absorbs card processing fees, so the payer never sees one; capping card
+ *  payments keeps those fees small. Above it: bank, wire, Wise or PayPal. */
+export const CARD_LIMIT_CENTS = 500_00;
+export const cardAvailable = (dueCents: number) => dueCents <= CARD_LIMIT_CENTS;
 
 /* ------------------------------------------------------------------ */
 /* Demo invoices — one per state the payer can land in                 */
@@ -41,18 +38,24 @@ export const invoices: DemoInvoice[] = [
                 name: "Featured Listing — Volunteer Abroad Directory",
                 description: "Q1 2027 · Jan 1 – Mar 31",
                 qty: 1,
-                priceCents: 840_00,
+                priceCents: 300_00,
             },
             {
                 name: "Homepage Spotlight",
                 description: "January 2027",
                 qty: 1,
-                priceCents: 400_00,
+                priceCents: 150_00,
             },
         ],
         lateFees: [],
         paidCents: 0,
-        cardAllowed: true,
+        billingAddress: {
+            line1: "1550 Larimer Street, Suite 400",
+            city: "Denver",
+            region: "CO",
+            postalCode: "80202",
+            country: "US",
+        },
         scenario: "Open invoice",
     },
     {
@@ -75,7 +78,13 @@ export const invoices: DemoInvoice[] = [
             { name: "Late fee (5%)", amountCents: 120_00, appliedOn: "Nov 1, 2026" },
         ],
         paidCents: 0,
-        cardAllowed: true,
+        billingAddress: {
+            line1: "Calle de Alcalá 120, 2º",
+            city: "Madrid",
+            region: "Madrid",
+            postalCode: "28009",
+            country: "ES",
+        },
         scenario: "Overdue, late fee added",
     },
     {
@@ -102,7 +111,13 @@ export const invoices: DemoInvoice[] = [
         ],
         lateFees: [],
         paidCents: 500_00,
-        cardAllowed: true,
+        billingAddress: {
+            line1: "Ngong Road, Kilimani",
+            city: "Nairobi",
+            region: "",
+            postalCode: "00100",
+            country: "KE",
+        },
         scenario: "Partly paid",
     },
     {
@@ -123,7 +138,13 @@ export const invoices: DemoInvoice[] = [
         ],
         lateFees: [],
         paidCents: 0,
-        cardAllowed: true,
+        billingAddress: {
+            line1: "45 Teheran-ro, Gangnam-gu",
+            city: "Seoul",
+            region: "Seoul",
+            postalCode: "06164",
+            country: "KR",
+        },
         claim: {
             method: "wire",
             amountCents: 805_00,
@@ -156,7 +177,13 @@ export const invoices: DemoInvoice[] = [
         ],
         lateFees: [],
         paidCents: 0,
-        cardAllowed: false,
+        billingAddress: {
+            line1: "Avenida Central, Calle 5",
+            city: "San José",
+            region: "San José",
+            postalCode: "10101",
+            country: "CR",
+        },
         scenario: "Over the card limit",
     },
     {
@@ -177,7 +204,13 @@ export const invoices: DemoInvoice[] = [
         ],
         lateFees: [],
         paidCents: 0,
-        cardAllowed: true,
+        billingAddress: {
+            line1: "Rua Augusta 100",
+            city: "Lisboa",
+            region: "Lisboa",
+            postalCode: "1100-053",
+            country: "PT",
+        },
         payment: {
             method: "card",
             amountCents: 350_00,
@@ -280,6 +313,8 @@ export const transferMethods: TransferMethod[] = [
 
 const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 export const money = (cents: number) => usd.format(cents / 100);
+/** The card limit as people say it: "$500". */
+export const cardLimitLabel = money(CARD_LIMIT_CENTS).replace(/\.00$/, "");
 
 export const lineTotal = (inv: DemoInvoice) =>
     inv.lines.reduce((sum, l) => sum + l.qty * l.priceCents, 0);
@@ -307,28 +342,3 @@ export const todayLabel = () =>
         day: "numeric",
         year: "numeric",
     });
-
-export function quoteCard(address: BillingAddress, dueCents: number): CardQuote {
-    const place =
-        address.country === "US" && address.region
-            ? regionName("US", address.region)
-            : countryName(address.country);
-    const exempt =
-        NO_SURCHARGE_COUNTRIES.includes(address.country) ||
-        (address.country === "US" && NO_SURCHARGE_US_STATES.includes(address.region));
-    if (exempt) {
-        return {
-            applies: false,
-            feeCents: 0,
-            chargeCents: dueCents,
-            disclosure: `No card fee applies to cards billed in ${place}.`,
-        };
-    }
-    const feeCents = Math.round(dueCents * CARD_FEE_RATE);
-    return {
-        applies: true,
-        feeCents,
-        chargeCents: dueCents + feeCents,
-        disclosure: `A 3% card processing fee of ${money(feeCents)} applies to cards billed in ${place}. Bank transfer, Wise and PayPal have no fee.`,
-    };
-}

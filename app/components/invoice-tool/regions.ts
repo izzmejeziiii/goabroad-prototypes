@@ -1,3 +1,5 @@
+import type { BillingAddress } from "./types";
+
 /** Billing-address options for the card flow. Countries with a list get a
  *  dropdown for state/province; the rest get a free-text field. */
 
@@ -13,6 +15,7 @@ export const countries: { code: string; name: string }[] = [
     { code: "FR", name: "France" },
     { code: "DE", name: "Germany" },
     { code: "NL", name: "Netherlands" },
+    { code: "PT", name: "Portugal" },
     { code: "PH", name: "Philippines" },
     { code: "TH", name: "Thailand" },
     { code: "JP", name: "Japan" },
@@ -125,3 +128,18 @@ export const regionLabel = (country: string) =>
 
 export const postalLabel = (country: string) =>
     country === "US" ? "ZIP code" : "Postal code";
+
+/** An address as display lines: "Denver, CO 80202" style where the country
+ *  has a state list, "1100-053 Lisboa" style elsewhere. A region that just
+ *  repeats the city is left out. */
+export function addressLines(a: BillingAddress): string[] {
+    const local = subdivisions[a.country]
+        ? `${a.city}, ${a.region} ${a.postalCode}`
+        : [
+              [a.postalCode, a.city].filter(Boolean).join(" "),
+              a.region && a.region !== a.city ? a.region : "",
+          ]
+              .filter(Boolean)
+              .join(", ");
+    return [a.line1, local.trim(), countryName(a.country)].filter(Boolean);
+}

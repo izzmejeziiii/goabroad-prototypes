@@ -2,81 +2,98 @@
 
 import { Lock } from "lucide-react";
 import {
+    addressLines,
     countries,
-    countryName,
     postalLabel,
     regionLabel,
-    regionName,
     subdivisions,
 } from "./regions";
-import type { BillingAddress, CardQuote } from "./types";
-import { inputClass, sectionTitle } from "./ui";
+import type { BillingAddress } from "./types";
+import { inputClass, sectionTitle, textLink } from "./ui";
 
 export type AddressErrors = Partial<Record<keyof BillingAddress, string>>;
 
-const feeNote =
-    "rounded-xl border border-dashed border-sun-500 bg-sun-200/25 px-5 py-4 text-sm leading-relaxed text-slate-700";
-
-/** Card step 1: billing address (decides the card fee). Step 2: the address is
- *  locked and the fee is final; the sidebar button opens checkout. */
+/** Card: the billing address comes filled in from the client's GoAbroad
+ *  account. "Change" opens the same address as editable fields, for a card
+ *  billed somewhere else. The sidebar button then opens checkout. */
 export default function CardPanel({
+    company,
     address,
+    editing,
+    onEdit,
+    onReset,
     onAddressChange,
     errors,
-    quote,
 }: {
+    company: string;
     address: BillingAddress;
+    editing: boolean;
+    onEdit: () => void;
+    /** Go back to the address on the account. */
+    onReset: () => void;
     onAddressChange: (next: BillingAddress) => void;
     errors: AddressErrors;
-    quote: CardQuote | null;
 }) {
-    if (quote) {
-        const region = regionName(address.country, address.region);
-        return (
-            <div className="flex flex-col gap-5">
-                <div className="flex flex-col gap-1.5">
-                    <h2 className={sectionTitle}>Billing address</h2>
-                    <p className="text-[15px] text-slate-600">
-                        Confirmed for this invoice. The card fee below is final.
-                    </p>
-                </div>
-                <dl className="rounded-xl border border-slate-200 bg-white px-5">
-                    <Row label="Country" value={countryName(address.country)} first />
-                    {region ? (
-                        <Row label={regionLabel(address.country)} value={region} />
-                    ) : null}
-                    {address.postalCode ? (
-                        <Row
-                            label={postalLabel(address.country)}
-                            value={address.postalCode}
-                        />
-                    ) : null}
-                </dl>
-                <p className={feeNote}>{quote.disclosure}</p>
-                <p className="flex items-start gap-2 text-sm text-slate-600">
-                    <Lock className="mt-0.5 h-4 w-4 flex-none" aria-hidden />
-                    You&rsquo;ll enter your card on Stripe&rsquo;s secure checkout page,
-                    then come back here. In this prototype, Pay skips straight to the
-                    result.
-                </p>
-            </div>
-        );
-    }
-
-    const regions = subdivisions[address.country];
-    const set = (patch: Partial<BillingAddress>) =>
-        onAddressChange({ ...address, ...patch });
-
     return (
         <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-1.5">
                 <h2 className={sectionTitle}>Billing address</h2>
                 <p className="text-[15px] text-slate-600">
-                    The address your card statement goes to. It decides whether a card fee
-                    applies.
+                    {editing
+                        ? "The address your card statement goes to."
+                        : "From your GoAbroad account. Change it if your card is billed to a different address."}
                 </p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            {editing ? (
+                <AddressFields
+                    address={address}
+                    onChange={onAddressChange}
+                    errors={errors}
+                    onReset={onReset}
+                />
+            ) : (
+                <div className="flex items-start justify-between gap-4 rounded-xl border border-slate-200 bg-white px-5 py-4">
+                    <address className="flex flex-col text-[15px] leading-relaxed text-slate-700 not-italic">
+                        <span className="font-semibold text-slate-900">{company}</span>
+                        {addressLines(address).map((line) => (
+                            <span key={line}>{line}</span>
+                        ))}
+                    </address>
+                    <button
+                        type="button"
+                        onClick={onEdit}
+                        className={textLink + " text-sm"}
+                    >
+                        Change
+                    </button>
+                </div>
+            )}
+            <p className="flex items-start gap-2 text-sm text-slate-600">
+                <Lock className="mt-0.5 h-4 w-4 flex-none" aria-hidden />
+                You&rsquo;ll enter your card on Stripe&rsquo;s secure checkout page, then
+                come back here. In this prototype, Pay skips straight to the result.
+            </p>
+        </div>
+    );
+}
+
+function AddressFields({
+    address,
+    onChange,
+    errors,
+    onReset,
+}: {
+    address: BillingAddress;
+    onChange: (next: BillingAddress) => void;
+    errors: AddressErrors;
+    onReset: () => void;
+}) {
+    const regions = subdivisions[address.country];
+    const set = (patch: Partial<BillingAddress>) => onChange({ ...address, ...patch });
+
+    return (
+        <div className="flex flex-col gap-4">
+            <div className="grid gap-4 sm:grid-cols-3">
                 <Field id="country" label="Country" error={errors.country} wide>
                     <select
                         id="country"
@@ -94,6 +111,26 @@ export default function CardPanel({
                         ))}
                     </select>
                 </Field>
+                <Field id="line1" label="Street address" error={errors.line1} wide>
+                    <input
+                        id="line1"
+                        className={inputClass}
+                        value={address.line1}
+                        onChange={(e) => set({ line1: e.target.value })}
+                        autoComplete="address-line1"
+                        aria-invalid={!!errors.line1 || undefined}
+                    />
+                </Field>
+                <Field id="city" label="City" error={errors.city}>
+                    <input
+                        id="city"
+                        className={inputClass}
+                        value={address.city}
+                        onChange={(e) => set({ city: e.target.value })}
+                        autoComplete="address-level2"
+                        aria-invalid={!!errors.city || undefined}
+                    />
+                </Field>
                 <Field
                     id="region"
                     label={regionLabel(address.country)}
@@ -106,6 +143,7 @@ export default function CardPanel({
                             value={address.region}
                             onChange={(e) => set({ region: e.target.value })}
                             aria-invalid={!!errors.region || undefined}
+                            autoComplete="address-level1"
                         >
                             <option value="">Select</option>
                             {regions.map((r) => (
@@ -140,12 +178,28 @@ export default function CardPanel({
                     />
                 </Field>
             </div>
-            <p className={feeNote}>
-                Confirm the address to see whether a card fee applies. It can&rsquo;t be
-                changed afterwards for this invoice.
-            </p>
+            <button
+                type="button"
+                onClick={onReset}
+                className={textLink + " w-fit text-sm"}
+            >
+                Use the address on my account
+            </button>
         </div>
     );
+}
+
+/** Checks an edited address before checkout. */
+export function validateAddress(a: BillingAddress): AddressErrors {
+    const errs: AddressErrors = {};
+    if (!a.country) errs.country = "Choose the country on your card statement.";
+    if (!a.line1.trim()) errs.line1 = "Enter the street address.";
+    if (!a.city.trim()) errs.city = "Enter the city.";
+    if (a.country && subdivisions[a.country] && !a.region)
+        errs.region = "Choose one from the list.";
+    if (a.country === "US" && !/^\d{5}(-\d{4})?$/.test(a.postalCode.trim()))
+        errs.postalCode = "Enter a 5-digit ZIP code.";
+    return errs;
 }
 
 function Field({
@@ -162,7 +216,7 @@ function Field({
     children: React.ReactNode;
 }) {
     return (
-        <div className={"flex flex-col gap-1.5" + (wide ? " sm:col-span-2" : "")}>
+        <div className={"flex flex-col gap-1.5" + (wide ? " sm:col-span-3" : "")}>
             <label htmlFor={id} className="text-sm font-medium text-slate-700">
                 {label}
             </label>
@@ -172,20 +226,6 @@ function Field({
                     {error}
                 </span>
             ) : null}
-        </div>
-    );
-}
-
-function Row({ label, value, first }: { label: string; value: string; first?: boolean }) {
-    return (
-        <div
-            className={
-                "flex justify-between gap-6 py-3.5" +
-                (first ? "" : " border-t border-slate-100")
-            }
-        >
-            <dt className="text-sm text-slate-600">{label}</dt>
-            <dd className="text-[15px] font-semibold text-slate-900">{value}</dd>
         </div>
     );
 }

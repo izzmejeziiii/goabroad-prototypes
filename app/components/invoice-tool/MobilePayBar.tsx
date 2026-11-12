@@ -5,19 +5,18 @@ import { cn } from "@/app/lib/utils";
 import { SummaryBody, type SummaryData } from "./Summary";
 
 /** Mobile payment summary as a bottom sheet (option D). Collapsed it shows a
- *  grab handle, "N items · Total today" with the amount, and the pay button.
+ *  grab handle, "Amount due" (or "Total today") with the amount, and the pay
+ *  button.
  *  Tap the handle or the total row, or drag up, to slide the full summary
  *  open; drag down, tap outside or press Escape to close. Hidden from lg up,
  *  where the sticky sidebar card does this job. */
 export default function MobilePayBar({
     data,
     note,
-    itemCount,
     children,
 }: {
     data: SummaryData;
     note: string;
-    itemCount: number;
     /** The pay button, shared with the desktop card. */
     children?: React.ReactNode;
 }) {
@@ -120,10 +119,7 @@ export default function MobilePayBar({
                     </div>
 
                     <div className="flex items-baseline justify-between gap-4 pt-2 pb-3">
-                        <span className="text-sm text-slate-600">
-                            {itemCount} {itemCount === 1 ? "item" : "items"} ·{" "}
-                            {bottom.label}
-                        </span>
+                        <span className="text-sm text-slate-600">{bottom.label}</span>
                         <span className="text-xl font-bold text-slate-900 tabular-nums">
                             {bottom.value}
                         </span>

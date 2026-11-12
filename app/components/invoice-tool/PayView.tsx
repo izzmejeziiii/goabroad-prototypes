@@ -2,28 +2,34 @@
 
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { ArrowRight, CircleCheck, Hourglass, Lock, Printer } from "lucide-react";
-import CardPanel, { type AddressErrors } from "./CardPanel";
-import ItemsList from "./ItemsList";
+import {
+    ArrowRight,
+    CircleCheck,
+    FileText,
+    Hourglass,
+    Lock,
+    Printer,
+} from "lucide-react";
+import CardPanel, { type AddressErrors, validateAddress } from "./CardPanel";
+import DownloadPdfButton from "./DownloadPdfButton";
 import MethodList, { type MethodOption } from "./MethodList";
 import MobilePayBar from "./MobilePayBar";
 import Summary, { type SummaryData, type SummaryRow } from "./Summary";
 import TransferPanel from "./TransferPanel";
 import {
-    CARD_LIMIT_CENTS,
     amountDue,
     business,
+    cardAvailable,
+    cardLimitLabel,
     findByToken,
     getTransferMethod,
     invoiceTotal,
     lateFeeTotal,
     lineTotal,
     money,
-    quoteCard,
     todayLabel,
     transferMethods,
 } from "./data";
-import { subdivisions } from "./regions";
 import {
     getServerSnapshot,
     getSnapshot,
@@ -33,7 +39,6 @@ import {
 } from "./store";
 import type {
     BillingAddress,
-    CardQuote,
     DemoInvoice,
     MethodId,
     RecordedPayment,
@@ -53,7 +58,6 @@ import {
 } from "./ui";
 
 const FORM_ID = "pay-form";
-const emptyAddress: BillingAddress = { country: "", region: "", postalCode: "" };
 
 /** A real minus sign, so deductions read as subtraction, not a dash. */
 const MINUS = "−";
@@ -124,13 +128,14 @@ export default function PayView({ token }: { token: string }) {
 function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferClaim }) {
     const [asideRef, asideTop] = useStickyTop();
     const due = amountDue(invoice);
-    const cardAllowed = invoice.cardAllowed && due <= CARD_LIMIT_CENTS;
+    const cardAllowed = cardAvailable(due);
 
     const [revealed, setRevealed] = useState(false);
     const [selected, setSelected] = useState<MethodId>(cardAllowed ? "card" : "ach");
-    const [address, setAddress] = useState<BillingAddress>(emptyAddress);
+    // The card step starts with the account's billing address filled in.
+    const [address, setAddress] = useState<BillingAddress>(invoice.billingAddress);
+    const [editingAddress, setEditingAddress] = useState(false);
     const [addressErrors, setAddressErrors] = useState<AddressErrors>({});
-    const [quote, setQuote] = useState<CardQuote | null>(null);
     const [references, setReferences] = useState<
         Partial<Record<TransferMethodId, string>>
     >({});
@@ -145,11 +150,7 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                   {
                       id: "card" as const,
                       name: "Credit or debit card",
-                      note: quote
-                          ? quote.applies
-                              ? `${money(quote.chargeCents)} incl. fee`
-                              : `${money(quote.chargeCents)}, no fee`
-                          : "Fee depends on billing address",
+                      note: `${money(due)}, no fee`,
                   },
               ]
             : []),
@@ -168,17 +169,8 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
     let totalToday = due;
     let cta = "";
     if (selected === "card") {
-        feeRow = quote?.applies
-            ? { label: "Card fee", value: `+ ${money(quote.feeCents)}`, tone: "fee" }
-            : { label: "Card fee", value: quote ? "None" : "Depends on address" };
-        totalToday = quote ? quote.chargeCents : due;
-        cta = quote
-            ? busy
-                ? "Opening secure checkout…"
-                : `Pay ${money(quote.chargeCents)}`
-            : busy
-              ? "Confirming…"
-              : "Confirm billing address";
+        // No card fee: GoAbroad absorbs it, so the payer pays the amount due.
+        cta = busy ? "Opening secure checkout…" : `Pay ${money(due)}`;
     } else if (transfer) {
         if (transfer.feeCents > 0)
             feeRow = {
@@ -212,41 +204,26 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                 tone: "deduct",
             });
     }
-    const itemCount = invoice.lines.length;
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
         if (busy) return;
 
-        if (selected === "card" && !quote) {
-            const errs: AddressErrors = {};
-            if (!address.country)
-                errs.country = "Choose the country on your card statement.";
-            if (address.country && subdivisions[address.country] && !address.region)
-                errs.region = "Choose one from the list.";
-            if (
-                address.country === "US" &&
-                !/^\d{5}(-\d{4})?$/.test(address.postalCode.trim())
-            )
-                errs.postalCode = "Enter a 5-digit ZIP code.";
+        // The account's address is taken as is; an edited one is checked.
+        if (selected === "card" && editingAddress) {
+            const errs = validateAddress(address);
             setAddressErrors(errs);
             if (Object.keys(errs).length) return;
-            setBusy(true);
-            window.setTimeout(() => {
-                setQuote(quoteCard(address, due));
-                setBusy(false);
-            }, 500);
-            return;
         }
 
         setBusy(true);
         window.setTimeout(
             () => {
-                if (selected === "card" && quote) {
+                if (selected === "card") {
                     writeOverride(invoice.token, {
                         payment: {
                             method: "card",
-                            amountCents: quote.chargeCents,
+                            amountCents: due,
                             on: todayLabel(),
                             detail: "Visa ending 4242",
                         },
@@ -282,7 +259,7 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
     const fee = showMethods ? feeRow : null;
     const summary: SummaryData = {
         title: `Invoice ${invoice.number}`,
-        subtitle: `Due ${invoice.due} · ${itemCount} ${itemCount === 1 ? "item" : "items"}`,
+        subtitle: [invoice.title, `Due ${invoice.due}`],
         breakdown,
         result: { label: "Amount due", value: money(due) },
         extras: fee ? [fee] : [],
@@ -296,11 +273,9 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                 className={buttonPrimary + " w-full"}
                 disabled={busy}
             >
-                {selected === "card" && quote ? (
-                    <Lock className="h-4 w-4" aria-hidden />
-                ) : null}
+                {selected === "card" ? <Lock className="h-4 w-4" aria-hidden /> : null}
                 {cta}
-                {!busy && !(selected === "card" && quote) ? (
+                {!busy && selected !== "card" ? (
                     <ArrowRight className="h-4 w-4" aria-hidden />
                 ) : null}
             </button>
@@ -315,8 +290,6 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                         ? ""
                         : " Choose how to pay — you'll see the total before you commit."}
                 </InvoiceHeader>
-
-                <ItemsList invoice={invoice} className="lg:hidden" />
 
                 {claim ? (
                     <WaitingNotice
@@ -343,9 +316,9 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                         </h2>
                         {!cardAllowed ? (
                             <Notice tone="info">
-                                Card payments aren&rsquo;t available for invoices over{" "}
-                                {money(CARD_LIMIT_CENTS)}. Pay by bank transfer, wire,
-                                Wise or PayPal instead.
+                                Card payments are only available for amounts up to{" "}
+                                {cardLimitLabel}. Pay by bank transfer, wire, Wise or
+                                PayPal instead.
                             </Notice>
                         ) : null}
                         <MethodList
@@ -360,13 +333,20 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                     <form id={FORM_ID} onSubmit={submit} noValidate>
                         {selected === "card" ? (
                             <CardPanel
+                                company={invoice.company}
                                 address={address}
+                                editing={editingAddress}
+                                onEdit={() => setEditingAddress(true)}
+                                onReset={() => {
+                                    setAddress(invoice.billingAddress);
+                                    setEditingAddress(false);
+                                    setAddressErrors({});
+                                }}
                                 onAddressChange={(next) => {
                                     setAddress(next);
                                     setAddressErrors({});
                                 }}
                                 errors={addressErrors}
-                                quote={quote}
                             />
                         ) : transfer ? (
                             <TransferPanel
@@ -389,7 +369,6 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                 style={{ top: asideTop }}
                 className="hidden flex-col gap-6 lg:sticky lg:top-6 lg:flex lg:self-start"
             >
-                <ItemsList invoice={invoice} className="hidden lg:flex" />
                 <Summary data={summary}>
                     {payButton}
                     <p className="text-center text-xs leading-relaxed text-slate-500">
@@ -398,23 +377,26 @@ function PayForm({ invoice, claim }: { invoice: DemoInvoice; claim?: TransferCla
                 </Summary>
             </aside>
 
-            <MobilePayBar
-                data={summary}
-                note={business.lateFeePolicy}
-                itemCount={itemCount}
-            >
+            <MobilePayBar data={summary} note={business.lateFeePolicy}>
                 {payButton}
             </MobilePayBar>
         </div>
     );
 }
 
+/** The pay page doesn't list the invoice's items; the full invoice opens in
+ *  a new tab, or downloads as a PDF. */
+const docLink =
+    buttonSecondary + " [&_svg]:text-cobalt-500 disabled:cursor-wait disabled:opacity-70";
+
 function InvoiceHeader({
     invoice,
+    payment,
     pill,
     children,
 }: {
     invoice: DemoInvoice;
+    payment?: RecordedPayment;
     pill?: React.ReactNode;
     children: React.ReactNode;
 }) {
@@ -431,6 +413,22 @@ function InvoiceHeader({
                 {pill}
             </h1>
             <p className={lede}>{children}</p>
+            <div className="mt-1 grid gap-3 sm:flex sm:flex-wrap sm:items-center">
+                <Link
+                    href={`/invoice-tool/${invoice.token}/invoice`}
+                    target="_blank"
+                    className={docLink}
+                >
+                    <FileText className="h-4 w-4" aria-hidden />
+                    View full invoice
+                    <span className="sr-only"> (opens in a new tab)</span>
+                </Link>
+                <DownloadPdfButton
+                    invoice={invoice}
+                    payment={payment}
+                    className={docLink}
+                />
+            </div>
         </div>
     );
 }
@@ -507,7 +505,6 @@ function PaidView({
 }) {
     const [asideRef, asideTop] = useStickyTop();
     const due = amountDue(invoice);
-    const fee = payment.amountCents - due;
     const breakdown: SummaryRow[] = [
         { label: "Invoice total", value: money(invoiceTotal(invoice)) },
     ];
@@ -526,7 +523,11 @@ function PaidView({
     return (
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-12">
             <div className="flex min-w-0 flex-col gap-8">
-                <InvoiceHeader invoice={invoice} pill={<Pill tone="paid">Paid</Pill>}>
+                <InvoiceHeader
+                    invoice={invoice}
+                    payment={payment}
+                    pill={<Pill tone="paid">Paid</Pill>}
+                >
                     Sent to {invoice.email} for {invoice.company}.
                 </InvoiceHeader>
 
@@ -568,8 +569,6 @@ function PaidView({
                         </Link>
                     </div>
                 </div>
-
-                <ItemsList invoice={invoice} className="lg:hidden" />
             </div>
 
             <aside
@@ -577,23 +576,15 @@ function PaidView({
                 style={{ top: asideTop }}
                 className="flex flex-col gap-6 lg:sticky lg:top-6 lg:self-start"
             >
-                <ItemsList invoice={invoice} className="hidden lg:flex" />
                 <Summary
                     data={{
                         title: `Invoice ${invoice.number}`,
-                        subtitle: `Paid ${payment.on}`,
+                        subtitle: [invoice.title, `Paid ${payment.on}`],
                         breakdown,
                         result: { label: "Balance", value: money(0) },
                         extras: [],
                     }}
-                >
-                    {fee > 0 ? (
-                        <p className="text-center text-xs leading-relaxed text-slate-500">
-                            You also paid a {money(fee)} card fee. It&rsquo;s listed on
-                            your receipt.
-                        </p>
-                    ) : null}
-                </Summary>
+                />
             </aside>
         </div>
     );

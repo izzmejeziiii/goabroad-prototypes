@@ -17,7 +17,9 @@ export interface SummaryRow {
  *  method come after it, then what's charged today. */
 export interface SummaryData {
     title: string;
-    subtitle: string;
+    /** Short lines under the title, e.g. what the invoice is for and when
+     *  it's due. */
+    subtitle: string[];
     breakdown: SummaryRow[];
     result: SummaryRow;
     extras: SummaryRow[];
@@ -63,7 +65,11 @@ export function SummaryBody({ data }: { data: SummaryData }) {
         <>
             <div className="flex flex-col gap-0.5">
                 <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
-                <p className="text-sm text-slate-600">{subtitle}</p>
+                {subtitle.map((line) => (
+                    <p key={line} className="text-sm text-slate-600">
+                        {line}
+                    </p>
+                ))}
             </div>
             <dl className="flex flex-col gap-3 text-[15px] tabular-nums">
                 {breakdown.map((row) => (

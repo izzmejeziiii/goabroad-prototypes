@@ -1,9 +1,10 @@
 import LookupForm from "../components/invoice-tool/LookupForm";
+import { cardLimitLabel } from "../components/invoice-tool/data";
 import { BrandBand, bodyPad, lede, pageTitle } from "../components/invoice-tool/ui";
 
 const steps = [
     "We find your invoice and show exactly what's due. No account or login needed.",
-    "Pay by card, bank transfer, international wire, Wise or PayPal, whichever is easiest for your team.",
+    `Pay by bank transfer, international wire, Wise or PayPal, whichever is easiest for your team. Card works for amounts up to ${cardLimitLabel}.`,
     "Card payments are marked paid right away. For transfers, we match your payment and email you once it's recorded.",
 ];
 
