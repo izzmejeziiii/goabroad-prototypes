@@ -91,6 +91,30 @@ export const CardLink = ({
     );
 };
 
+/** Count pill beside a card title. Coral for things that need action,
+    cobalt for plain totals. The label is read by screen readers only. */
+export const CountBadge = ({
+    value,
+    label,
+    tone = "neutral",
+}: {
+    value: number;
+    label: string;
+    tone?: "attention" | "neutral";
+}) => (
+    <span
+        className={clsx(
+            "inline-flex min-w-6 items-center justify-center rounded-full px-2 py-0.5 text-xs font-bold tabular-nums",
+            tone === "attention"
+                ? "bg-secondary-50 text-secondary-700 ring-1 ring-inset ring-secondary-200"
+                : "bg-cobalt-500/10 text-cobalt-500",
+        )}
+    >
+        {value}
+        <span className="sr-only"> {label}</span>
+    </span>
+);
+
 export const DashboardCard = ({
     title,
     action,
@@ -112,7 +136,7 @@ export const DashboardCard = ({
     >
         {(title || action) && (
             <header className="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
-                <h3 className="text-base font-semibold text-neutral-800">
+                <h3 className="flex items-center gap-2 text-base font-semibold text-neutral-800">
                     {title}
                 </h3>
                 {action}

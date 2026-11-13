@@ -7,7 +7,7 @@ import {
     viewableLeads,
 } from "../data";
 import { formatShort } from "../format";
-import { CardLink, DashboardCard, TEXT_LINK } from "../ui";
+import { CardLink, CountBadge, DashboardCard, TEXT_LINK } from "../ui";
 import LeadsGate from "../LeadsGate";
 import type { UpgradeVersion } from "../upgradeVersion";
 
@@ -44,6 +44,7 @@ const CELL = "px-5 py-4";
 
 const LeadsCard = ({ upgradeVersion }: { upgradeVersion: UpgradeVersion }) => {
     const shown = viewableLeads.slice(0, LATEST_LEADS_LIMIT);
+    const totalLeads = viewableLeads.length + lockedLeadCount;
     const lockedRows = isFreeAccount
         ? Math.min(
               LATEST_LEADS_LIMIT - shown.length,
@@ -54,7 +55,18 @@ const LeadsCard = ({ upgradeVersion }: { upgradeVersion: UpgradeVersion }) => {
 
     return (
         <DashboardCard
-            title="Latest Leads"
+            title={
+                <>
+                    Latest Leads
+                    {/* Every lead this year, locked ones included */}
+                    {totalLeads > 0 && (
+                        <CountBadge
+                            value={totalLeads}
+                            label={totalLeads === 1 ? "lead" : "leads"}
+                        />
+                    )}
+                </>
+            }
             action={<CardLink href={`${BASE_PATH}/leads`}>View all leads</CardLink>}
         >
             {shown.length === 0 && lockedRows === 0 ? (

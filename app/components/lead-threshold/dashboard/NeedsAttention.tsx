@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { MdCheckCircle } from "react-icons/md";
 import { BASE_PATH, attention, renewalInvoice } from "../data";
 import clsx from "clsx";
-import { DashboardCard, PRIMARY_BUTTON } from "../ui";
+import { CountBadge, DashboardCard, PRIMARY_BUTTON } from "../ui";
 import RenewalCallout from "./RenewalInvoice";
 
 /* Copy of Dashboard/NeedsAttention.js on PR 784: one row per item with a
@@ -123,9 +123,25 @@ const NeedsAttention = ({ className }: { className?: string }) => {
             </AttentionRow>
         ),
     ].filter(Boolean);
+    // The renewal callout counts as one item alongside the rows.
+    const itemCount = rows.length + (showRenewal ? 1 : 0);
 
     return (
-        <DashboardCard title="Needs Your Attention" className={className}>
+        <DashboardCard
+            title={
+                <>
+                    Needs Your Attention
+                    {itemCount > 0 && (
+                        <CountBadge
+                            value={itemCount}
+                            label={itemCount === 1 ? "item" : "items"}
+                            tone="attention"
+                        />
+                    )}
+                </>
+            }
+            className={className}
+        >
             {showRenewal && <RenewalCallout />}
             {rows.length > 0 ? (
                 <ul className="divide-y divide-slate-100">{rows}</ul>
