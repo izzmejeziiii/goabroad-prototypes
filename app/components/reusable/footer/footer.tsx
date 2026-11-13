@@ -254,7 +254,8 @@ const Footer: React.FC = () => {
         pathname?.startsWith("/program-listing") ||
         pathname?.startsWith("/admin") ||
         pathname?.startsWith("/ayu-giving") ||
-        pathname?.startsWith("/invoice-tool")
+        pathname?.startsWith("/invoice-tool") ||
+        pathname?.startsWith("/lead-threshold")
     )
         return null;
 
