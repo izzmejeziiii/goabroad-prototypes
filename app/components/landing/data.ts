@@ -270,6 +270,34 @@ export const prototypes: Prototype[] = [
             },
         ],
     },
+    {
+        number: "11",
+        id: "lead-threshold",
+        href: "/lead-threshold",
+        title: "Lead Threshold",
+        description:
+            "The client admin dashboard from gacom-admin-redesign PR 784, copied as is, as the base for limiting free accounts to 5 viewable leads a year and the upgrade flow. Demo data for a free (Basic) account.",
+        badge: "Client admin copy",
+        area: "portal",
+        groups: [
+            {
+                label: "Client admin",
+                pages: [
+                    { label: "Dashboard", href: "/lead-threshold" },
+                    { label: "Leads", href: "/lead-threshold/leads" },
+                ],
+            },
+            {
+                label: "Upgrade flow",
+                pages: [
+                    { label: "V1 · Request", href: "/lead-threshold?upgrade=request" },
+                    { label: "V2 · Plan picker", href: "/lead-threshold?upgrade=plans" },
+                ],
+            },
+        ],
+        versionsNote:
+            "Switch the upgrade flow between V1 (request) and V2 (plan picker) with the toggle at the bottom of the page.",
+    },
 ];
 
 export const pageCount = (p: Prototype) =>
