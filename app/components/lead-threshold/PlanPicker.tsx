@@ -18,7 +18,15 @@ import {
     MdLock,
     MdLockOpen,
 } from "react-icons/md";
-import { currentPlanId, lockedLeadCount, plans, type Plan } from "./data";
+import {
+    DEMO_TODAY,
+    FREE_LEADS_PER_YEAR,
+    currentPlanId,
+    lockedLeadCount,
+    plans,
+    viewableLeads,
+    type Plan,
+} from "./data";
 import { FOCUS_RING, SECONDARY_BUTTON } from "./ui";
 
 /* V2 of "Upgrade to unlock": a plan comparison before the request goes to
@@ -27,8 +35,10 @@ import { FOCUS_RING, SECONDARY_BUTTON } from "./ui";
    Dialog and RadioGroup (gacom-admin has @headlessui/react too).
 
    The cards sell the one thing the client came for: each upgrade says how
-   many of *their* waiting leads it unlocks (in GoAbroad orange). The current
-   plan sits above as a quiet strip, the tiers read left to right, and
+   many of *their* waiting leads it unlocks (in GoAbroad orange). Above them
+   the current plan is spelled out loud: "Basic · Free", the free leads used
+   up and the leads locked, in coral, so the gap the upgrade closes is
+   obvious. The tiers read left to right, and
    Enterprise closes the row as a dark cobalt card. Each card is one big
    radio with a "Choose …" footer that turns into "Selected". */
 
@@ -133,8 +143,8 @@ const PlanCard = ({ plan }: { plan: Plan }) => {
                 className={clsx(
                     "mt-5 inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
                     dark
-                        ? "bg-white/10 text-white group-hover:bg-white/15 group-data-[checked]:bg-sun-500 group-data-[checked]:text-cobalt-700"
-                        : "border border-slate-300 text-neutral-800 group-hover:border-slate-400 group-data-[checked]:border-cobalt-500 group-data-[checked]:bg-cobalt-500 group-data-[checked]:text-white",
+                        ? "border border-sun-500 text-sun-500 group-hover:bg-sun-500/10 group-data-[checked]:bg-sun-500 group-data-[checked]:text-cobalt-700"
+                        : "border border-cobalt-500 text-cobalt-500 group-hover:bg-cobalt-500/5 group-data-[checked]:bg-cobalt-500 group-data-[checked]:text-white",
                 )}
                 aria-hidden="true"
             >
@@ -147,6 +157,86 @@ const PlanCard = ({ plan }: { plan: Plan }) => {
                 </span>
             </span>
         </Radio>
+    );
+};
+
+/* The client's own plan, made unmissable: coral (GoAbroad's warm accent,
+   the -700 shade for text so it passes AA) says "limit reached" without the
+   alarm of an error. A full meter shows the free leads used up; the locked
+   count is what every card below unlocks. */
+const CurrentPlan = ({ plan }: { plan: Plan }) => {
+    const used = Math.min(viewableLeads.length, FREE_LEADS_PER_YEAR);
+    const year = DEMO_TODAY.slice(0, 4);
+
+    return (
+        <section
+            aria-label="Your current plan"
+            className="grid gap-5 rounded-2xl border border-secondary-200 bg-secondary-50 p-5 md:grid-cols-[1fr_18rem] md:items-center md:gap-8"
+        >
+            <div className="flex flex-col gap-2">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <p className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold tracking-tight text-neutral-800">
+                            {plan.name}
+                        </span>
+                        <span className="text-lg font-semibold text-secondary-700">
+                            {plan.price}
+                        </span>
+                    </p>
+                    <span className="rounded-full bg-secondary-700 px-2.5 py-0.5 text-xs font-semibold text-white">
+                        Your plan
+                    </span>
+                </div>
+                <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm text-slate-600">
+                    {plan.features.map((feature, i) => (
+                        <li key={feature} className="flex items-center gap-2">
+                            {i > 0 && (
+                                <span className="text-secondary-200" aria-hidden="true">
+                                    ·
+                                </span>
+                            )}
+                            <span
+                                className={
+                                    i === 0
+                                        ? "font-semibold text-secondary-700"
+                                        : undefined
+                                }
+                            >
+                                {feature}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <div className="flex items-baseline justify-between gap-3 text-sm">
+                    <span className="font-semibold text-neutral-800">
+                        Free leads used in {year}
+                    </span>
+                    <span className="font-bold tabular-nums text-secondary-700">
+                        {used} of {FREE_LEADS_PER_YEAR}
+                    </span>
+                </div>
+                <div
+                    className="h-2.5 overflow-hidden rounded-full bg-white ring-1 ring-inset ring-secondary-200"
+                    role="progressbar"
+                    aria-label={`Free leads used in ${year}`}
+                    aria-valuemin={0}
+                    aria-valuemax={FREE_LEADS_PER_YEAR}
+                    aria-valuenow={used}
+                >
+                    <div
+                        className="h-full rounded-full bg-secondary-500"
+                        style={{ width: `${(used / FREE_LEADS_PER_YEAR) * 100}%` }}
+                    />
+                </div>
+                <p className="flex items-center gap-1.5 text-sm font-semibold text-secondary-700">
+                    <MdLock className="size-4 shrink-0" aria-hidden="true" />
+                    {lockedLeadCount} newer {leadsWord} locked
+                </p>
+            </div>
+        </section>
     );
 };
 
@@ -247,25 +337,7 @@ const PlanPicker = ({
                                         </p>
                                     </div>
 
-                                    {/* Where they are now: a quiet strip, not
-                                        a competing card */}
-                                    {current && (
-                                        <div className="flex flex-col gap-2 rounded-xl bg-slate-50 px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
-                                            <span className="flex shrink-0 items-center gap-2 text-sm font-semibold text-neutral-800">
-                                                <MdLock
-                                                    className="size-4 text-slate-400"
-                                                    aria-hidden="true"
-                                                />
-                                                You&apos;re on {current.name} ·{" "}
-                                                {current.price}
-                                            </span>
-                                            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500">
-                                                {current.features.map((feature) => (
-                                                    <li key={feature}>{feature}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    )}
+                                    {current && <CurrentPlan plan={current} />}
                                 </div>
 
                                 <RadioGroup
