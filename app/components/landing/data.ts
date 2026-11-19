@@ -292,11 +292,13 @@ export const prototypes: Prototype[] = [
                 pages: [
                     { label: "V1 · Request", href: "/lead-threshold?upgrade=request" },
                     { label: "V2 · Plan picker", href: "/lead-threshold?upgrade=plans" },
+                    { label: "V3 · Premium panel", href: "/lead-threshold?upgrade=premium" },
+                    { label: "V4 · Plans page", href: "/lead-threshold/upgrade?upgrade=page" },
                 ],
             },
         ],
         versionsNote:
-            "Switch the upgrade flow between V1 (request) and V2 (plan picker) with the toggle at the bottom of the page.",
+            "Switch the upgrade flow between V1 (request), V2 (plan picker), V3 (premium panel) and V4 (plans page) with the toggle at the bottom of the page.",
     },
 ];
 
