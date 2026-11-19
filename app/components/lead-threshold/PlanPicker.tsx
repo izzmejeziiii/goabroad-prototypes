@@ -13,7 +13,6 @@ import {
 import { FiArrowRight } from "react-icons/fi";
 import {
     MdCheck,
-    MdCheckCircle,
     MdClose,
     MdLock,
     MdLockOpen,
@@ -27,6 +26,7 @@ import {
     viewableLeads,
     type Plan,
 } from "./data";
+import RequestSentModal from "./RequestSentModal";
 import { FOCUS_RING, SECONDARY_BUTTON } from "./ui";
 
 /* V2 of "Upgrade to unlock": a plan comparison before the request goes to
@@ -348,7 +348,9 @@ const PlanPicker = ({
     onSent: (planName: string) => void;
 }) => {
     const [selected, setSelected] = useState<string | null>(null);
+    // The plan the request named, shown in the confirmation modal
     const [sentPlan, setSentPlan] = useState<Plan | null>(null);
+    const [confirmOpen, setConfirmOpen] = useState(false);
     const current = plans.find((plan) => plan.id === currentPlanId);
     const upgrades = plans.filter((plan) => plan.id !== currentPlanId);
     const selectedPlan = plans.find((plan) => plan.id === selected);
@@ -356,144 +358,129 @@ const PlanPicker = ({
     const close = () => {
         onClose();
         // Reset after the panel has faded out
-        setTimeout(() => {
-            setSelected(null);
-            setSentPlan(null);
-        }, 200);
+        setTimeout(() => setSelected(null), 200);
     };
 
+    // The picker closes as the confirmation (the same one V3 uses) opens
     const send = () => {
         if (!selectedPlan) return;
         setSentPlan(selectedPlan);
         onSent(selectedPlan.name);
+        close();
+        setConfirmOpen(true);
+    };
+
+    const closeConfirm = () => {
+        setConfirmOpen(false);
+        // Keep the plan name on screen until the modal has faded out
+        setTimeout(() => setSentPlan(null), 200);
     };
 
     return (
         // lt-root: the dialog portals out of the shell, so it takes the
         // route's base styles (pinned v3 colours, pointer buttons) itself.
-        <Dialog open={open} onClose={close} className="lt-root relative z-[1300] font-inter">
-            <DialogBackdrop
-                transition
-                className="fixed inset-0 bg-slate-900/40 transition-opacity duration-200 ease-out data-[closed]:opacity-0"
-            />
-            <div className="fixed inset-0 overflow-y-auto p-4 sm:p-8">
-                <div className="flex min-h-full items-center justify-center">
-                    <DialogPanel
-                        transition
-                        className="relative w-full max-w-6xl rounded-2xl bg-white shadow-xl transition duration-200 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
-                    >
-                        <button
-                            type="button"
-                            onClick={close}
-                            aria-label="Close"
-                            className={`absolute right-4 top-4 z-10 inline-flex rounded-full p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700 ${FOCUS_RING}`}
+        <>
+            <Dialog open={open} onClose={close} className="lt-root relative z-[1300] font-inter">
+                <DialogBackdrop
+                    transition
+                    className="fixed inset-0 bg-slate-900/40 transition-opacity duration-200 ease-out data-[closed]:opacity-0"
+                />
+                <div className="fixed inset-0 overflow-y-auto p-4 sm:p-8">
+                    <div className="flex min-h-full items-center justify-center">
+                        <DialogPanel
+                            transition
+                            className="relative w-full max-w-6xl rounded-2xl bg-white shadow-xl transition duration-200 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
                         >
-                            <MdClose className="size-5" />
-                        </button>
+                            <button
+                                type="button"
+                                onClick={close}
+                                aria-label="Close"
+                                className={`absolute right-4 top-4 z-10 inline-flex rounded-full p-1.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700 ${FOCUS_RING}`}
+                            >
+                                <MdClose className="size-5" />
+                            </button>
 
-                        {sentPlan ? (
-                            <div className="flex flex-col items-center gap-3 px-6 py-14 text-center">
-                                <MdCheckCircle
-                                    className="size-12 text-fern-600"
-                                    aria-hidden="true"
-                                />
-                                <DialogTitle className="text-xl font-bold tracking-tight text-neutral-800">
-                                    Request sent
-                                </DialogTitle>
-                                <p className="max-w-md text-sm leading-relaxed text-slate-600">
-                                    We&apos;ve let your account manager know
-                                    you&apos;re interested in the{" "}
-                                    <span className="font-semibold text-neutral-800">
-                                        {sentPlan.name}
-                                    </span>{" "}
-                                    plan. They&apos;ll be in touch to help you
-                                    upgrade.
-                                </p>
-                                <button
-                                    type="button"
-                                    onClick={close}
-                                    className={`${SECONDARY_BUTTON} mt-2`}
-                                >
-                                    Done
-                                </button>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="flex flex-col gap-5 px-6 pb-6 pt-6 sm:px-8 sm:pt-8">
-                                    <div className="flex flex-col gap-1.5 pr-10">
-                                        <DialogTitle className="text-2xl font-bold tracking-tight text-balance text-neutral-800 sm:text-[1.75rem]">
-                                            {/* A sun highlighter stroke under the number */}
-                                            <span className="box-decoration-clone bg-[linear-gradient(to_top,var(--color-sun-200)_38%,transparent_38%)] px-0.5">
-                                                {lockedLeadCount} {leadsWord}
-                                            </span>{" "}
-                                            are waiting for you
-                                        </DialogTitle>
-                                        <p className="text-sm leading-relaxed text-slate-600">
-                                            Every plan below shows you every
-                                            lead, all year. Pick the one
-                                            you&apos;re interested in and your
-                                            account manager will help you
-                                            upgrade.
-                                        </p>
-                                    </div>
-
-                                    {current && <CurrentPlan plan={current} />}
-                                </div>
-
-                                <RadioGroup
-                                    value={selected}
-                                    onChange={setSelected}
-                                    aria-label="Plans"
-                                    // On a slate tray, so the white cards
-                                    // lift off it
-                                    className="grid gap-4 border-t border-slate-200 bg-slate-50 px-6 py-6 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 xl:grid-cols-5"
-                                >
-                                    {upgrades.map((plan, i) => (
-                                        <PlanCard key={plan.id} plan={plan} tier={i} />
-                                    ))}
-                                </RadioGroup>
-
-                                {/* Sticky so Send stays in reach when the
-                                    dialog is taller than the window. The
-                                    negative offset matches the scroller's
-                                    padding (p-4 / sm:p-8), so it sits flush
-                                    with the screen edge instead of letting
-                                    the cards scroll through a strip below. */}
-                                <div className="sticky -bottom-4 flex sm:-bottom-8 flex-col-reverse gap-3 rounded-b-2xl border-t border-slate-100 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-                                    <p className="text-sm text-slate-500">
-                                        No payment now. Your account manager
-                                        follows up on your request.
+                            <div className="flex flex-col gap-5 px-6 pb-6 pt-6 sm:px-8 sm:pt-8">
+                                <div className="flex flex-col gap-1.5 pr-10">
+                                    <DialogTitle className="text-2xl font-bold tracking-tight text-balance text-neutral-800 sm:text-[1.75rem]">
+                                        {/* A sun highlighter stroke under the number */}
+                                        <span className="box-decoration-clone bg-[linear-gradient(to_top,var(--color-sun-200)_38%,transparent_38%)] px-0.5">
+                                            {lockedLeadCount} {leadsWord}
+                                        </span>{" "}
+                                        are waiting for you
+                                    </DialogTitle>
+                                    <p className="text-sm leading-relaxed text-slate-600">
+                                        Every plan below shows you every
+                                        lead, all year. Pick the one
+                                        you&apos;re interested in and your
+                                        account manager will help you
+                                        upgrade.
                                     </p>
-                                    <div className="flex shrink-0 flex-wrap justify-end gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={close}
-                                            className={SECONDARY_BUTTON}
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={send}
-                                            disabled={!selectedPlan}
-                                            className={SEND_BUTTON}
-                                        >
-                                            {selectedPlan
-                                                ? `Request ${selectedPlan.name}`
-                                                : "Choose a plan"}
-                                            <FiArrowRight
-                                                className="size-4"
-                                                aria-hidden="true"
-                                            />
-                                        </button>
-                                    </div>
                                 </div>
-                            </>
-                        )}
-                    </DialogPanel>
+
+                                {current && <CurrentPlan plan={current} />}
+                            </div>
+
+                            <RadioGroup
+                                value={selected}
+                                onChange={setSelected}
+                                aria-label="Plans"
+                                // On a slate tray, so the white cards
+                                // lift off it
+                                className="grid gap-4 border-t border-slate-200 bg-slate-50 px-6 py-6 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 xl:grid-cols-5"
+                            >
+                                {upgrades.map((plan, i) => (
+                                    <PlanCard key={plan.id} plan={plan} tier={i} />
+                                ))}
+                            </RadioGroup>
+
+                            {/* Sticky so Send stays in reach when the
+                                dialog is taller than the window. The
+                                negative offset matches the scroller's
+                                padding (p-4 / sm:p-8), so it sits flush
+                                with the screen edge instead of letting
+                                the cards scroll through a strip below. */}
+                            <div className="sticky -bottom-4 flex sm:-bottom-8 flex-col-reverse gap-3 rounded-b-2xl border-t border-slate-100 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+                                <p className="text-sm text-slate-500">
+                                    No payment now. Your account manager
+                                    follows up on your request.
+                                </p>
+                                <div className="flex shrink-0 flex-wrap justify-end gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={close}
+                                        className={SECONDARY_BUTTON}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={send}
+                                        disabled={!selectedPlan}
+                                        className={SEND_BUTTON}
+                                    >
+                                        {selectedPlan
+                                            ? `Request ${selectedPlan.name}`
+                                            : "Choose a plan"}
+                                        <FiArrowRight
+                                            className="size-4"
+                                            aria-hidden="true"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        </DialogPanel>
+                    </div>
                 </div>
-            </div>
-        </Dialog>
+            </Dialog>
+
+            {/* The confirmation, once the picker has gone */}
+            <RequestSentModal
+                open={confirmOpen}
+                onClose={closeConfirm}
+                planName={sentPlan?.name}
+            />
+        </>
     );
 };
 
