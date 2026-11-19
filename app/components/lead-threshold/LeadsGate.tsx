@@ -14,9 +14,9 @@ import type { UpgradeVersion } from "./upgradeVersion";
    Latest Leads card and on the Leads tab. "Upgrade to unlock" either sends
    the request to the account manager straight away (V1, the dashboard spec:
    an email saying the client wants to unlock more leads), opens the plan
-   picker first (V2), opens the premium panel (V3, which also puts a crown
-   on the gate) or goes to the Compare plans page (V4). V1 to V3 end in the
-   sent state here. */
+   picker first (V2, with a crown on the button), opens the premium panel
+   (V3, which also puts a crown on the gate) or goes to the Compare plans
+   page (V4). V1 to V3 end in the sent state here. */
 
 const UPGRADE_BUTTON = `inline-flex items-center justify-center gap-2 rounded-lg bg-sun-500 px-5 py-2 text-sm font-semibold text-cobalt-700 no-underline transition-colors hover:bg-sun-400 ${FOCUS_RING}`;
 
@@ -119,7 +119,8 @@ const LeadsGate = ({
                             }
                             className={UPGRADE_BUTTON}
                         >
-                            {premium && (
+                            {/* V2 and V3 put a crown on the button */}
+                            {(premium || version === "plans") && (
                                 <PiCrownSimpleFill
                                     className="size-4"
                                     aria-hidden="true"
