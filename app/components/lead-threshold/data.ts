@@ -501,7 +501,7 @@ export const plans: Plan[] = [
         price: "$300",
         priceNote: "for 6 months",
         features: [
-            "Every lead, all year",
+            "Every lead for the 6 months",
             "Up to 10 listings on the same results page",
             "Basic or custom inquiry form",
             "Dedicated account manager",
@@ -560,3 +560,169 @@ export const plans: Plan[] = [
 ];
 
 export const currentPlanId = "basic";
+
+/* ── Plan comparison (V4's Compare plans page) ─────────────────────────────
+   Rows from the "2026 Package Tiers - Analiza Proposal" tab, shortened.
+   `true` = included, `false` = not included; a string is the sheet's value.
+   Only rows whose columns are unambiguous in the sheet are here. The leads
+   row is this prototype's threshold. */
+
+export type ComparisonValue = string | boolean;
+
+export type ComparisonRow = {
+    label: string;
+    /** By plan id: basic, trial, starter, standard, enhanced, enterprise. */
+    values: Record<string, ComparisonValue>;
+};
+
+const allPaid = (value: ComparisonValue, basic: ComparisonValue = false) => ({
+    basic,
+    trial: value,
+    starter: value,
+    standard: value,
+    enhanced: value,
+    enterprise: value,
+});
+
+export const planComparison: { group: string; rows: ComparisonRow[] }[] = [
+    {
+        group: "Leads",
+        rows: [
+            {
+                label: "Leads you can see",
+                values: {
+                    basic: `${FREE_LEADS_PER_YEAR} a year`,
+                    trial: "Every lead, for 6 months",
+                    starter: "Every lead, all year",
+                    standard: "Every lead, all year",
+                    enhanced: "Every lead, all year",
+                    enterprise: "Every lead, all year",
+                },
+            },
+            {
+                label: "Inquiry form",
+                values: allPaid("Basic or custom", "Basic"),
+            },
+            {
+                label: "Online Advisor matching",
+                values: {
+                    ...allPaid(false),
+                    enhanced: true,
+                    enterprise: true,
+                },
+            },
+        ],
+    },
+    {
+        group: "Listings and visibility",
+        rows: [
+            {
+                label: "Premium listings",
+                values: {
+                    basic: false,
+                    trial: "Up to 10, same results page",
+                    starter: "Up to 10, same results page",
+                    standard: "Up to 30, multiple results pages",
+                    enhanced: "Up to 50, multiple results pages",
+                    enterprise: "Unlimited",
+                },
+            },
+            {
+                label: "Logo on your provider page",
+                values: {
+                    ...allPaid(false),
+                    enhanced: "Plus up to 5 results pages",
+                    enterprise: "Plus up to 10 results pages",
+                },
+            },
+            {
+                label: "Media gallery",
+                values: {
+                    basic: false,
+                    trial: "Limited",
+                    starter: "Limited",
+                    standard: "Moderate",
+                    enhanced: "Moderate",
+                    enterprise: "Unlimited",
+                },
+            },
+            {
+                label: "Social media links on your provider page",
+                values: {
+                    ...allPaid(false),
+                    standard: true,
+                    enhanced: true,
+                    enterprise: true,
+                },
+            },
+            {
+                label: "AI Search Bot on your listings",
+                values: { ...allPaid(false), enterprise: true },
+            },
+        ],
+    },
+    {
+        group: "Support",
+        rows: [
+            {
+                label: "Account support",
+                values: allPaid(
+                    "Dedicated account manager",
+                    "Email and chat (ticketing)",
+                ),
+            },
+            {
+                label: "Onboarding call with set-up kit",
+                values: allPaid(true, true),
+            },
+            {
+                label: "Strategy calls",
+                values: {
+                    ...allPaid(false),
+                    starter: "Mid-campaign",
+                    standard: "Mid-campaign",
+                    enhanced: "Quarterly",
+                    enterprise: "Quarterly",
+                },
+            },
+            {
+                label: "Performance reports",
+                values: {
+                    ...allPaid(false),
+                    standard: "Basic, yearly",
+                    enhanced: "Comprehensive, yearly",
+                    enterprise: "Quarterly",
+                },
+            },
+        ],
+    },
+    {
+        group: "Reviews",
+        rows: [
+            {
+                label: "Review collection",
+                values: {
+                    basic: "Up to 20 a year",
+                    trial: "Limited",
+                    starter: "Limited",
+                    standard: "Moderate",
+                    enhanced: "Moderate",
+                    enterprise: "Unlimited",
+                },
+            },
+            {
+                label: "Review responses and review widget",
+                values: {
+                    ...allPaid(false),
+                    standard: true,
+                    enhanced: true,
+                    enterprise: true,
+                },
+            },
+            {
+                label: "Top Rated eligible",
+                values: allPaid(true, true),
+            },
+        ],
+    },
+];
