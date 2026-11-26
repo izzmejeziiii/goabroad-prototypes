@@ -11,28 +11,28 @@ import { addressLines } from "./regions";
 import type { DemoInvoice, RecordedPayment } from "./types";
 
 /* A one-page invoice PDF, written by hand so the prototype needs no PDF
-   library: Helvetica and Helvetica-Bold (built into every PDF reader, so
+   library (its drawing helpers are exported for /admin-invoices' preview): Helvetica and Helvetica-Bold (built into every PDF reader, so
    nothing is embedded), text, rules and one filled band. Demo invoices are
    short enough that nothing needs a second page. */
 
-type RGB = [number, number, number];
-type Font = "R" | "B";
+export type RGB = [number, number, number];
+export type Font = "R" | "B";
 
 const hex = (h: string): RGB =>
     [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255) as RGB;
-const INK = hex("#0f172a"); // slate-900
-const BODY = hex("#334155"); // slate-700
-const MUTED = hex("#64748b"); // slate-500
-const RULE = hex("#e2e8f0"); // slate-200
-const BAND = hex("#f1f5f9"); // slate-100
-const COBALT = hex("#0a5e85");
-const ROMAN = hex("#9c4640"); // roman-700
-const FERN = hex("#4a7c52"); // fern-700
+export const INK = hex("#0f172a"); // slate-900
+export const BODY = hex("#334155"); // slate-700
+export const MUTED = hex("#64748b"); // slate-500
+export const RULE = hex("#e2e8f0"); // slate-200
+export const BAND = hex("#f1f5f9"); // slate-100
+export const COBALT = hex("#0a5e85");
+export const ROMAN = hex("#9c4640"); // roman-700
+export const FERN = hex("#4a7c52"); // fern-700
 
-const PAGE_W = 612; // US Letter, in points
-const PAGE_H = 792;
-const LEFT = 54;
-const RIGHT = PAGE_W - 54;
+export const PAGE_W = 612; // US Letter, in points
+export const PAGE_H = 792;
+export const LEFT = 54;
+export const RIGHT = PAGE_W - 54;
 
 /* Advance widths (1/1000 em) for ASCII 32–126, from the standard AFM files. */
 const HELVETICA = [
@@ -76,7 +76,7 @@ const WIN_ANSI: Record<string, number> = {
     "€": 0x80,
 };
 
-function pdfString(s: string) {
+export function pdfString(s: string) {
     let out = "";
     for (const ch of s) {
         const code = ch.codePointAt(0)!;
@@ -87,7 +87,7 @@ function pdfString(s: string) {
     return out;
 }
 
-function wrap(text: string, font: Font, size: number, maxWidth: number) {
+export function wrap(text: string, font: Font, size: number, maxWidth: number) {
     const lines: string[] = [];
     let line = "";
     for (const word of text.split(/\s+/)) {
@@ -102,7 +102,7 @@ function wrap(text: string, font: Font, size: number, maxWidth: number) {
 }
 
 /** Drawing calls take y measured down from the top of the page. */
-class Page {
+export class Page {
     ops: string[] = [];
 
     text(
