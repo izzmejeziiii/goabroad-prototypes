@@ -300,6 +300,40 @@ export const prototypes: Prototype[] = [
         versionsNote:
             "Switch the upgrade flow between V1 (request), V2 (plan picker), V3 (premium panel) and V4 (plans page) with the toggle at the bottom of the page.",
     },
+    {
+        number: "12",
+        id: "admin-invoices",
+        href: "/admin-invoices",
+        title: "Admin Invoices",
+        description:
+            "The invoice pages of gacom-admin-redesign (dev, Nov 26 2026), copied as is: the internal admin's Clients › Invoices list, invoice editor and invoice page, and the client admin's Invoices list and invoice page with Pay Now. A toggle switches between the two views. Demo data; payments made in one view show in the other.",
+        badge: "Internal + client admin copy",
+        area: "portal",
+        groups: [
+            {
+                label: "Internal admin",
+                pages: [
+                    { label: "Client Invoices", href: "/admin-invoices" },
+                    { label: "Create invoice", href: "/admin-invoices/invoice/create" },
+                    { label: "Edit invoice", href: "/admin-invoices/invoice/edit/41219", meta: "41219" },
+                    { label: "View invoice", href: "/admin-invoices/invoice/view/41219", meta: "41219" },
+                ],
+            },
+            {
+                label: "Client admin",
+                pages: [
+                    { label: "Invoices", href: "/admin-invoices/client-admin/invoices" },
+                    { label: "Unpaid, card allowed", href: "/admin-invoices/invoice/view/41258?view=client", meta: "41258" },
+                    { label: "Overdue", href: "/admin-invoices/invoice/view/41237?view=client", meta: "41237" },
+                    { label: "Partly paid", href: "/admin-invoices/invoice/view/41219?view=client", meta: "41219" },
+                    { label: "Bank payment processing", href: "/admin-invoices/invoice/view/41246?view=client", meta: "41246" },
+                    { label: "Paid", href: "/admin-invoices/invoice/view/41188?view=client", meta: "41188" },
+                ],
+            },
+        ],
+        versionsNote:
+            "Switch between the internal admin and the client admin with the toggle at the bottom right. Reset there clears payments and edits made in this browser.",
+    },
 ];
 
 export const pageCount = (p: Prototype) =>
@@ -368,6 +402,7 @@ export const history: Record<string, { added: string; updated: string }> = {
     "editorial-guidelines": { added: "2026-08-27", updated: "2026-08-27" },
     "top-rated": { added: "2026-09-11", updated: "2026-09-24" },
     "invoice-tool": { added: "2026-11-11", updated: "2026-11-11" },
+    "admin-invoices": { added: "2026-11-26", updated: "2026-11-26" },
 };
 
 const fullFmt = new Intl.DateTimeFormat("en-US", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
