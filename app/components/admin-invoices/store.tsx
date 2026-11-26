@@ -17,7 +17,8 @@ import type { Invoice, InvoiceComment, Payment } from "./types";
    localStorage, shared by both views, so a payment the client makes shows up
    in the staff list. "Reset demo" in the view switcher clears it. */
 
-const KEY = "admin-invoices:v1";
+// v2: the seed gained a product with no placements
+const KEY = "admin-invoices:v2";
 
 type Store = {
     invoices: Invoice[];

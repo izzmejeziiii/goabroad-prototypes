@@ -23,6 +23,7 @@ export const directoryName = (id?: number) => DIRECTORIES.find((d) => d.id === i
 /** Each product's own directory and run length (ad_type.directory_id /
     ad_type.duration in the real list). */
 const PRODUCT_META: Record<number, { directory_id: number; duration: Duration }> = {
+    4: { directory_id: 1, duration: { type: "year", value: 1 } },
     12: { directory_id: 1, duration: { type: "year", value: 1 } },
     18: { directory_id: 1, duration: { type: "year", value: 1 } },
     29: { directory_id: 1, duration: { type: "month", value: 3 } },
@@ -35,13 +36,17 @@ const PRODUCT_META: Record<number, { directory_id: number; duration: Duration }>
 /** search_criteria_value of a product sold per placement (non-zero). */
 const HAS_PLACEMENT = 14;
 
+/** Products whose Ad Placement is "None" (search_criteria_value 0): billed
+    once, with no placements to add. */
+export const NO_PLACEMENT_PRODUCTS = [4];
+
 /** /invoices/product-items: context.state.ad_types. */
 export const AD_TYPES = productItems.map((p) => ({
     id: p.value,
     item_name: p.label,
     cost: p.cost,
     directory_id: PRODUCT_META[p.value]?.directory_id ?? 1,
-    search_criteria_value: HAS_PLACEMENT,
+    search_criteria_value: NO_PLACEMENT_PRODUCTS.includes(p.value) ? 0 : HAS_PLACEMENT,
     duration: PRODUCT_META[p.value]?.duration ?? ({ type: "open", value: "" } as Duration),
 }));
 

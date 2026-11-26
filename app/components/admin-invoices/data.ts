@@ -153,10 +153,15 @@ export const seedInvoices: Invoice[] = [
             item(12, "Premier Listing Feature", "Volunteer Abroad", 600, [
                 { location: "Fiji", type: "Marine Conservation" },
             ], "2027-01-01", "2027-12-31"),
+            // A product with no placements: the API keeps one "No Placement"
+            // row (quantity 1) that carries its discount
+            item(4, "Premier Sponsorship", "Volunteer Abroad", 500, [
+                { location: "No Placement" },
+            ], "2027-01-01", "2027-12-31"),
         ],
         payment_terms: [
-            { id: 7101, due_date: "2027-01-05 00:00:00", amount_due: 2400, amount_paid: 0 },
-            { id: 7102, due_date: "2027-04-05 00:00:00", amount_due: 2400, amount_paid: 0 },
+            { id: 7101, due_date: "2027-01-05 00:00:00", amount_due: 2650, amount_paid: 0 },
+            { id: 7102, due_date: "2027-04-05 00:00:00", amount_due: 2650, amount_paid: 0 },
         ],
         comments: [
             { id: 1, user_id: 21, first_name: "Kim", last_name: "Reyes", message: "Draft for the 2027 renewal. Waiting on Dana to confirm the second homepage slot.", timestamp: "2026-11-25 10:14:00" },
@@ -613,6 +618,9 @@ export const seedInvoices: Invoice[] = [
 
 /** Product items the editor's Invoice Item dropdown offers. */
 export const productItems = [
+    // Ad Placement "None": billed once, no placements (the real admin's
+    // product setting; see NO_PLACEMENT_PRODUCTS in staff/editor/catalog.ts)
+    { value: 4, label: "Premier Sponsorship", cost: 500 },
     { value: 12, label: "Premier Listing Feature", cost: 150 },
     { value: 18, label: "Linked Listing", cost: 300 },
     { value: 29, label: "Homepage Feature", cost: 1500 },
