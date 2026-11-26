@@ -2,28 +2,26 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
+import { X } from "lucide-react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { buttonPrimary, buttonSecondary, inputClass } from "../../invoice-tool/ui";
 import { BASE, client, STRIPE_ACH_ENABLED, STRIPE_MAX_INVOICE_AMOUNT } from "../data";
 import { invoiceAmountDue, invoiceSubtotal } from "../format";
-import { BODY1, Button, DialogBox, LinearProgress, Paper } from "../mui";
+import { LinearProgress } from "../mui";
 import { useInvoices } from "../store";
 import DemoCheckout from "./DemoCheckout";
-import PaymentMethods from "./PaymentMethods";
+import InvoiceView from "./InvoiceView";
+import PaymentMethodsView from "./PaymentMethodsView";
 import PhotoFrame, { FRAME_BUTTON, GA_LOGO } from "./PhotoFrame";
-import {
-    InvoiceHeader,
-    InvoiceItem,
-    InvoiceSummary,
-    Message,
-    Payments,
-    PaymentTerms,
-} from "./sections";
 
-/* Copy of src/views/ClientAdmin/Tools/ViewInvoice/ViewInvoice.js (origin/dev),
-   the one invoice page staff and clients share (/invoice/view/:id). No admin
-   shell: just the #f2f4f7 pane with the invoice, and a grey bar pinned to the
-   bottom with PAY NOW (clients, access level 1, when the invoice can be paid
-   online) and DOWNLOAD PDF (unpaid, partial, overdue or paid).
+/* src/views/ClientAdmin/Tools/ViewInvoice/ViewInvoice.js (origin/dev), the
+   one invoice page staff and clients share (/invoice/view/:id), redesigned:
+   the same content in /invoice-tool's invoice UI (InvoiceView), with the
+   original's rules for who sees what. Clients (access level 1) also get Pay
+   Now and the online option when the invoice can be paid online, which open
+   "Enter amount"; and the "Payment Options" dialog. Both dialogs keep the
+   original's titles, text and behaviour in the new look.
 
    ?view=client  shows it as the client (access level 1); without it, staff.
    ?openPayment  opens the amount dialog (the header's Pay Now links here).
@@ -40,38 +38,28 @@ const fixAmount = (value: string) => {
     return decimals.length <= 2 ? n.toFixed(2) : String(n);
 };
 
-/** The outlined "Amount (USD)" TextField with its $ adornment. */
-const AmountField = ({ value, onChange, onBlur }: { value: string; onChange: (v: string) => void; onBlur: () => void }) => (
-    <div className="group relative inline-flex w-full flex-col">
-        <label
-            htmlFor="outlined-basic"
-            className="pointer-events-none absolute left-0 top-0 z-[1] origin-top-left translate-x-[14px] -translate-y-[9px] scale-75 text-base leading-[1.4375em] tracking-[0.00938em] text-[rgba(0,0,0,0.6)] group-focus-within:text-[#03a9f4]"
-        >
-            Amount (USD)
-        </label>
-        <div className="relative flex cursor-text items-center rounded-[4px] pl-[14px] text-base leading-[1.4375em] text-[rgba(0,0,0,0.87)]">
-            <span className="mr-[2px] flex h-[0.01em] max-h-[2em] items-center whitespace-nowrap text-base text-[rgba(0,0,0,0.54)]">
-                $
-            </span>
-            <input
-                id="outlined-basic"
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                onBlur={onBlur}
-                inputMode="decimal"
-                className="peer box-content h-[1.4375em] w-full min-w-0 bg-transparent py-[16.5px] pr-[14px] outline-none"
-            />
-            <fieldset
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -top-[5px] m-0 min-w-0 overflow-hidden rounded-[inherit] border border-solid !border-[rgba(0,0,0,0.23)] px-2 text-left group-hover:!border-[rgba(0,0,0,0.87)] peer-focus:border-2 peer-focus:!border-[#03a9f4]"
-            >
-                <legend className="invisible block h-[11px] w-auto max-w-full whitespace-nowrap p-0 text-[0.75em]">
-                    <span className="inline-block px-[5px] opacity-0">Amount (USD)</span>
-                </legend>
-            </fieldset>
-        </div>
-    </div>
-);
+/** A dialog in /invoice-tool's look, portalled above everything. */
+const Modal = ({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) =>
+    createPortal(
+        <div className="fixed inset-0 z-[1300] flex items-center justify-center p-4 font-inter text-slate-700 antialiased" role="presentation">
+            <div className="absolute inset-0 bg-slate-900/30" aria-hidden onClick={onClose} />
+            <div role="dialog" aria-modal="true" aria-label={title} className="relative flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+                <div className="flex items-center justify-between gap-4 border-b border-slate-200 px-6 py-4">
+                    <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
+                    <button
+                        type="button"
+                        aria-label="Close"
+                        onClick={onClose}
+                        className="inline-flex size-8 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+                    >
+                        <X className="size-4" />
+                    </button>
+                </div>
+                <div className="overflow-y-auto px-6 py-5">{children}</div>
+            </div>
+        </div>,
+        document.body,
+    );
 
 const ViewInvoice = ({ id }: { id: string }) => {
     const router = useRouter();
@@ -82,8 +70,6 @@ const ViewInvoice = ({ id }: { id: string }) => {
     const accessLevel = asClient ? 1 : 2;
 
     const paymentMethodsRef = useRef<HTMLDivElement>(null);
-    const [expand, setExpand] = useState(false);
-    const [saving, setSaving] = useState(false);
     const [paymentModalOpen, setPaymentModalOpen] = useState(false);
     const [paymentOptionsOpen, setPaymentOptionsOpen] = useState(false);
     const [paymentAmount, setPaymentAmount] = useState("0.00");
@@ -149,16 +135,6 @@ const ViewInvoice = ({ id }: { id: string }) => {
     const status = invoice.status === 7 ? 2 : invoice.status;
     const canPayOnline = accessLevel === 1 && stripeAllowed && !pendingPayment && [2, 3, 4].includes(status);
 
-    const downloadPdf = () => {
-        setExpand(true);
-        setSaving(true);
-        // Prototype: the browser's print dialog stands in for the stored PDF
-        setTimeout(() => {
-            setSaving(false);
-            window.print();
-        }, 900);
-    };
-
     const handlePay = () => {
         setLoading(true);
         setTimeout(() => {
@@ -168,120 +144,85 @@ const ViewInvoice = ({ id }: { id: string }) => {
         }, 700);
     };
 
+    const showOptions = paymentOptionsOpen || (paymentModalOpen && (!stripeAllowed || !!pendingPayment));
+    const showAmount = paymentModalOpen && stripeAllowed && !pendingPayment;
+
     return (
-        <div className="lt-root grow antialiased">
-            <div className="relative z-[1] flex h-screen w-full overflow-hidden">
-                <main className="grow overflow-y-auto bg-[#f2f4f7] px-[35px] pb-[60px] pt-10">
-                    <div className="pdf-div">
-                        <InvoiceHeader invoice={invoice} />
-                        {invoice.invoice_items.map((item, index) => (
-                            <InvoiceItem key={item.id} item={item} index={index} expand={expand} />
-                        ))}
-                        <InvoiceSummary invoice={invoice} />
-                        <div className="ml-5 mt-[-25px]">
-                            <em>*Exchange rate and other processing fees may apply.</em>
-                        </div>
-                        <div className="grid grid-cols-2 gap-x-4">
-                            <PaymentTerms invoice={invoice} />
-                            <Payments invoice={invoice} />
-                        </div>
-                        <Message message={invoice.message} />
-                        <Paper ref={paymentMethodsRef} className="p-6" data-cy="invoice-payment-methods">
-                            <p className={clsx(BODY1, "!mb-4")}>Payment Methods</p>
-                            <PaymentMethods
-                                cardAllowed={cardAllowed}
-                                bankAllowed={bankAllowed}
-                                pendingPayment={pendingPayment}
-                                onPayByCard={canPayOnline ? () => setPaymentModalOpen(true) : undefined}
+        <>
+            <InvoiceView
+                invoice={invoice}
+                asClient={asClient}
+                onPay={canPayOnline ? () => setPaymentModalOpen(true) : undefined}
+                overdue={status === 4}
+                cardAllowed={cardAllowed}
+                bankAllowed={bankAllowed}
+                paymentMethodsRef={paymentMethodsRef}
+            />
+
+            {showOptions && (
+                <Modal
+                    title="Payment Options"
+                    onClose={() => {
+                        setPaymentOptionsOpen(false);
+                        setPaymentModalOpen(false);
+                    }}
+                >
+                    <PaymentMethodsView
+                        pendingPayment={pendingPayment}
+                        cardAllowed={cardAllowed}
+                        bankAllowed={bankAllowed}
+                        onPayOnline={
+                            canPayOnline
+                                ? () => {
+                                      setPaymentOptionsOpen(false);
+                                      setPaymentModalOpen(true);
+                                  }
+                                : undefined
+                        }
+                    />
+                    <div className="mt-5 flex justify-end">
+                        <button
+                            type="button"
+                            className={clsx(buttonSecondary, "!px-4 !py-2")}
+                            onClick={() => {
+                                setPaymentOptionsOpen(false);
+                                setPaymentModalOpen(false);
+                            }}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </Modal>
+            )}
+
+            {showAmount && (
+                <Modal title="Enter amount" onClose={() => setPaymentModalOpen(false)}>
+                    <label className="flex flex-col gap-1.5">
+                        <span className="text-sm font-medium text-slate-700">Amount (USD)</span>
+                        <span className="relative">
+                            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
+                            <input
+                                value={paymentAmount}
+                                onChange={(e) => setPaymentAmount(e.target.value)}
+                                onBlur={() => setPaymentAmount(fixAmount(paymentAmount))}
+                                inputMode="decimal"
+                                className={clsx(inputClass, "pl-7 tabular-nums")}
                             />
-                        </Paper>
-                    </div>
-                    <div className="absolute bottom-0 right-0 z-[1] mx-2 flex w-full items-center justify-center border-t border-solid !border-t-[#e2e2e2] bg-[#f2f2f2] py-5">
-                        {canPayOnline &&
-                            (status === 4 ? (
-                                // Badge variant="dot" color="secondary" (its
-                                // makePayment class is passed wrongly, so the
-                                // plain pink dot shows)
-                                <span className="relative inline-flex">
-                                    <Button variant="contained" color="primary" onClick={() => setPaymentModalOpen(true)}>
-                                        PAY NOW
-                                    </Button>
-                                    <span className="absolute right-0 top-0 h-2 min-w-2 -translate-y-1/2 translate-x-1/2 rounded-[4px] bg-[#e91e63]" />
-                                </span>
-                            ) : (
-                                <Button variant="contained" color="primary" onClick={() => setPaymentModalOpen(true)}>
-                                    PAY NOW
-                                </Button>
-                            ))}
-                        {[2, 3, 4, 5].includes(status) && (
-                            <Button variant="contained" color="primary" className="mx-2" onClick={downloadPdf}>
-                                DOWNLOAD PDF
-                            </Button>
-                        )}
-                    </div>
-                </main>
-            </div>
-
-            <DialogBox open={saving} title="Downloading PDF..." actions="">
-                <LinearProgress />
-            </DialogBox>
-
-            <DialogBox
-                open={paymentOptionsOpen || (paymentModalOpen && (!stripeAllowed || !!pendingPayment))}
-                title="Payment Options"
-                actions="Ok"
-                stringOverride={{ primaryAction: "Close" }}
-                onClose={() => {
-                    setPaymentOptionsOpen(false);
-                    setPaymentModalOpen(false);
-                }}
-            >
-                <PaymentMethods
-                    cardAllowed={cardAllowed}
-                    bankAllowed={bankAllowed}
-                    pendingPayment={pendingPayment}
-                    onPayByCard={
-                        canPayOnline
-                            ? () => {
-                                  setPaymentOptionsOpen(false);
-                                  setPaymentModalOpen(true);
-                              }
-                            : undefined
-                    }
-                />
-            </DialogBox>
-
-            <DialogBox
-                open={paymentModalOpen && stripeAllowed && !pendingPayment}
-                title="Enter amount"
-                actions=""
-                onClose={() => setPaymentModalOpen(false)}
-            >
-                <div>
-                    <div>
-                        <AmountField
-                            value={paymentAmount}
-                            onChange={setPaymentAmount}
-                            onBlur={() => setPaymentAmount(fixAmount(paymentAmount))}
-                        />
-                        {bankAllowed && (
-                            <p className="mx-0 mb-0 mt-3 text-[0.875rem] text-[#555]">
-                                {cardAllowed
-                                    ? "You can pay by credit card or U.S. bank account on the next page."
-                                    : `Invoices over $${STRIPE_MAX_INVOICE_AMOUNT} can be paid online by U.S. bank account only.`}{" "}
-                                Bank payments take 2 to 4 business days to clear.
-                            </p>
-                        )}
-                    </div>
-                    {loading ? (
-                        <LinearProgress className="mt-5" />
-                    ) : (
-                        <Button variant="contained" color="primary" className="mt-5 w-full" onClick={handlePay}>
-                            Proceed to checkout
-                        </Button>
+                        </span>
+                    </label>
+                    {bankAllowed && (
+                        <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                            {cardAllowed
+                                ? "You can pay by credit card or U.S. bank account on the next page."
+                                : `Invoices over $${STRIPE_MAX_INVOICE_AMOUNT} can be paid online by U.S. bank account only.`}{" "}
+                            Bank payments take 2 to 4 business days to clear.
+                        </p>
                     )}
-                </div>
-            </DialogBox>
+                    <button type="button" className={clsx(buttonPrimary, "mt-5 w-full")} disabled={loading} onClick={handlePay}>
+                        {loading ? "Taking you to checkout…" : "Proceed to checkout"}
+                    </button>
+                </Modal>
+            )}
 
             <DemoCheckout
                 open={checkoutOpen}
@@ -294,7 +235,7 @@ const ViewInvoice = ({ id }: { id: string }) => {
                     router.push(`${BASE}/invoice/success/${checkoutId}?invoice_id=${invoice.id}&status=${outcome}`)
                 }
             />
-        </div>
+        </>
     );
 };
 
