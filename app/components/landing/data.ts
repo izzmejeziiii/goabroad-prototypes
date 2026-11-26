@@ -306,17 +306,22 @@ export const prototypes: Prototype[] = [
         href: "/admin-invoices",
         title: "Admin Invoices",
         description:
-            "The invoice pages of gacom-admin-redesign (dev, Nov 26 2026), copied as is: the internal admin's Clients › Invoices list, invoice editor and invoice page, and the client admin's Invoices list and invoice page with Pay Now. A toggle switches between the two views. Demo data; payments made in one view show in the other.",
-        badge: "Internal + client admin copy",
+            "The invoice pages of gacom-admin-redesign (dev, Nov 26 2026). The internal admin's Clients › Invoices list and the client admin's Invoices list are copied as is. The internal Create / Edit invoice page is redesigned with a live preview, so placements, discounts and amounts are always visible, and the View invoice page (both admins, with the client's Pay Now) keeps its content in the Pay an Invoice design. A toggle switches between the two views. Demo data; payments made in one view show in the other.",
+        badge: "Internal + client admin",
         area: "portal",
         groups: [
             {
                 label: "Internal admin",
                 pages: [
                     { label: "Client Invoices", href: "/admin-invoices" },
-                    { label: "Create invoice", href: "/admin-invoices/invoice/create" },
-                    { label: "Edit invoice", href: "/admin-invoices/invoice/edit/41219", meta: "41219" },
                     { label: "View invoice", href: "/admin-invoices/invoice/view/41219", meta: "41219" },
+                ],
+            },
+            {
+                label: "Invoice editor redesign",
+                pages: [
+                    { label: "Create invoice", href: "/admin-invoices/invoice/create" },
+                    { label: "Edit invoice (draft)", href: "/admin-invoices/invoice/edit/41262", meta: "41262" },
                 ],
             },
             {
@@ -332,7 +337,7 @@ export const prototypes: Prototype[] = [
             },
         ],
         versionsNote:
-            "Switch between the internal admin and the client admin with the toggle at the bottom right. Reset there clears payments and edits made in this browser.",
+            "Switch between the internal admin and the client admin with the toggle at the bottom right (top right on the invoice editor). Reset there clears payments and edits made in this browser.",
     },
 ];
 
