@@ -82,7 +82,14 @@ const InvoicesCTA = () => {
 const StaffHeader = ({ expanded, onToggle }: { expanded: boolean; onToggle: () => void }) => {
     const pathname = usePathname() ?? "";
     const onList = pathname === BASE;
-    const title = onList ? "Client Invoices" : "Dashboard";
+    // The redesigned editor gets the page's own name (the real app says "Dashboard")
+    const title = onList
+        ? "Client Invoices"
+        : pathname.includes("/invoice/edit/")
+          ? "Edit Invoice"
+          : pathname.includes("/invoice/create")
+            ? "Create Invoice"
+            : "Dashboard";
 
     return (
         <header
@@ -100,7 +107,9 @@ const StaffHeader = ({ expanded, onToggle }: { expanded: boolean; onToggle: () =
                 >
                     {expanded ? <MdClose className="size-6" /> : <MdNotes className="size-6" />}
                 </button>
-                <h1 className={clsx(H6, "truncate")}>{title}</h1>
+                <h1 className={clsx(H6, "truncate")}>
+                    {title}
+                </h1>
                 <div className="grow" />
                 {onList && <InvoicesCTA />}
             </div>
